@@ -1764,10 +1764,9 @@ canvas {
   font-size: 0.52rem;
 }
 
-/* Process */
 .process-section {
   overflow: hidden;
-  background: var(--bg-soft);
+  background: transparent;
 }
 
 .process-section::before {

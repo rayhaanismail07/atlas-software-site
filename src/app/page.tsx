@@ -8,12 +8,10 @@ import { Process } from "@/components/sections/Process";
 import { Services } from "@/components/sections/Services";
 import { SystemArchitecture } from "@/components/sections/SystemArchitecture";
 import { WhyAtlas } from "@/components/sections/WhyAtlas";
-import { Floating3DBackground } from "@/components/ui/Floating3DBackground";
 
 export default function HomePage() {
   return (
     <>
-      <Floating3DBackground />
       <Navbar />
       <main className="relative z-1">
         <Hero />

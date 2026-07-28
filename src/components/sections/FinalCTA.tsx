@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { ArrowUpRight, Mail, MessageCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
@@ -7,6 +8,11 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Interactive3DTilt } from "@/components/ui/Interactive3DTilt";
 import { siteConfig } from "@/data/site";
+
+const Cta3DCanvas = dynamic(
+  () => import("@/components/sections/Cta3DCanvas").then((m) => m.Cta3DCanvas),
+  { ssr: false },
+);
 
 export function FinalCTA() {
   return (
@@ -32,18 +38,23 @@ export function FinalCTA() {
                 </div>
               </div>
 
-              <div className="contact-card__details">
-                <div>
-                  <small>Email</small>
-                  <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
+              <div className="contact-card__details flex flex-col justify-between">
+                {/* Interactive 3D WebGL Core */}
+                <Cta3DCanvas />
+
+                <div className="space-y-4 pt-2">
+                  <div>
+                    <small>Email</small>
+                    <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
+                  </div>
+                  <div>
+                    <small>Based in</small>
+                    <strong>{siteConfig.location}</strong>
+                  </div>
+                  <a href={siteConfig.instagram} target="_blank" rel="noreferrer">
+                    Follow Atlas on Instagram <ArrowUpRight aria-hidden="true" />
+                  </a>
                 </div>
-                <div>
-                  <small>Based in</small>
-                  <strong>{siteConfig.location}</strong>
-                </div>
-                <a href={siteConfig.instagram} target="_blank" rel="noreferrer">
-                  Follow Atlas on Instagram <ArrowUpRight aria-hidden="true" />
-                </a>
               </div>
             </div>
           </Interactive3DTilt>

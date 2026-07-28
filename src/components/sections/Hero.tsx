@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowDownRight, ArrowUpRight, Check, MapPin } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, Check, ChevronDown, MapPin } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -24,7 +24,7 @@ export function Hero() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section id="home" className="hero">
+    <section id="home" className="hero relative">
       <Container className="hero__inner">
         <motion.div
           className="hero__copy"
@@ -102,9 +102,16 @@ export function Hero() {
         </motion.div>
       </Container>
 
-      <div className="hero__bottom-line" aria-hidden="true">
-        <span>Scroll to discover</span>
-      </div>
+      <a
+        href="#services"
+        className="hero__bottom-line hover:text-cyan-300 transition-colors flex flex-col items-center gap-1 cursor-pointer group"
+        aria-label="Scroll to discover"
+      >
+        <span className="text-[11px] font-mono tracking-widest uppercase text-slate-400 group-hover:text-cyan-300 transition-colors">
+          Scroll to discover
+        </span>
+        <ChevronDown className="w-4 h-4 text-cyan-400 animate-bounce" aria-hidden="true" />
+      </a>
     </section>
   );
 }

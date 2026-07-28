@@ -9,6 +9,7 @@ import { Services } from "@/components/sections/Services";
 import { SystemArchitecture } from "@/components/sections/SystemArchitecture";
 import { WhyAtlas } from "@/components/sections/WhyAtlas";
 import { Floating3DBackground } from "@/components/ui/Floating3DBackground";
+import { BackToTop } from "@/components/ui/BackToTop";
 
 export default function HomePage() {
   return (
@@ -26,6 +27,7 @@ export default function HomePage() {
         <FinalCTA />
       </main>
       <Footer />
+      <BackToTop />
     </>
   );
 }

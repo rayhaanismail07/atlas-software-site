@@ -2320,15 +2320,17 @@ canvas {
 
 .contact-card h2 {
   max-width: 850px;
-  margin: 28px 0 0;
+  margin: 24px 0 0;
   font-family: var(--font-display);
-  font-size: clamp(3rem, 5vw, 5.2rem);
+  font-size: clamp(2.8rem, 4.8vw, 4.8rem);
   font-weight: 500;
-  line-height: 0.92;
-  letter-spacing: -0.07em;
+  line-height: 1.18;
+  letter-spacing: -0.05em;
 }
 
 .contact-card h2 span {
+  display: block;
+  margin-top: 8px;
   color: #84919a;
 }
 

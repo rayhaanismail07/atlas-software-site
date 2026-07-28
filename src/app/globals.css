@@ -2119,16 +2119,19 @@ canvas {
 }
 
 .technology-board::before {
-  position: absolute;
-  inset: 0;
-  opacity: 0.25;
-  background-image:
-    linear-gradient(rgba(97, 231, 251, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(97, 231, 251, 0.04) 1px, transparent 1px);
-  background-size: 54px 54px;
-  content: "";
-  mask-image: linear-gradient(135deg, black, transparent 62%);
-  pointer-events: none;
+  display: none;
+}
+
+.contact-card__grid {
+  display: none;
+}
+
+.contact-card__glow {
+  display: none;
+}
+
+.contact-card__orb {
+  display: none;
 }
 
 .technology-board__intro {

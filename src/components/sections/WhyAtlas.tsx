@@ -1,7 +1,10 @@
+"use client";
+
 import { ArrowUpRight } from "lucide-react";
 
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
+import { Interactive3DTilt } from "@/components/ui/Interactive3DTilt";
 import { TechnologyStack } from "@/components/sections/TechnologyStack";
 import { principles, siteConfig } from "@/data/site";
 
@@ -32,12 +35,14 @@ export function WhyAtlas() {
             const Icon = principle.icon;
             return (
               <Reveal key={principle.title} delay={index * 0.055}>
-                <article className="principle-card">
-                  <span><Icon aria-hidden="true" /></span>
-                  <small>0{index + 1}</small>
-                  <h3>{principle.title}</h3>
-                  <p>{principle.description}</p>
-                </article>
+                <Interactive3DTilt maxTilt={8} scale={1.02} className="h-full">
+                  <article className="principle-card h-full">
+                    <span><Icon aria-hidden="true" /></span>
+                    <small>0{index + 1}</small>
+                    <h3>{principle.title}</h3>
+                    <p>{principle.description}</p>
+                  </article>
+                </Interactive3DTilt>
               </Reveal>
             );
           })}

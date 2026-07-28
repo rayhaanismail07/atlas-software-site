@@ -1771,14 +1771,7 @@ canvas {
 }
 
 .process-section::before {
-  position: absolute;
-  inset: 0;
-  opacity: 0.35;
-  background-image:
-    linear-gradient(rgba(220, 240, 244, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(220, 240, 244, 0.02) 1px, transparent 1px);
-  background-size: 72px 72px;
-  content: "";
+  display: none;
 }
 
 .process-section__head {

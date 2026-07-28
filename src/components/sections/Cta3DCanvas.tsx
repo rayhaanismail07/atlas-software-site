@@ -37,70 +37,91 @@ export function Cta3DCanvas() {
     }
 
     renderer.setClearColor(0x000000, 0);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.65));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
-    camera.position.set(0, 0, 4.5);
+    camera.position.set(0, 0, 4.2);
 
     const group = new THREE.Group();
     scene.add(group);
 
-    // Glowing 3D Crystalline Torus Knot Core
-    const knotGeo = new THREE.TorusKnotGeometry(0.85, 0.22, 100, 16);
-    const knotMat = new THREE.MeshPhysicalMaterial({
-      color: 0x072832,
-      emissive: 0x095b6d,
-      emissiveIntensity: 0.7,
-      metalness: 0.8,
-      roughness: 0.15,
+    // 1. Central Holographic Crystal Gem Core
+    const coreGeo = new THREE.IcosahedronGeometry(0.8, 1);
+    const coreMat = new THREE.MeshPhysicalMaterial({
+      color: 0x093a47,
+      emissive: 0x0ea5e9,
+      emissiveIntensity: 0.65,
+      roughness: 0.1,
+      metalness: 0.85,
       clearcoat: 1.0,
-      wireframe: false,
+      clearcoatRoughness: 0.1,
+      flatShading: true,
     });
-    const knotMesh = new THREE.Mesh(knotGeo, knotMat);
-    group.add(knotMesh);
+    const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+    group.add(coreMesh);
 
-    // Outer Crystalline Wireframe Overlay
-    const wireGeo = new THREE.WireframeGeometry(knotGeo);
+    // 2. Outer Wireframe Energy Shield
+    const wireGeo = new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(1.05, 1));
     const wireMat = new THREE.LineBasicMaterial({
-      color: 0x5eeaff,
+      color: 0x61e7fb,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.5,
       blending: THREE.AdditiveBlending,
     });
     const wireMesh = new THREE.LineSegments(wireGeo, wireMat);
     group.add(wireMesh);
 
-    // Orbiting particle ring
-    const particleCount = 180;
-    const positions = new Float32Array(particleCount * 3);
-    for (let i = 0; i < particleCount; i++) {
-      const u = Math.random();
-      const theta = u * Math.PI * 2;
-      const radius = 1.6 + Math.random() * 0.4;
-      positions[i * 3] = radius * Math.cos(theta);
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 0.5;
-      positions[i * 3 + 2] = radius * Math.sin(theta);
+    // 3. Orbital Particle Filaments
+    const count = 240;
+    const positions = new Float32Array(count * 3);
+    const colors = new Float32Array(count * 3);
+    const colorChoices = [
+      new THREE.Color(0x61e7fb),
+      new THREE.Color(0x9d8cff),
+      new THREE.Color(0x7bf1cd),
+      new THREE.Color(0xffffff),
+    ];
+
+    for (let i = 0; i < count; i++) {
+      const radius = 1.35 + Math.random() * 0.45;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = (Math.random() - 0.5) * Math.PI;
+
+      positions[i * 3] = radius * Math.cos(theta) * Math.cos(phi);
+      positions[i * 3 + 1] = radius * Math.sin(phi);
+      positions[i * 3 + 2] = radius * Math.sin(theta) * Math.cos(phi);
+
+      const color = colorChoices[Math.floor(Math.random() * colorChoices.length)];
+      colors[i * 3] = color.r;
+      colors[i * 3 + 1] = color.g;
+      colors[i * 3 + 2] = color.b;
     }
+
     const partGeo = new THREE.BufferGeometry();
     partGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    const partMat = new THREE.PointsMaterial({
-      color: 0x78edff,
-      size: 0.035,
-      transparent: true,
-      opacity: 0.8,
-      blending: THREE.AdditiveBlending,
-    });
-    const particleRing = new THREE.Points(partGeo, partMat);
-    group.add(particleRing);
+    partGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
-    // Volumetric Ambient Lighting
-    const keyLight = new THREE.DirectionalLight(0x5eeaff, 3);
-    keyLight.position.set(3, 4, 3);
-    scene.add(keyLight);
-    const fillLight = new THREE.AmbientLight(0x0e2833, 1.2);
-    scene.add(fillLight);
+    const partMat = new THREE.PointsMaterial({
+      size: 0.042,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.85,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const particleCloud = new THREE.Points(partGeo, partMat);
+    group.add(particleCloud);
+
+    // 4. Lighting & Dynamic Glow Points
+    const mainLight = new THREE.PointLight(0x61e7fb, 4, 10);
+    mainLight.position.set(2, 3, 3);
+    scene.add(mainLight);
+
+    const purpleLight = new THREE.PointLight(0x9d8cff, 3, 10);
+    purpleLight.position.set(-3, -2, 2);
+    scene.add(purpleLight);
 
     let active = true;
     let visible = true;
@@ -120,8 +141,8 @@ export function Cta3DCanvas() {
 
     const onPointerMove = (e: PointerEvent) => {
       const rect = shell.getBoundingClientRect();
-      pointerTarget.x = ((e.clientX - rect.left) / rect.width - 0.5) * 0.6;
-      pointerTarget.y = ((e.clientY - rect.top) / rect.height - 0.5) * 0.4;
+      pointerTarget.x = ((e.clientX - rect.left) / rect.width - 0.5) * 0.7;
+      pointerTarget.y = ((e.clientY - rect.top) / rect.height - 0.5) * 0.5;
     };
 
     const resizeObserver = new ResizeObserver(resize);
@@ -149,9 +170,14 @@ export function Cta3DCanvas() {
       const elapsed = clock.getElapsedTime();
       pointer.lerp(pointerTarget, 0.05);
 
-      group.rotation.y = elapsed * 0.4 + pointer.x;
-      group.rotation.x = Math.sin(elapsed * 0.2) * 0.2 + pointer.y;
-      particleRing.rotation.y = -elapsed * 0.6;
+      coreMesh.rotation.y = elapsed * 0.4 + pointer.x;
+      coreMesh.rotation.x = Math.sin(elapsed * 0.2) * 0.3 + pointer.y;
+
+      wireMesh.rotation.y = -elapsed * 0.35 + pointer.x * 0.5;
+      wireMesh.rotation.z = Math.cos(elapsed * 0.25) * 0.2;
+
+      particleCloud.rotation.y = elapsed * 0.2;
+      particleCloud.rotation.x = Math.sin(elapsed * 0.15) * 0.15;
 
       renderer.render(scene, camera);
     };
@@ -171,10 +197,13 @@ export function Cta3DCanvas() {
   if (!supported) return null;
 
   return (
-    <div ref={shellRef} className="w-full h-[220px] sm:h-[280px] relative overflow-hidden rounded-2xl bg-slate-950/40 border border-cyan-500/10 my-4">
-      <div className="absolute top-3 left-4 text-[10px] font-mono tracking-widest text-cyan-400/70 uppercase z-10 flex items-center gap-2">
-        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-        Interactive 3D Core
+    <div
+      ref={shellRef}
+      className="w-full h-[240px] sm:h-[300px] relative overflow-hidden rounded-2xl bg-slate-950/70 border border-cyan-500/20 my-4 shadow-2xl backdrop-blur-xl group"
+    >
+      <div className="absolute top-3 left-4 text-[10px] font-mono tracking-widest text-cyan-300 uppercase z-10 flex items-center gap-2">
+        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+        Interactive 3D Beacon
       </div>
       <canvas ref={canvasRef} className="w-full h-full block" />
     </div>

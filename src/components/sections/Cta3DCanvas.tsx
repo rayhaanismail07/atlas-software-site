@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { Radio } from "lucide-react";
 
 function disposeObject(root: THREE.Object3D) {
   root.traverse((object) => {
@@ -214,11 +215,17 @@ export function Cta3DCanvas() {
   return (
     <div
       ref={shellRef}
-      className="w-full h-[220px] sm:h-[260px] relative overflow-hidden rounded-2xl bg-slate-950/70 border border-cyan-500/20 my-4 shadow-2xl backdrop-blur-xl group"
+      className="w-full h-[210px] sm:h-[230px] relative overflow-hidden rounded-2xl bg-slate-900/60 border border-cyan-500/25 shadow-xl backdrop-blur-xl group"
     >
-      <div className="absolute top-3 left-4 text-[10px] font-mono tracking-widest text-cyan-300 uppercase z-10 flex items-center gap-2">
-        <span className="w-2 h-2 rounded-full bg-teal-400 animate-ping" />
-        Interactive 3D Core
+      <div className="absolute top-3 left-3.5 right-3.5 z-10 flex items-center justify-between text-[11px] font-mono tracking-widest text-cyan-300 uppercase pointer-events-none">
+        <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-slate-950/80 border border-cyan-500/30 backdrop-blur-md">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-400" />
+          </span>
+          <span>LIVE BEACON</span>
+        </div>
+        <Radio className="w-4 h-4 text-cyan-400 animate-pulse" />
       </div>
       <canvas ref={canvasRef} className="w-full h-full block" />
     </div>

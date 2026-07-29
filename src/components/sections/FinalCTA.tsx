@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { ArrowUpRight, Mail, MapPin, Instagram, CheckCircle2, Radio } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Instagram, CheckCircle2 } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -73,21 +73,9 @@ export function FinalCTA() {
                   </div>
                 </div>
 
-                {/* Right Column: Live Beacon Badge & Contact Details */}
-                <div className="contact-card__details lg:col-span-5 flex flex-col gap-5 lg:border-l lg:border-slate-800/80 lg:pl-10">
-                  {/* Live Beacon Status Header on Side */}
-                  <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/90 border border-cyan-500/30 text-cyan-300 text-xs font-mono tracking-wider uppercase backdrop-blur-xl">
-                    <div className="flex items-center gap-2.5">
-                      <span className="relative flex h-2.5 w-2.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75" />
-                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-400" />
-                      </span>
-                      <span>LIVE CONTACT BEACON</span>
-                    </div>
-                    <Radio className="w-4 h-4 text-cyan-400 animate-pulse" />
-                  </div>
-
-                  {/* Interactive 3D WebGL Beacon Core */}
+                {/* Right Column: 3D Live Beacon Core & Contact Details */}
+                <div className="contact-card__details lg:col-span-5 flex flex-col gap-4 lg:border-l lg:border-slate-800/80 lg:pl-10">
+                  {/* Interactive 3D WebGL Beacon Core with Integrated Live Badge */}
                   <Cta3DCanvas />
 
                   {/* Glassmorphic Contact Detail Cards */}

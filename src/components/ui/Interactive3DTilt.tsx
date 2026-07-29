@@ -69,14 +69,14 @@ export function Interactive3DTilt({
   return (
     <div
       ref={cardRef}
-      className={`relative overflow-hidden transition-all transform-gpu ${className}`}
+      className={`relative overflow-visible transition-all transform-gpu ${className}`}
       style={style}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       {children}
       <div
-        className="pointer-events-none absolute inset-0 rounded-[inherit] z-10"
+        className="pointer-events-none absolute inset-0 rounded-[inherit] overflow-hidden z-10"
         style={glareStyle}
       />
     </div>

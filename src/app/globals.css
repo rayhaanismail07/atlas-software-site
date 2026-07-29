@@ -2351,46 +2351,6 @@ canvas {
   width: 100%;
 }
 
-.contact-card__details > div + div {
-  margin-top: 26px;
-}
-
-.contact-card__details small {
-  display: block;
-  color: var(--muted-2);
-  font-family: var(--font-mono);
-  font-size: 0.57rem;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-}
-
-.contact-card__details strong,
-.contact-card__details > div > a {
-  display: block;
-  margin-top: 9px;
-  color: var(--ink-soft);
-  font-size: 0.84rem;
-  font-weight: 650;
-  word-break: break-word;
-}
-
-.contact-card__details > a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 34px;
-  color: var(--cyan);
-  font-size: 0.71rem;
-  font-weight: 750;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.contact-card__details > a svg {
-  width: 15px;
-  height: 15px;
-}
-
 /* Footer */
 .site-footer {
   position: relative;

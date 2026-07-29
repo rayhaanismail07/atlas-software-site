@@ -2293,12 +2293,8 @@ canvas {
 
 .contact-card {
   position: relative;
-  display: grid;
   min-height: auto;
   overflow: visible;
-  grid-template-columns: minmax(0, 1.25fr) minmax(290px, 0.5fr);
-  align-items: center;
-  gap: 60px;
   border: 1px solid rgba(211, 238, 243, 0.13);
   border-radius: 30px;
   background:
@@ -2350,9 +2346,9 @@ canvas {
 }
 
 .contact-card__details {
-  align-self: center;
-  border-left: 1px solid var(--line);
-  padding-left: 30px;
+  position: relative;
+  z-index: 3;
+  width: 100%;
 }
 
 .contact-card__details > div + div {

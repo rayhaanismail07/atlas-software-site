@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { ArrowUpRight, Mail, MapPin, Instagram, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Instagram, CheckCircle2, MessageCircle, Globe } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -19,18 +19,18 @@ export function FinalCTA() {
     <section id="contact" className="atlas-section contact-section">
       <Container>
         <Reveal>
-          <Interactive3DTilt maxTilt={2.5} scale={1.005} className="w-full">
-            <div className="contact-card relative overflow-hidden rounded-[32px] border border-cyan-500/25 bg-slate-950/80 backdrop-blur-2xl p-6 sm:p-10 lg:p-12 shadow-[0_30px_100px_rgba(0,0,0,0.5),0_0_80px_rgba(97,231,251,0.06)] group">
+          <Interactive3DTilt maxTilt={2} scale={1.005} className="w-full">
+            <div className="contact-card relative overflow-hidden rounded-[32px] border border-cyan-500/25 bg-slate-950/85 backdrop-blur-2xl p-6 sm:p-10 lg:p-12 shadow-[0_30px_100px_rgba(0,0,0,0.5),0_0_80px_rgba(97,231,251,0.06)] group">
               {/* Top Accent Gradient Line */}
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-500" />
               
-              {/* Radial Background Light Beams */}
+              {/* Ambient Radial Background Glows */}
               <div className="pointer-events-none absolute -top-32 -right-32 w-96 h-96 rounded-full bg-cyan-500/10 blur-[100px]" />
               <div className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-indigo-500/10 blur-[100px]" />
 
               <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 {/* Left Column: Heading & Primary Actions */}
-                <div className="contact-card__copy lg:col-span-7 flex flex-col justify-center gap-6">
+                <div className="contact-card__copy lg:col-span-7 flex flex-col justify-center gap-6 w-full">
                   <div>
                     <span className="atlas-label mb-4">06 / Start a project</span>
 
@@ -73,52 +73,83 @@ export function FinalCTA() {
                   </div>
                 </div>
 
-                {/* Right Column: 3D Live Beacon Core & Contact Details */}
-                <div className="contact-card__details lg:col-span-5 flex flex-col gap-3 lg:border-l lg:border-slate-800/80 lg:pl-10">
-                  {/* Interactive 3D WebGL Beacon Core with Integrated Live Badge */}
+                {/* Right Column: 3D Core & Full-Width Contact Detail Cards */}
+                <div className="contact-card__details lg:col-span-5 w-full flex flex-col gap-3 lg:border-l lg:border-slate-800/80 lg:pl-10">
+                  {/* Interactive 3D WebGL Core */}
                   <Cta3DCanvas />
 
-                  {/* Glassmorphic Contact Detail Cards */}
-                  <div className="flex flex-col gap-2.5">
+                  {/* Full-width Glassmorphic Contact Cards */}
+                  <div className="w-full flex flex-col gap-2.5">
+                    {/* Direct Email Card */}
                     <a
                       href={`mailto:${siteConfig.contactEmail}`}
-                      className="group flex items-center gap-3.5 p-3.5 rounded-xl bg-slate-900/70 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900/90 shadow-lg backdrop-blur-xl transition-all duration-300"
+                      className="group w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800/90 hover:border-cyan-500/50 hover:bg-slate-900 shadow-xl backdrop-blur-xl transition-all duration-300"
                     >
-                      <div className="w-9 h-9 rounded-lg bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center text-cyan-400 group-hover:scale-110 group-hover:bg-cyan-500/20 transition-all flex-shrink-0">
-                        <Mail className="w-4.5 h-4.5" />
+                      <div className="flex items-center gap-3.5 min-w-0">
+                        <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center text-cyan-400 group-hover:scale-110 group-hover:bg-cyan-500/20 transition-all flex-shrink-0">
+                          <Mail className="w-5 h-5" />
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">Direct Email</span>
+                          <span className="text-xs sm:text-sm font-semibold text-slate-100 group-hover:text-cyan-300 transition-colors truncate">{siteConfig.contactEmail}</span>
+                        </div>
                       </div>
-                      <div className="flex flex-col">
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">Direct Email</span>
-                        <span className="text-xs font-semibold text-slate-100 group-hover:text-cyan-300 transition-colors">{siteConfig.contactEmail}</span>
-                      </div>
+                      <ArrowUpRight className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 ml-2" />
                     </a>
 
-                    <div className="flex items-center gap-3.5 p-3.5 rounded-xl bg-slate-900/70 border border-slate-800 shadow-lg backdrop-blur-xl">
-                      <div className="w-9 h-9 rounded-lg bg-teal-500/10 border border-teal-500/25 flex items-center justify-center text-teal-400 flex-shrink-0">
-                        <MapPin className="w-4.5 h-4.5" />
+                    {/* WhatsApp Quick Connect Card */}
+                    <a
+                      href={siteConfig.whatsapp}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800/90 hover:border-emerald-500/50 hover:bg-slate-900 shadow-xl backdrop-blur-xl transition-all duration-300"
+                    >
+                      <div className="flex items-center gap-3.5 min-w-0">
+                        <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-500/20 transition-all flex-shrink-0">
+                          <MessageCircle className="w-5 h-5" />
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">WhatsApp</span>
+                          <span className="text-xs sm:text-sm font-semibold text-slate-100 group-hover:text-emerald-300 transition-colors">Start Instant Project Chat</span>
+                        </div>
                       </div>
-                      <div className="flex flex-col">
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">HQ Location</span>
-                        <span className="text-xs font-semibold text-slate-100">{siteConfig.location}</span>
+                      <ArrowUpRight className="w-4 h-4 text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 ml-2" />
+                    </a>
+
+                    {/* Location Card */}
+                    <div className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800/90 shadow-xl backdrop-blur-xl">
+                      <div className="flex items-center gap-3.5 min-w-0">
+                        <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/25 flex items-center justify-center text-teal-400 flex-shrink-0">
+                          <MapPin className="w-5 h-5" />
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">HQ Location</span>
+                          <span className="text-xs sm:text-sm font-semibold text-slate-100 truncate">{siteConfig.location}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-300 text-[10px] font-mono flex-shrink-0 ml-2">
+                        <Globe className="w-3 h-3 text-teal-400" />
+                        <span>UTC+2</span>
                       </div>
                     </div>
 
+                    {/* Instagram Card */}
                     <a
                       href={siteConfig.instagram}
                       target="_blank"
                       rel="noreferrer"
-                      className="group flex items-center justify-between p-3.5 rounded-xl bg-slate-900/70 border border-slate-800 hover:border-pink-500/50 hover:bg-slate-900/90 shadow-lg backdrop-blur-xl transition-all duration-300"
+                      className="group w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800/90 hover:border-pink-500/50 hover:bg-slate-900 shadow-xl backdrop-blur-xl transition-all duration-300"
                     >
-                      <div className="flex items-center gap-3.5">
-                        <div className="w-9 h-9 rounded-lg bg-pink-500/10 border border-pink-500/25 flex items-center justify-center text-pink-400 group-hover:scale-110 group-hover:bg-pink-500/20 transition-all flex-shrink-0">
-                          <Instagram className="w-4.5 h-4.5" />
+                      <div className="flex items-center gap-3.5 min-w-0">
+                        <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/25 flex items-center justify-center text-pink-400 group-hover:scale-110 group-hover:bg-pink-500/20 transition-all flex-shrink-0">
+                          <Instagram className="w-5 h-5" />
                         </div>
-                        <div className="flex flex-col">
+                        <div className="flex flex-col min-w-0">
                           <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">Social</span>
-                          <span className="text-xs font-semibold text-slate-100 group-hover:text-pink-300 transition-colors">Follow on Instagram</span>
+                          <span className="text-xs sm:text-sm font-semibold text-slate-100 group-hover:text-pink-300 transition-colors">Follow on Instagram</span>
                         </div>
                       </div>
-                      <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-pink-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0" />
+                      <ArrowUpRight className="w-4 h-4 text-slate-500 group-hover:text-pink-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 ml-2" />
                     </a>
                   </div>
                 </div>

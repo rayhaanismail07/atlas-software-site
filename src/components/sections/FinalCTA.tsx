@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { ArrowUpRight, Mail, MapPin, Instagram, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Instagram, CheckCircle2, Radio } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -28,14 +28,11 @@ export function FinalCTA() {
               <div className="pointer-events-none absolute -top-32 -right-32 w-96 h-96 rounded-full bg-cyan-500/10 blur-[100px]" />
               <div className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-indigo-500/10 blur-[100px]" />
 
-              <div className="relative z-10 grid grid-cols-1 lg:grid-template-columns-12 gap-10 lg:gap-14 items-center">
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
                 {/* Left Column: Heading & Primary Actions */}
                 <div className="contact-card__copy lg:col-span-7 flex flex-col justify-between h-full">
                   <div>
-                    <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 text-[11px] font-mono tracking-widest uppercase mb-6">
-                      <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-                      06 / Start a project
-                    </div>
+                    <span className="atlas-label mb-6">06 / Start a project</span>
 
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-medium tracking-tight leading-[1.12] text-white">
                       Bring the ambition.
@@ -76,8 +73,20 @@ export function FinalCTA() {
                   </div>
                 </div>
 
-                {/* Right Column: 3D Canvas & Contact Details */}
-                <div className="contact-card__details lg:col-span-5 flex flex-col gap-6 lg:border-l lg:border-slate-800/80 lg:pl-10">
+                {/* Right Column: Live Beacon Badge & Contact Details */}
+                <div className="contact-card__details lg:col-span-5 flex flex-col gap-5 lg:border-l lg:border-slate-800/80 lg:pl-10">
+                  {/* Live Beacon Status Header on Side */}
+                  <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/90 border border-cyan-500/30 text-cyan-300 text-xs font-mono tracking-wider uppercase backdrop-blur-xl">
+                    <div className="flex items-center gap-2.5">
+                      <span className="relative flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-400" />
+                      </span>
+                      <span>LIVE CONTACT BEACON</span>
+                    </div>
+                    <Radio className="w-4 h-4 text-cyan-400 animate-pulse" />
+                  </div>
+
                   {/* Interactive 3D WebGL Beacon Core */}
                   <Cta3DCanvas />
 

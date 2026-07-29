@@ -2294,18 +2294,18 @@ canvas {
 .contact-card {
   position: relative;
   display: grid;
-  min-height: 650px;
-  overflow: hidden;
+  min-height: auto;
+  overflow: visible;
   grid-template-columns: minmax(0, 1.25fr) minmax(290px, 0.5fr);
-  align-items: end;
-  gap: 80px;
+  align-items: center;
+  gap: 60px;
   border: 1px solid rgba(211, 238, 243, 0.13);
   border-radius: 30px;
   background:
     radial-gradient(circle at 77% 36%, rgba(26, 192, 216, 0.15), transparent 25rem),
     radial-gradient(circle at 8% 100%, rgba(157, 140, 255, 0.12), transparent 28rem),
     linear-gradient(145deg, #0e1317, #080a0d);
-  padding: clamp(40px, 7vw, 92px);
+  padding: clamp(36px, 5vw, 64px);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.055),
     0 46px 120px rgba(0, 0, 0, 0.3),
@@ -2320,37 +2320,37 @@ canvas {
 
 .contact-card h2 {
   max-width: 850px;
-  margin: 24px 0 0;
+  margin: 20px 0 0;
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 4.2vw, 4.2rem);
   font-weight: 500;
-  line-height: 1.12;
+  line-height: 1.08;
   letter-spacing: -0.05em;
 }
 
 .contact-card h2 span {
   display: block;
-  margin-top: 8px;
+  margin-top: 4px;
   color: #84919a;
 }
 
 .contact-card__copy > p {
   max-width: 610px;
-  margin: 28px 0 0;
+  margin: 20px 0 0;
   color: var(--ink-soft);
   font-size: 1rem;
-  line-height: 1.72;
+  line-height: 1.7;
 }
 
 .contact-card__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 36px;
+  margin-top: 28px;
 }
 
 .contact-card__details {
-  align-self: end;
+  align-self: center;
   border-left: 1px solid var(--line);
   padding-left: 30px;
 }

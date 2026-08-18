@@ -149,6 +149,9 @@ export function Cta3DCanvas() {
       const width = Math.max(1, Math.round(rect.width));
       const height = Math.max(1, Math.round(rect.height));
       renderer.setSize(width, height, false);
+      const compact = width < 560;
+      camera.position.z = compact ? 5.8 : 4.4;
+      group.scale.setScalar(compact ? 0.75 : 1);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
     };

@@ -21,8 +21,8 @@ export function FinalCTA() {
         <Reveal>
           <Interactive3DTilt maxTilt={2} scale={1.005} className="w-full">
             <div className="contact-card relative overflow-hidden rounded-[32px] border border-cyan-500/25 bg-slate-950/85 backdrop-blur-2xl p-6 sm:p-10 lg:p-12 shadow-[0_30px_100px_rgba(0,0,0,0.5),0_0_80px_rgba(97,231,251,0.06)] group">
-              {/* Top Accent Gradient Line */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-500" />
+              {/* Rounded Top Border Glow Highlight */}
+              <div className="pointer-events-none absolute inset-0 rounded-[32px] border-t-2 border-cyan-400/70 [mask-image:linear-gradient(to_bottom,black_0%,black_20%,transparent_70%)]" />
               
               {/* Ambient Radial Background Glows */}
               <div className="pointer-events-none absolute -top-32 -right-32 w-96 h-96 rounded-full bg-cyan-500/10 blur-[100px]" />

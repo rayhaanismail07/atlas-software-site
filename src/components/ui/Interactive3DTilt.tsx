@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 interface Interactive3DTiltProps {
   children: React.ReactNode;
@@ -14,22 +14,24 @@ interface Interactive3DTiltProps {
 export function Interactive3DTilt({
   children,
   className = "",
-  maxTilt = 12,
-  scale = 1.02,
+  maxTilt = 8,
+  scale = 1.015,
   perspective = 1000,
-  glareOpacity = 0.15,
+  glareOpacity = 0.12,
 }: Interactive3DTiltProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [style, setStyle] = useState<React.CSSProperties>({
-    transform: `perspective(${perspective}px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`,
-    transition: "transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)",
-  });
+  const [isTouch, setIsTouch] = useState(false);
+  const [style, setStyle] = useState<React.CSSProperties>({});
   const [glareStyle, setGlareStyle] = useState<React.CSSProperties>({
     opacity: 0,
   });
 
+  useEffect(() => {
+    setIsTouch(window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (isTouch || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
@@ -56,6 +58,7 @@ export function Interactive3DTilt({
   };
 
   const handleMouseLeave = () => {
+    if (isTouch) return;
     setStyle({
       transform: `perspective(${perspective}px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`,
       transition: "transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)",
@@ -69,7 +72,7 @@ export function Interactive3DTilt({
   return (
     <div
       ref={cardRef}
-      className={`relative overflow-visible transition-all transform-gpu ${className}`}
+      className={`relative max-w-full overflow-hidden rounded-[inherit] transition-all transform-gpu ${className}`}
       style={style}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

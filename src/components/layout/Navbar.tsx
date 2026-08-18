@@ -52,17 +52,8 @@ export function Navbar() {
                 />
               </span>
               <span className="brand__copy">
-                <strong className="brand__title">
-                  <span className="brand__char">A<span className="brand__triangle" aria-hidden="true" /></span>
-                  TL
-                  <span className="brand__char">A<span className="brand__triangle" aria-hidden="true" /></span>
-                  S
-                </strong>
-                <small className="brand__subtitle">
-                  <span className="brand__line" aria-hidden="true" />
-                  SOFTWARE
-                  <span className="brand__line" aria-hidden="true" />
-                </small>
+                <strong className="brand__title">ATLAS</strong>
+                <small className="brand__subtitle">SOFTWARE</small>
               </span>
             </Link>
 

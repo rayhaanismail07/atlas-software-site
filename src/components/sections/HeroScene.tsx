@@ -273,8 +273,8 @@ export function HeroScene() {
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       const compact = width < 560;
-      camera.position.z = compact ? 9.2 : 8.2;
-      root.scale.setScalar(compact ? 0.88 : 1);
+      camera.position.z = compact ? 10.4 : 8.2;
+      root.scale.setScalar(compact ? 0.72 : 1);
     };
 
     const onPointerMove = (event: PointerEvent) => {

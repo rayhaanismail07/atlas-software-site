@@ -14,16 +14,16 @@ type TechNode = {
 };
 
 const TECH_NODES: TechNode[] = [
-  { name: "TypeScript", color: 0x3178c6, radius: 1.35, speed: 0.38, orbitAngle: 0.0, orbitTilt: [0.35, 0.2, 0.1], size: 0.085 },
-  { name: "React", color: 0x61dafb, radius: 1.55, speed: 0.30, orbitAngle: 1.1, orbitTilt: [-0.4, 0.5, -0.2], size: 0.09 },
-  { name: "Next.js", color: 0xffffff, radius: 1.78, speed: 0.26, orbitAngle: 2.3, orbitTilt: [0.55, -0.3, 0.4], size: 0.09 },
-  { name: "Python", color: 0x4b8bbe, radius: 1.42, speed: 0.34, orbitAngle: 3.5, orbitTilt: [0.1, 0.7, -0.35], size: 0.085 },
-  { name: "Node.js", color: 0x5fa04e, radius: 1.68, speed: 0.28, orbitAngle: 4.6, orbitTilt: [-0.6, -0.2, 0.5], size: 0.085 },
-  { name: "PostgreSQL", color: 0x4169e1, radius: 1.50, speed: 0.32, orbitAngle: 5.4, orbitTilt: [0.45, 0.4, -0.15], size: 0.085 },
-  { name: "Docker", color: 0x2496ed, radius: 1.90, speed: 0.22, orbitAngle: 0.7, orbitTilt: [-0.25, 0.8, 0.3], size: 0.08 },
-  { name: "Azure", color: 0x0089d6, radius: 1.60, speed: 0.29, orbitAngle: 1.9, orbitTilt: [0.3, -0.6, -0.4], size: 0.08 },
-  { name: "OpenAI", color: 0x00e1ff, radius: 1.25, speed: 0.42, orbitAngle: 2.9, orbitTilt: [-0.5, 0.1, 0.6], size: 0.09 },
-  { name: "Tailwind", color: 0x06b6d4, radius: 1.75, speed: 0.24, orbitAngle: 4.1, orbitTilt: [0.6, 0.35, 0.2], size: 0.08 },
+  { name: "TypeScript", color: 0x3178c6, radius: 0.90, speed: 0.40, orbitAngle: 0.0, orbitTilt: [0.35, 0.2, 0.1], size: 0.058 },
+  { name: "React", color: 0x61dafb, radius: 1.05, speed: 0.32, orbitAngle: 1.1, orbitTilt: [-0.4, 0.5, -0.2], size: 0.062 },
+  { name: "Next.js", color: 0xffffff, radius: 1.20, speed: 0.28, orbitAngle: 2.3, orbitTilt: [0.55, -0.3, 0.4], size: 0.062 },
+  { name: "Python", color: 0x4b8bbe, radius: 0.96, speed: 0.36, orbitAngle: 3.5, orbitTilt: [0.1, 0.7, -0.35], size: 0.058 },
+  { name: "Node.js", color: 0x5fa04e, radius: 1.14, speed: 0.30, orbitAngle: 4.6, orbitTilt: [-0.6, -0.2, 0.5], size: 0.058 },
+  { name: "PostgreSQL", color: 0x4169e1, radius: 1.02, speed: 0.34, orbitAngle: 5.4, orbitTilt: [0.45, 0.4, -0.15], size: 0.058 },
+  { name: "Docker", color: 0x2496ed, radius: 1.30, speed: 0.24, orbitAngle: 0.7, orbitTilt: [-0.25, 0.8, 0.3], size: 0.054 },
+  { name: "Azure", color: 0x0089d6, radius: 1.10, speed: 0.31, orbitAngle: 1.9, orbitTilt: [0.3, -0.6, -0.4], size: 0.054 },
+  { name: "OpenAI", color: 0x00e1ff, radius: 0.85, speed: 0.45, orbitAngle: 2.9, orbitTilt: [-0.5, 0.1, 0.6], size: 0.062 },
+  { name: "Tailwind", color: 0x06b6d4, radius: 1.18, speed: 0.26, orbitAngle: 4.1, orbitTilt: [0.6, 0.35, 0.2], size: 0.054 },
 ];
 
 function disposeObject(root: THREE.Object3D) {
@@ -66,22 +66,21 @@ export function Tech3DCanvas() {
     renderer.toneMappingExposure = 1.15;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
-    camera.position.set(0, 0.15, 5.0);
+    const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+    camera.position.set(0, 0.08, 4.4);
 
     const worldGroup = new THREE.Group();
     scene.add(worldGroup);
 
-    // 1. Central Holographic Quantum Tech Core (Refined compact scale)
+    // 1. Sleek Compact Central Core
     const coreGroup = new THREE.Group();
     worldGroup.add(coreGroup);
 
-    // Inner dark reflective nucleus
-    const nucleusGeo = new THREE.IcosahedronGeometry(0.72, 4);
+    const nucleusGeo = new THREE.IcosahedronGeometry(0.48, 4);
     const nucleusMat = new THREE.MeshPhysicalMaterial({
       color: 0x050c12,
       emissive: 0x002c3d,
-      emissiveIntensity: 0.75,
+      emissiveIntensity: 0.8,
       roughness: 0.15,
       metalness: 0.85,
       clearcoat: 1.0,
@@ -92,20 +91,18 @@ export function Tech3DCanvas() {
     const nucleusMesh = new THREE.Mesh(nucleusGeo, nucleusMat);
     coreGroup.add(nucleusMesh);
 
-    // Luminous Geodesic Wireframe Overlay
-    const wireGeo = new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(0.78, 2));
+    const wireGeo = new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(0.52, 2));
     const wireMat = new THREE.LineBasicMaterial({
       color: 0x00e1ff,
       transparent: true,
-      opacity: 0.48,
+      opacity: 0.5,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
     const wireMesh = new THREE.LineSegments(wireGeo, wireMat);
     coreGroup.add(wireMesh);
 
-    // Core Outer Fresnel Glow Halo
-    const haloGeo = new THREE.SphereGeometry(0.86, 32, 32);
+    const haloGeo = new THREE.SphereGeometry(0.58, 32, 32);
     const haloMat = new THREE.ShaderMaterial({
       transparent: true,
       side: THREE.BackSide,
@@ -126,7 +123,7 @@ export function Tech3DCanvas() {
         varying vec3 vViewPosition;
         void main() {
           float fresnel = pow(1.0 - max(dot(normalize(vNormal), normalize(vViewPosition)), 0.0), 2.2);
-          gl_FragColor = vec4(0.0, 0.88, 1.0, fresnel * 0.4);
+          gl_FragColor = vec4(0.0, 0.88, 1.0, fresnel * 0.42);
         }
       `,
     });
@@ -134,8 +131,6 @@ export function Tech3DCanvas() {
     coreGroup.add(haloMesh);
 
     // 2. Concentric Orbital Energy Rings
-    const orbitRingGeos: THREE.BufferGeometry[] = [];
-    const orbitRingMats: THREE.Material[] = [];
     const orbitRingRotations = [
       new THREE.Euler(0.4, 0.2, 0.1),
       new THREE.Euler(-0.35, 0.5, -0.2),
@@ -143,17 +138,15 @@ export function Tech3DCanvas() {
       new THREE.Euler(-0.25, 0.8, 0.3),
     ];
 
-    [1.35, 1.55, 1.78, 1.95].forEach((radius, idx) => {
-      const ringGeo = new THREE.TorusGeometry(radius, 0.006, 8, 140);
-      orbitRingGeos.push(ringGeo);
+    [0.90, 1.05, 1.20, 1.32].forEach((radius, idx) => {
+      const ringGeo = new THREE.TorusGeometry(radius, 0.005, 8, 140);
       const ringMat = new THREE.MeshBasicMaterial({
         color: idx % 2 === 0 ? 0x00e1ff : 0x0077ff,
         transparent: true,
-        opacity: 0.22,
+        opacity: 0.24,
         blending: THREE.AdditiveBlending,
         depthWrite: false,
       });
-      orbitRingMats.push(ringMat);
       const ringMesh = new THREE.Mesh(ringGeo, ringMat);
       ringMesh.rotation.copy(orbitRingRotations[idx]);
       worldGroup.add(ringMesh);
@@ -171,8 +164,7 @@ export function Tech3DCanvas() {
       const nodeGroup = new THREE.Group();
       worldGroup.add(nodeGroup);
 
-      // Node sphere
-      const sphereGeo = new THREE.SphereGeometry(node.size, 18, 18);
+      const sphereGeo = new THREE.SphereGeometry(node.size, 16, 16);
       const sphereMat = new THREE.MeshPhysicalMaterial({
         color: node.color,
         emissive: node.color,
@@ -184,8 +176,7 @@ export function Tech3DCanvas() {
       const sphereMesh = new THREE.Mesh(sphereGeo, sphereMat);
       nodeGroup.add(sphereMesh);
 
-      // Node subtle planetary ring
-      const ringGeo = new THREE.TorusGeometry(node.size * 1.5, 0.006, 6, 28);
+      const ringGeo = new THREE.TorusGeometry(node.size * 1.5, 0.005, 6, 24);
       const ringMat = new THREE.MeshBasicMaterial({
         color: node.color,
         transparent: true,
@@ -205,7 +196,7 @@ export function Tech3DCanvas() {
       });
     });
 
-    // 4. Harmonic Curved Data Streams
+    // 4. Curved Data Streams
     const dataCurves: Array<{
       curve: THREE.QuadraticBezierCurve3;
       line: THREE.Line;
@@ -228,7 +219,7 @@ export function Tech3DCanvas() {
       [7, 6], // Azure -> Docker
     ];
 
-    const pulseGeo = new THREE.SphereGeometry(0.022, 10, 10);
+    const pulseGeo = new THREE.SphereGeometry(0.016, 8, 8);
     const pulseMat = new THREE.MeshBasicMaterial({
       color: 0xffffff,
       blending: THREE.AdditiveBlending,
@@ -266,19 +257,19 @@ export function Tech3DCanvas() {
       });
     });
 
-    // 5. Starlight Particle Atmosphere
-    const starCount = 120;
+    // 5. Starlight Atmosphere
+    const starCount = 90;
     const starPositions = new Float32Array(starCount * 3);
     for (let i = 0; i < starCount; i++) {
-      starPositions[i * 3] = (Math.random() - 0.5) * 7;
-      starPositions[i * 3 + 1] = (Math.random() - 0.5) * 5;
-      starPositions[i * 3 + 2] = (Math.random() - 0.5) * 3 - 0.5;
+      starPositions[i * 3] = (Math.random() - 0.5) * 6;
+      starPositions[i * 3 + 1] = (Math.random() - 0.5) * 4;
+      starPositions[i * 3 + 2] = (Math.random() - 0.5) * 2 - 0.5;
     }
     const starGeo = new THREE.BufferGeometry();
     starGeo.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
     const starMat = new THREE.PointsMaterial({
       color: 0x00e1ff,
-      size: 0.018,
+      size: 0.015,
       transparent: true,
       opacity: 0.45,
       blending: THREE.AdditiveBlending,
@@ -289,17 +280,17 @@ export function Tech3DCanvas() {
 
     // 6. Lighting
     const keyLight = new THREE.DirectionalLight(0x00e1ff, 3.2);
-    keyLight.position.set(4, 3, 5);
+    keyLight.position.set(3, 2.5, 4);
     scene.add(keyLight);
 
-    const blueLight = new THREE.PointLight(0x0077ff, 4, 12);
-    blueLight.position.set(-3, -2, 3);
+    const blueLight = new THREE.PointLight(0x0077ff, 3.5, 10);
+    blueLight.position.set(-2.5, -1.8, 2.5);
     scene.add(blueLight);
 
     const ambientLight = new THREE.AmbientLight(0x0a141d, 1.2);
     scene.add(ambientLight);
 
-    // 7. Interactive Lifecycle & Responsive Scaling
+    // 7. Lifecycle & Resize
     let active = true;
     let visible = true;
     let frame = 0;
@@ -317,14 +308,14 @@ export function Tech3DCanvas() {
       camera.updateProjectionMatrix();
 
       const compact = width < 560;
-      camera.position.z = compact ? 6.0 : 5.0;
-      worldGroup.scale.setScalar(compact ? 0.82 : 1.0);
+      camera.position.z = compact ? 5.2 : 4.4;
+      worldGroup.scale.setScalar(compact ? 0.78 : 1.0);
     };
 
     const onPointerMove = (e: PointerEvent) => {
       const rect = shell.getBoundingClientRect();
-      pointerTarget.x = ((e.clientX - rect.left) / rect.width - 0.5) * 0.6;
-      pointerTarget.y = ((e.clientY - rect.top) / rect.height - 0.5) * 0.4;
+      pointerTarget.x = ((e.clientX - rect.left) / rect.width - 0.5) * 0.5;
+      pointerTarget.y = ((e.clientY - rect.top) / rect.height - 0.5) * 0.35;
     };
 
     const onPointerLeave = () => {
@@ -368,17 +359,14 @@ export function Tech3DCanvas() {
       const elapsed = clock.getElapsedTime();
       pointer.lerp(pointerTarget, 0.06);
 
-      // Core rotation
       nucleusMesh.rotation.y = elapsed * 0.12;
       wireMesh.rotation.y = -elapsed * 0.08;
       wireMesh.rotation.x = Math.sin(elapsed * 0.3) * 0.05;
       starPoints.rotation.z = elapsed * 0.005;
 
-      // Group tilt from mouse
-      worldGroup.rotation.y = -0.15 + pointer.x + Math.sin(elapsed * 0.1) * 0.04;
-      worldGroup.rotation.x = 0.12 - pointer.y + Math.cos(elapsed * 0.15) * 0.03;
+      worldGroup.rotation.y = -0.15 + pointer.x + Math.sin(elapsed * 0.1) * 0.03;
+      worldGroup.rotation.x = 0.10 - pointer.y + Math.cos(elapsed * 0.15) * 0.025;
 
-      // Update tech nodes positions
       const currentPositions: THREE.Vector3[] = [];
       nodeMeshes.forEach(({ group, ring, node }, idx) => {
         const pos = getNodePos(node, elapsed);
@@ -389,7 +377,6 @@ export function Tech3DCanvas() {
         ring.rotation.z = elapsed * 1.2;
       });
 
-      // Update curved data streams
       dataCurves.forEach((curveObj) => {
         const start = currentPositions[curveObj.fromIdx];
         const end = currentPositions[curveObj.toIdx];
@@ -399,7 +386,7 @@ export function Tech3DCanvas() {
             .add(end)
             .multiplyScalar(0.5)
             .normalize()
-            .multiplyScalar(0.9);
+            .multiplyScalar(0.65);
 
           curveObj.curve.v0.copy(start);
           curveObj.curve.v1.copy(mid);
@@ -435,14 +422,14 @@ export function Tech3DCanvas() {
   return (
     <div
       ref={shellRef}
-      className="w-full h-[250px] sm:h-[290px] relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#070d14]/70 to-[#05080c]/90 border border-cyan-500/15 shadow-[0_20px_50px_rgba(0,0,0,0.6)] my-5 backdrop-blur-md"
+      className="w-full h-[175px] sm:h-[200px] lg:h-[210px] relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#070d14]/70 to-[#05080c]/90 border border-cyan-500/15 shadow-[0_15px_40px_rgba(0,0,0,0.5)] my-4 backdrop-blur-md"
     >
-      <div className="absolute top-3 left-4 text-[10px] font-mono tracking-widest text-cyan-400/80 uppercase z-10 flex items-center gap-2 select-none">
+      <div className="absolute top-2.5 left-3.5 text-[9px] font-mono tracking-widest text-cyan-400/80 uppercase z-10 flex items-center gap-2 select-none">
         <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
         3D Tech Constellation &middot; Live System
       </div>
-      <div className="absolute bottom-2.5 right-4 text-[9px] font-mono text-[#c0c0c8]/50 z-10 hidden sm:block select-none">
-        Drag or move cursor to inspect system
+      <div className="absolute bottom-2 right-3.5 text-[9px] font-mono text-[#c0c0c8]/40 z-10 hidden sm:block select-none">
+        Interactive 3D Matrix
       </div>
       <canvas ref={canvasRef} className="w-full h-full block" />
     </div>

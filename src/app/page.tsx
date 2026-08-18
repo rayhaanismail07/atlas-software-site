@@ -1,6 +1,5 @@
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
-import { BrandSystem } from "@/components/sections/BrandSystem";
 import { CapabilityStrip } from "@/components/sections/CapabilityStrip";
 import { DigitalMarketing } from "@/components/sections/DigitalMarketing";
 import { FinalCTA } from "@/components/sections/FinalCTA";
@@ -21,7 +20,6 @@ export default function HomePage() {
       <main className="relative z-1">
         <Hero />
         <CapabilityStrip />
-        <BrandSystem />
         <Introduction />
         <Services />
         <DigitalMarketing />

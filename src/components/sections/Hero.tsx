@@ -51,8 +51,8 @@ export function Hero() {
             <Button href="#contact">
               Start a project <ArrowUpRight aria-hidden="true" />
             </Button>
-            <Button href="#brand" variant="secondary">
-              Brand System <ArrowDownRight aria-hidden="true" />
+            <Button href="#services" variant="secondary">
+              Explore capabilities <ArrowDownRight aria-hidden="true" />
             </Button>
           </div>
 

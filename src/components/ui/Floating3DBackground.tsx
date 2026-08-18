@@ -27,39 +27,35 @@ export function Floating3DBackground() {
     renderer.outputColorSpace = THREE.SRGBColorSpace;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 1000);
-    camera.position.set(0, 0, 20);
+    const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 1000);
+    camera.position.set(0, 0, 22);
 
     const spaceGroup = new THREE.Group();
     scene.add(spaceGroup);
 
-    // 1. Multi-Tier Deep Spatial Starfield (5,000 Stars with Depth Layers)
-    const starCount = 5000;
+    // 1. Deep Spatial Multi-Tier Starfield (5,500 Stars)
+    const starCount = 5500;
     const starPositions = new Float32Array(starCount * 3);
     const starColors = new Float32Array(starCount * 3);
-    const starSizes = new Float32Array(starCount);
 
     const palette = [
       new THREE.Color(0x00e1ff), // Atlas Cyan
       new THREE.Color(0x0077ff), // Electric Cobalt
       new THREE.Color(0x00f5b8), // Neon Mint
-      new THREE.Color(0xd0d4dc), // Stellar Silver
-      new THREE.Color(0xffffff), // Pure Starlight White
-      new THREE.Color(0x8066ff), // Quantum Violet
+      new THREE.Color(0xa78bfa), // Quantum Violet
+      new THREE.Color(0xfbbf24), // Solar Amber
+      new THREE.Color(0xffffff), // Starlight White
     ];
 
     for (let i = 0; i < starCount; i++) {
-      // Wide distribution across full scroll depth (y from -300 to +80)
-      starPositions[i * 3] = (Math.random() - 0.5) * 110;
-      starPositions[i * 3 + 1] = (Math.random() - 0.5) * 450;
-      starPositions[i * 3 + 2] = (Math.random() - 0.5) * 70 - 10;
+      starPositions[i * 3] = (Math.random() - 0.5) * 120;
+      starPositions[i * 3 + 1] = (Math.random() - 0.5) * 480;
+      starPositions[i * 3 + 2] = (Math.random() - 0.5) * 80 - 12;
 
       const col = palette[Math.floor(Math.random() * palette.length)];
       starColors[i * 3] = col.r;
       starColors[i * 3 + 1] = col.g;
       starColors[i * 3 + 2] = col.b;
-
-      starSizes[i] = 0.04 + Math.random() * 0.08;
     }
 
     const starGeo = new THREE.BufferGeometry();
@@ -67,10 +63,10 @@ export function Floating3DBackground() {
     starGeo.setAttribute("color", new THREE.BufferAttribute(starColors, 3));
 
     const starMat = new THREE.PointsMaterial({
-      size: 0.075,
+      size: 0.08,
       vertexColors: true,
       transparent: true,
-      opacity: 0.88,
+      opacity: 0.85,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
       sizeAttenuation: true,
@@ -79,21 +75,23 @@ export function Floating3DBackground() {
     const starField = new THREE.Points(starGeo, starMat);
     spaceGroup.add(starField);
 
-    // 2. Cosmic Nebulae Aura Spheres (Layered along page height)
+    // 2. Cosmic Nebulae Auras (Layered across all page sections)
     const nebulaeGroup = new THREE.Group();
     spaceGroup.add(nebulaeGroup);
 
     const nebulaeSpecs = [
-      { color: 0x00e1ff, size: 20, pos: [-14, 15, -18], opacity: 0.16 },
-      { color: 0x0077ff, size: 26, pos: [16, -30, -22], opacity: 0.18 },
-      { color: 0x8066ff, size: 30, pos: [-8, -90, -28], opacity: 0.20 },
-      { color: 0x00e1ff, size: 22, pos: [14, -150, -20], opacity: 0.15 },
-      { color: 0x0077ff, size: 28, pos: [-16, -210, -24], opacity: 0.18 },
-      { color: 0x00f5b8, size: 24, pos: [10, -280, -20], opacity: 0.14 },
+      { color: 0x00e1ff, size: 24, pos: [-14, 20, -18], opacity: 0.18 }, // Hero
+      { color: 0x0077ff, size: 28, pos: [16, -25, -22], opacity: 0.18 }, // Section 1 & 2
+      { color: 0x00f5b8, size: 32, pos: [-18, -80, -25], opacity: 0.22 }, // Section 3: Systems
+      { color: 0x00e1ff, size: 30, pos: [18, -120, -22], opacity: 0.20 }, // Section 3: Architecture
+      { color: 0xa78bfa, size: 34, pos: [-15, -170, -24], opacity: 0.24 }, // Section 4: Process
+      { color: 0x00e1ff, size: 30, pos: [16, -220, -22], opacity: 0.20 }, // Section 5: Studio
+      { color: 0xfbbf24, size: 28, pos: [-12, -270, -25], opacity: 0.18 }, // Section 5: Principles & Tech
+      { color: 0x0077ff, size: 32, pos: [14, -330, -20], opacity: 0.22 }, // Final CTA & Footer
     ];
 
     nebulaeSpecs.forEach((spec) => {
-      const geo = new THREE.SphereGeometry(spec.size, 28, 28);
+      const geo = new THREE.SphereGeometry(spec.size, 24, 24);
       const mat = new THREE.ShaderMaterial({
         transparent: true,
         side: THREE.BackSide,
@@ -115,7 +113,7 @@ export function Floating3DBackground() {
           uniform float uOpacity;
           varying vec3 vNormal;
           void main() {
-            float intensity = pow(0.68 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.6);
+            float intensity = pow(0.7 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.5);
             gl_FragColor = vec4(uColor, intensity * uOpacity);
           }
         `,
@@ -126,97 +124,171 @@ export function Floating3DBackground() {
       nebulaeGroup.add(mesh);
     });
 
-    // 3. Floating 3D Geometric Polyhedra Crystals (Drifting in deep space)
-    const shardsGroup = new THREE.Group();
-    spaceGroup.add(shardsGroup);
+    // 3. SECTION 3 SPECIFIC 3D ANIMATIONS: Cybernetic Kinetic Network (y: -65 to -130)
+    const section3Group = new THREE.Group();
+    spaceGroup.add(section3Group);
 
-    const shardGeometries = [
-      new THREE.IcosahedronGeometry(0.75, 0),
-      new THREE.OctahedronGeometry(0.65, 0),
-      new THREE.DodecahedronGeometry(0.6, 0),
-      new THREE.TetrahedronGeometry(0.55, 0),
-      new THREE.TorusGeometry(0.65, 0.015, 8, 32),
+    // Floating 3D Wireframe Cyber Cube Arrays & Gyro Rings
+    const sysGeos = [
+      new THREE.BoxGeometry(1.4, 1.4, 1.4),
+      new THREE.OctahedronGeometry(1.2, 0),
+      new THREE.IcosahedronGeometry(1.1, 0),
+      new THREE.TorusGeometry(1.6, 0.018, 8, 48),
     ];
 
-    const shardMaterials = [
-      new THREE.LineBasicMaterial({
-        color: 0x00e1ff,
-        transparent: true,
-        opacity: 0.28,
-        blending: THREE.AdditiveBlending,
-      }),
-      new THREE.LineBasicMaterial({
-        color: 0x0077ff,
-        transparent: true,
-        opacity: 0.25,
-        blending: THREE.AdditiveBlending,
-      }),
-      new THREE.LineBasicMaterial({
-        color: 0xc0c0c8,
-        transparent: true,
-        opacity: 0.22,
-        blending: THREE.AdditiveBlending,
-      }),
+    const sysMats = [
+      new THREE.LineBasicMaterial({ color: 0x00e1ff, transparent: true, opacity: 0.45, blending: THREE.AdditiveBlending }),
+      new THREE.LineBasicMaterial({ color: 0x00f5b8, transparent: true, opacity: 0.40, blending: THREE.AdditiveBlending }),
+      new THREE.LineBasicMaterial({ color: 0x0077ff, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending }),
     ];
 
-    const shardMeshes: Array<{
+    const dynamic3DMeshes: Array<{
       mesh: THREE.Object3D;
-      rotSpeedX: number;
-      rotSpeedY: number;
-      rotSpeedZ: number;
+      rotX: number;
+      rotY: number;
+      rotZ: number;
       baseY: number;
       driftSpeed: number;
+      driftAmp: number;
     }> = [];
 
-    for (let i = 0; i < 48; i++) {
-      const geo = shardGeometries[i % shardGeometries.length];
-      const mat = shardMaterials[i % shardMaterials.length];
+    // 18 Floating 3D Architectural Nodes around Section 3
+    for (let i = 0; i < 18; i++) {
+      const geo = sysGeos[i % sysGeos.length];
+      const mat = sysMats[i % sysMats.length];
       const wire = new THREE.LineSegments(new THREE.WireframeGeometry(geo), mat);
 
-      const x = (Math.random() - 0.5) * 52;
-      const y = (Math.random() - 0.5) * 380;
-      const z = (Math.random() - 0.5) * 35 - 5;
+      const side = i % 2 === 0 ? 1 : -1;
+      const x = side * (12 + (i % 4) * 3.5);
+      const y = -70 - i * 3.5;
+      const z = -6 - (i % 3) * 4;
 
       wire.position.set(x, y, z);
-      wire.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
-      shardsGroup.add(wire);
+      wire.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
+      section3Group.add(wire);
 
-      shardMeshes.push({
+      dynamic3DMeshes.push({
         mesh: wire,
-        rotSpeedX: (Math.random() - 0.5) * 0.012,
-        rotSpeedY: (Math.random() - 0.5) * 0.015,
-        rotSpeedZ: (Math.random() - 0.5) * 0.008,
+        rotX: (Math.random() - 0.5) * 0.015,
+        rotY: (Math.random() - 0.5) * 0.018,
+        rotZ: (Math.random() - 0.5) * 0.01,
         baseY: y,
-        driftSpeed: 0.4 + Math.random() * 0.8,
+        driftSpeed: 0.6 + Math.random() * 0.6,
+        driftAmp: 0.5 + Math.random() * 0.4,
       });
     }
 
-    // 4. Subtle 3D Energy Rings in deep background
+    // 4. SECTION 4 SPECIFIC 3D ANIMATIONS: Flowing 3D Quantum Pipeline (y: -145 to -205)
+    const section4Group = new THREE.Group();
+    spaceGroup.add(section4Group);
+
+    // 4 Sequential Process Energy Gyroscopes with Orbital Quantum Rings
+    const processSteps = [
+      { y: -150, x: -14, color: 0x00e1ff, label: "01" },
+      { y: -165, x: 14, color: 0x0077ff, label: "02" },
+      { y: -180, x: -14, color: 0xa78bfa, label: "03" },
+      { y: -195, x: 14, color: 0x00f5b8, label: "04" },
+    ];
+
+    processSteps.forEach((step, idx) => {
+      // Nested Dual-Axis Gimbal Rings
+      const ringOuterGeo = new THREE.TorusGeometry(1.8, 0.02, 8, 64);
+      const ringInnerGeo = new THREE.TorusGeometry(1.3, 0.018, 8, 48);
+      const coreGeo = new THREE.IcosahedronGeometry(0.5, 0);
+
+      const outerMat = new THREE.MeshBasicMaterial({ color: step.color, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending });
+      const innerMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.30, blending: THREE.AdditiveBlending });
+      const coreMat = new THREE.LineBasicMaterial({ color: step.color, transparent: true, opacity: 0.60, blending: THREE.AdditiveBlending });
+
+      const outerRing = new THREE.Mesh(ringOuterGeo, outerMat);
+      const innerRing = new THREE.Mesh(ringInnerGeo, innerMat);
+      const core = new THREE.LineSegments(new THREE.WireframeGeometry(coreGeo), coreMat);
+
+      const gyroGroup = new THREE.Group();
+      gyroGroup.position.set(step.x, step.y, -8);
+      gyroGroup.add(outerRing);
+      gyroGroup.add(innerRing);
+      gyroGroup.add(core);
+
+      section4Group.add(gyroGroup);
+
+      dynamic3DMeshes.push({
+        mesh: gyroGroup,
+        rotX: 0.008 + idx * 0.003,
+        rotY: 0.012 - idx * 0.002,
+        rotZ: 0.006,
+        baseY: step.y,
+        driftSpeed: 0.7 + idx * 0.15,
+        driftAmp: 0.4,
+      });
+    });
+
+    // 5. SECTION 5 SPECIFIC 3D ANIMATIONS: Studio & Brand Geometric Constellation (y: -215 to -310)
+    const section5Group = new THREE.Group();
+    spaceGroup.add(section5Group);
+
+    // 24 Floating Polyhedra Shards & Stellar Lattices behind Studio & Technology Stack
+    const studioGeos = [
+      new THREE.DodecahedronGeometry(1.3, 0),
+      new THREE.IcosahedronGeometry(1.2, 0),
+      new THREE.OctahedronGeometry(1.1, 0),
+      new THREE.TetrahedronGeometry(1.0, 0),
+      new THREE.TorusGeometry(1.5, 0.02, 8, 40),
+    ];
+
+    const studioColors = [0x00e1ff, 0xa78bfa, 0xfbbf24, 0x00f5b8, 0x0077ff];
+
+    for (let i = 0; i < 24; i++) {
+      const geo = studioGeos[i % studioGeos.length];
+      const color = studioColors[i % studioColors.length];
+      const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.40, blending: THREE.AdditiveBlending });
+      const wire = new THREE.LineSegments(new THREE.WireframeGeometry(geo), mat);
+
+      const side = (i % 2 === 0 ? 1 : -1);
+      const x = side * (10 + (i % 5) * 3.2);
+      const y = -220 - i * 3.8;
+      const z = -6 - (i % 4) * 3.5;
+
+      wire.position.set(x, y, z);
+      wire.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+      section5Group.add(wire);
+
+      dynamic3DMeshes.push({
+        mesh: wire,
+        rotX: (Math.random() - 0.5) * 0.016,
+        rotY: (Math.random() - 0.5) * 0.02,
+        rotZ: (Math.random() - 0.5) * 0.012,
+        baseY: y,
+        driftSpeed: 0.5 + Math.random() * 0.7,
+        driftAmp: 0.5,
+      });
+    }
+
+    // 6. Cybernetic Orbital Infinity Rings Across All Sections
     const cyberRingsGroup = new THREE.Group();
     spaceGroup.add(cyberRingsGroup);
 
-    for (let i = 0; i < 8; i++) {
-      const ringGeo = new THREE.TorusGeometry(6 + i * 3.5, 0.018, 8, 120);
+    for (let i = 0; i < 12; i++) {
+      const ringGeo = new THREE.TorusGeometry(8 + (i % 3) * 3, 0.018, 8, 100);
       const ringMat = new THREE.MeshBasicMaterial({
-        color: i % 2 === 0 ? 0x00e1ff : 0x0077ff,
+        color: i % 2 === 0 ? 0x00e1ff : 0xa78bfa,
         transparent: true,
-        opacity: 0.09,
+        opacity: 0.12,
         blending: THREE.AdditiveBlending,
         depthWrite: false,
       });
       const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-      ringMesh.position.set((i % 2 === 0 ? -1 : 1) * 8, -i * 45, -30 - i * 5);
-      ringMesh.rotation.set(Math.PI / 3 + i * 0.2, 0.3, i * 0.4);
+      ringMesh.position.set((i % 2 === 0 ? -1 : 1) * 9, -i * 28, -25 - (i % 4) * 3);
+      ringMesh.rotation.set(Math.PI / 3 + i * 0.3, 0.4, i * 0.35);
       cyberRingsGroup.add(ringMesh);
     }
 
-    // 5. Scroll & Pointer Interaction Physics
+    // 7. Scroll Physics & Inertia Engine
     let active = true;
     let frame = 0;
     let targetScrollY = 0;
     let currentScrollY = 0;
     let scrollVelocity = 0;
-    let lastScrollY = 0;
     const pointer = new THREE.Vector2(0, 0);
     const pointerTarget = new THREE.Vector2(0, 0);
     const clock = new THREE.Clock();
@@ -267,17 +339,16 @@ export function Floating3DBackground() {
       spaceGroup.rotation.x = Math.sin(elapsed * 0.015) * 0.025 + scrollUnit * 0.12 - pointer.y;
 
       // Dynamic 3D camera forward-tilt on scrolling velocity
-      camera.position.z = 20 - Math.min(Math.abs(scrollVelocity) * 0.08, 4);
+      camera.position.z = 22 - Math.min(Math.abs(scrollVelocity) * 0.08, 4);
       camera.rotation.z = scrollVelocity * 0.0003;
 
-      // Animate floating polyhedra shards
-      shardMeshes.forEach((item, idx) => {
-        item.mesh.rotation.x += item.rotSpeedX;
-        item.mesh.rotation.y += item.rotSpeedY;
-        item.mesh.rotation.z += item.rotSpeedZ;
+      // Animate all dynamic 3D meshes (Sections 3, 4, 5)
+      dynamic3DMeshes.forEach((item, idx) => {
+        item.mesh.rotation.x += item.rotX;
+        item.mesh.rotation.y += item.rotY;
+        item.mesh.rotation.z += item.rotZ;
 
-        // Subtle floating bobbing + dynamic scroll shift
-        const floatOffset = Math.sin(elapsed * item.driftSpeed + idx) * 0.4;
+        const floatOffset = Math.sin(elapsed * item.driftSpeed + idx) * item.driftAmp;
         item.mesh.position.y = item.baseY + floatOffset;
       });
 

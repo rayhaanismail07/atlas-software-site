@@ -31,7 +31,7 @@ const brandIcons = [
 
 export function BrandSystem() {
   return (
-    <section id="brand" className="atlas-section relative bg-[#070809] border-t border-[rgba(0,225,255,0.08)] overflow-hidden">
+    <section id="brand" className="atlas-section relative bg-transparent border-t border-[rgba(0,225,255,0.08)] overflow-hidden">
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(0,225,255,0.04)_0%,transparent_70%)] pointer-events-none" />
 

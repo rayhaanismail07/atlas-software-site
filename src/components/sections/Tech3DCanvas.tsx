@@ -63,9 +63,9 @@ export function Tech3DCanvas() {
     // Central wireframe geodesic core
     const coreGeo = new THREE.IcosahedronGeometry(1.2, 2);
     const coreMat = new THREE.LineBasicMaterial({
-      color: 0x5eeaff,
+      color: 0x00e1ff,
       transparent: true,
-      opacity: 0.18,
+      opacity: 0.25,
       blending: THREE.AdditiveBlending,
     });
     const coreMesh = new THREE.LineSegments(new THREE.WireframeGeometry(coreGeo), coreMat);

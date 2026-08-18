@@ -9,6 +9,7 @@ import {
   Network,
   ShieldCheck,
   Sparkles,
+  TrendingUp,
   Workflow,
 } from "lucide-react";
 
@@ -17,7 +18,7 @@ export const siteConfig = {
   shortName: "Atlas",
   tagline: "Your vision, engineered.",
   description:
-    "Atlas Software designs and builds high-performance digital products, intelligent automation, data platforms, and cloud systems for modern businesses.",
+    "Atlas Software designs and builds high-performance digital products, intelligent automation, data platforms, growth marketing, and cloud systems for modern businesses.",
   location: "Johannesburg, South Africa",
   instagram: "https://www.instagram.com/atlas__software/",
   contactEmail: "info@atlassoftware.co.za",
@@ -26,6 +27,7 @@ export const siteConfig = {
 
 export const navigationItems = [
   { label: "Capabilities", href: "#services" },
+  { label: "Marketing", href: "#marketing" },
   { label: "Systems", href: "#systems" },
   { label: "Process", href: "#process" },
   { label: "Studio", href: "#studio" },
@@ -35,6 +37,7 @@ export const capabilities = [
   "Digital products",
   "Business automation",
   "Data intelligence",
+  "Digital marketing",
   "Cloud architecture",
   "AI-enabled systems",
   "Platform engineering",
@@ -53,6 +56,16 @@ export const services = [
   },
   {
     number: "02",
+    title: "Digital marketing & growth",
+    description:
+      "Precision search engine optimization (SEO), paid performance acquisition, CRO, and analytics telemetry to scale client reach and revenue.",
+    icon: TrendingUp,
+    tags: ["Technical SEO", "Paid Search & Social", "CRO", "Attribution"],
+    accent: "cyan",
+    size: "large",
+  },
+  {
+    number: "03",
     title: "Automation systems",
     description:
       "Connected workflows that remove repetitive admin, reduce errors, and keep work moving across teams and tools.",
@@ -62,7 +75,7 @@ export const services = [
     size: "large",
   },
   {
-    number: "03",
+    number: "04",
     title: "Data intelligence",
     description:
       "Reliable data pipelines, executive reporting, and decision-ready dashboards that turn information into action.",
@@ -72,7 +85,7 @@ export const services = [
     size: "small",
   },
   {
-    number: "04",
+    number: "05",
     title: "Cloud & platform",
     description:
       "Secure, maintainable infrastructure built for performance, deployment confidence, and long-term growth.",
@@ -82,7 +95,7 @@ export const services = [
     size: "small",
   },
   {
-    number: "05",
+    number: "06",
     title: "Intelligent software",
     description:
       "Practical AI features and intelligent tools embedded into real workflows—not novelty demos disconnected from the business.",

@@ -63,12 +63,12 @@ export function System3DCanvas() {
     pillarPositions.forEach(([x, y, z]) => {
       const geo = new THREE.BoxGeometry(0.35, y + 1.2, 0.35);
       const mat = new THREE.MeshPhysicalMaterial({
-        color: 0x082b36,
-        emissive: 0x0a4a5c,
-        emissiveIntensity: 0.4,
-        roughness: 0.3,
-        metalness: 0.8,
-        clearcoat: 0.5,
+        color: 0x070809,
+        emissive: 0x003d52,
+        emissiveIntensity: 0.6,
+        roughness: 0.2,
+        metalness: 0.9,
+        clearcoat: 0.8,
       });
       const mesh = new THREE.Mesh(geo, mat);
       mesh.position.set(x, (y - 0.8) / 2, z);
@@ -78,9 +78,9 @@ export function System3DCanvas() {
       // Glowing top cap
       const capGeo = new THREE.BoxGeometry(0.37, 0.04, 0.37);
       const capMat = new THREE.MeshBasicMaterial({
-        color: 0x5eeaff,
+        color: 0x00e1ff,
         transparent: true,
-        opacity: 0.8,
+        opacity: 0.95,
       });
       const capMesh = new THREE.Mesh(capGeo, capMat);
       capMesh.position.set(x, y + 0.42, z);
@@ -94,7 +94,7 @@ export function System3DCanvas() {
 
     const packetGeo = new THREE.SphereGeometry(0.04, 12, 12);
     const packetMat = new THREE.MeshBasicMaterial({
-      color: 0x78edff,
+      color: 0x00e1ff,
       blending: THREE.AdditiveBlending,
     });
 

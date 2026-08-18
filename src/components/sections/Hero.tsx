@@ -38,29 +38,28 @@ export function Hero() {
           </div>
 
           <h1>
-            We engineer software that
-            <span> moves business forward.</span>
+            Your Vision,
+            <span> Engineered.</span>
           </h1>
 
           <p className="hero__lead">
-            Atlas designs and builds digital products, intelligent automation,
-            data platforms, and cloud systems for businesses ready to operate at
-            a higher level.
+            Atlas Software designs and builds scalable digital products, intelligent automation,
+            data platforms, and cloud systems that empower businesses to lead.
           </p>
 
           <div className="hero__actions">
             <Button href="#contact">
               Start a project <ArrowUpRight aria-hidden="true" />
             </Button>
-            <Button href="#systems" variant="secondary">
-              Explore our work <ArrowDownRight aria-hidden="true" />
+            <Button href="#brand" variant="secondary">
+              Brand System <ArrowDownRight aria-hidden="true" />
             </Button>
           </div>
 
           <div className="hero__proof" aria-label="Atlas Software approach">
-            <span><Check aria-hidden="true" /> Strategy-led</span>
-            <span><Check aria-hidden="true" /> Production-ready</span>
-            <span><Check aria-hidden="true" /> Built to evolve</span>
+            <span><Check aria-hidden="true" /> Engineered to scale</span>
+            <span><Check aria-hidden="true" /> Global architecture</span>
+            <span><Check aria-hidden="true" /> Future-driven</span>
           </div>
         </motion.div>
 
@@ -72,24 +71,24 @@ export function Hero() {
         >
           <div className="hero-visual__frame">
             <div className="hero-visual__header">
-              <span>ATLAS / DIGITAL SYSTEM</span>
-              <span>LIVE</span>
+              <span>ATLAS / CYBER GLOBE</span>
+              <span>LIVE SYSTEM</span>
             </div>
 
             <HeroScene />
 
             <div className="hero-visual__brand" aria-hidden="true">
-              <span>A</span>
-              <small>ATLAS CORE</small>
+              <span>▲</span>
+              <small>ATLAS ENGINE</small>
             </div>
 
             <div className="hero-visual__metric hero-visual__metric--one">
-              <small>Architecture</small>
+              <small>Global Nodes</small>
               <strong>Connected</strong>
             </div>
             <div className="hero-visual__metric hero-visual__metric--two">
-              <small>System state</small>
-              <strong>Operational</strong>
+              <small>System Status</small>
+              <strong>100% Operational</strong>
             </div>
 
             <div className="hero-visual__footer">

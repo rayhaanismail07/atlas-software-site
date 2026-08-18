@@ -32,15 +32,24 @@ export function Footer() {
           <div className="site-footer__brand-col">
             <Link href="#home" className="footer-brand" aria-label="Atlas Software home">
               <span className="footer-brand__mark">
-                <Image src="/images/atlas-logo.png" alt="" width={64} height={64} />
+                <Image src="/images/atlas-logo.png" alt="Atlas Software Logo" width={64} height={64} />
               </span>
-              <span>
-                <strong>ATLAS</strong>
-                <small>SOFTWARE</small>
+              <span className="brand__copy">
+                <strong className="brand__title">
+                  <span className="brand__char">A<span className="brand__triangle" aria-hidden="true" /></span>
+                  TL
+                  <span className="brand__char">A<span className="brand__triangle" aria-hidden="true" /></span>
+                  S
+                </strong>
+                <small className="brand__subtitle">
+                  <span className="brand__line" aria-hidden="true" />
+                  SOFTWARE
+                  <span className="brand__line" aria-hidden="true" />
+                </small>
               </span>
             </Link>
             <p className="site-footer__tagline">
-              Independent software engineering for ambitious businesses.
+              YOUR VISION, ENGINEERED. Built for ambitious global businesses.
             </p>
             <div className="site-footer__social">
               <a

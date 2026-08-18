@@ -51,11 +51,11 @@ export function Cta3DCanvas() {
     // 1. Central Metallic Quantum Crystal Core
     const coreGeo = new THREE.OctahedronGeometry(0.75, 2);
     const coreMat = new THREE.MeshPhysicalMaterial({
-      color: 0x093c4a,
-      emissive: 0x14b8a6,
-      emissiveIntensity: 0.75,
+      color: 0x070809,
+      emissive: 0x00e1ff,
+      emissiveIntensity: 0.85,
       roughness: 0.12,
-      metalness: 0.9,
+      metalness: 0.95,
       clearcoat: 1.0,
       flatShading: true,
     });
@@ -64,18 +64,18 @@ export function Cta3DCanvas() {
 
     // 2. Dual Counter-rotating Metallic Rings
     const ringMat1 = new THREE.MeshStandardMaterial({
-      color: 0x61e7fb,
+      color: 0x00e1ff,
       metalness: 0.8,
       roughness: 0.2,
-      emissive: 0x1d4ed8,
-      emissiveIntensity: 0.4,
+      emissive: 0x0077ff,
+      emissiveIntensity: 0.5,
     });
 
     const ringMat2 = new THREE.MeshStandardMaterial({
-      color: 0x9d8cff,
+      color: 0xc0c0c8,
       metalness: 0.85,
       roughness: 0.15,
-      emissive: 0x6d28d9,
+      emissive: 0x00e1ff,
       emissiveIntensity: 0.4,
     });
 
@@ -92,9 +92,9 @@ export function Cta3DCanvas() {
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
     const colorChoices = [
-      new THREE.Color(0x61e7fb),
-      new THREE.Color(0x7bf1cd),
-      new THREE.Color(0x9d8cff),
+      new THREE.Color(0x00e1ff),
+      new THREE.Color(0x0077ff),
+      new THREE.Color(0xc0c0c8),
       new THREE.Color(0xffffff),
     ];
 

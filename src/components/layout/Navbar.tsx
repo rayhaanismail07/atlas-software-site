@@ -45,15 +45,24 @@ export function Navbar() {
               <span className="brand__mark">
                 <Image
                   src="/images/atlas-logo.png"
-                  alt=""
+                  alt="Atlas Software Logo"
                   width={54}
                   height={54}
                   priority
                 />
               </span>
               <span className="brand__copy">
-                <strong>ATLAS</strong>
-                <small>SOFTWARE</small>
+                <strong className="brand__title">
+                  <span className="brand__char">A<span className="brand__triangle" aria-hidden="true" /></span>
+                  TL
+                  <span className="brand__char">A<span className="brand__triangle" aria-hidden="true" /></span>
+                  S
+                </strong>
+                <small className="brand__subtitle">
+                  <span className="brand__line" aria-hidden="true" />
+                  SOFTWARE
+                  <span className="brand__line" aria-hidden="true" />
+                </small>
               </span>
             </Link>
 

@@ -3,58 +3,64 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
-type Pulse = {
-  curve: THREE.QuadraticBezierCurve3;
+type OrbitalNode = {
   mesh: THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial>;
-  offset: number;
+  orbitRadius: number;
   speed: number;
+  angle: number;
+  orbitGroup: THREE.Group;
 };
 
-function seededRandom(seed = 1847) {
-  let value = seed >>> 0;
-  return () => {
-    value = (value * 1664525 + 1013904223) >>> 0;
-    return value / 4294967296;
+// Generates points on Earth's continental landmasses
+function generateContinentPoints(radius: number, totalPoints = 1600): Float32Array {
+  const positions: number[] = [];
+
+  const isInLand = (lat: number, lon: number) => {
+    // North America
+    if (lat >= 15 && lat <= 72 && lon >= -168 && lon <= -52) return true;
+    // South America
+    if (lat >= -56 && lat <= 13 && lon >= -82 && lon <= -34) return true;
+    // Europe
+    if (lat >= 36 && lat <= 71 && lon >= -10 && lon <= 45) return true;
+    // Africa
+    if (lat >= -35 && lat <= 37 && lon >= -18 && lon <= 51) return true;
+    // Asia
+    if (lat >= 8 && lat <= 75 && lon >= 45 && lon <= 180) return true;
+    // Australia
+    if (lat >= -44 && lat <= -10 && lon >= 112 && lon <= 154) return true;
+    return false;
   };
+
+  for (let i = 0; i < totalPoints * 4; i++) {
+    const lat = (Math.random() - 0.5) * 180;
+    const lon = (Math.random() - 0.5) * 360;
+
+    if (isInLand(lat, lon)) {
+      const phi = THREE.MathUtils.degToRad(90 - lat);
+      const theta = THREE.MathUtils.degToRad(lon + 180);
+      const r = radius + (Math.random() - 0.5) * 0.03;
+
+      positions.push(
+        -(r * Math.sin(phi) * Math.cos(theta)),
+        r * Math.cos(phi),
+        r * Math.sin(phi) * Math.sin(theta),
+      );
+    }
+  }
+
+  return new Float32Array(positions);
 }
 
-function spherePoint(radius: number, latitude: number, longitude: number) {
-  const phi = THREE.MathUtils.degToRad(90 - latitude);
-  const theta = THREE.MathUtils.degToRad(longitude + 180);
-  return new THREE.Vector3(
-    -(radius * Math.sin(phi) * Math.cos(theta)),
-    radius * Math.cos(phi),
-    radius * Math.sin(phi) * Math.sin(theta),
-  );
-}
-
-function lineFromPoints(points: THREE.Vector3[], opacity = 0.35) {
-  const geometry = new THREE.BufferGeometry().setFromPoints(points);
-  const material = new THREE.LineBasicMaterial({
-    color: 0x5eeaff,
-    transparent: true,
-    opacity,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false,
-  });
-  return new THREE.Line(geometry, material);
-}
-
-function createOrbit(radius: number, scaleY: number, rotation: THREE.Euler, opacity: number) {
-  const group = new THREE.Group();
-  const geometry = new THREE.TorusGeometry(radius, 0.009, 8, 240);
+function createGlowingRing(radius: number, thickness: number, colorHex: number, opacity: number) {
+  const geometry = new THREE.TorusGeometry(radius, thickness, 16, 200);
   const material = new THREE.MeshBasicMaterial({
-    color: 0x79edff,
+    color: colorHex,
     transparent: true,
     opacity,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
   });
-  const ring = new THREE.Mesh(geometry, material);
-  ring.scale.y = scaleY;
-  group.add(ring);
-  group.rotation.copy(rotation);
-  return group;
+  return new THREE.Mesh(geometry, material);
 }
 
 function disposeObject(root: THREE.Object3D) {
@@ -94,101 +100,37 @@ export function HeroScene() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.65));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-    camera.position.set(0, 0.05, 8.2);
+    const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
+    camera.position.set(0, 0.2, 8.2);
 
     const root = new THREE.Group();
-    root.rotation.set(-0.12, -0.2, 0.05);
     scene.add(root);
 
-    const core = new THREE.Group();
-    root.add(core);
-
-    // Inner glowing glass core
-    const inner = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(1.55, 5),
+    // 1. Inner Dark Globe Core
+    const globeRadius = 1.65;
+    const coreMesh = new THREE.Mesh(
+      new THREE.SphereGeometry(globeRadius, 64, 64),
       new THREE.MeshPhysicalMaterial({
-        color: 0x051a24,
-        emissive: 0x084252,
-        emissiveIntensity: 0.65,
-        metalness: 0.8,
-        roughness: 0.2,
-        clearcoat: 0.9,
-        clearcoatRoughness: 0.15,
-        transparent: true,
-        opacity: 0.95,
-      }),
-    );
-    core.add(inner);
-
-    // Outer crystalline wireframe
-    const wireGeometry = new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(1.62, 3));
-    const wire = new THREE.LineSegments(
-      wireGeometry,
-      new THREE.LineBasicMaterial({
-        color: 0x52f4ed,
-        transparent: true,
-        opacity: 0.28,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-      }),
-    );
-    core.add(wire);
-
-    // Orbiting Dodecahedron Satellite Geometry
-    const polyGroup = new THREE.Group();
-    const dodecaWire = new THREE.LineSegments(
-      new THREE.WireframeGeometry(new THREE.DodecahedronGeometry(2.1, 0)),
-      new THREE.LineBasicMaterial({
-        color: 0x9b51e0,
-        transparent: true,
-        opacity: 0.22,
-        blending: THREE.AdditiveBlending,
-      }),
-    );
-    polyGroup.add(dodecaWire);
-    root.add(polyGroup);
-
-    // Orbiting Octahedron Geometry Shard
-    const octaMesh = new THREE.Mesh(
-      new THREE.OctahedronGeometry(0.35, 0),
-      new THREE.MeshPhysicalMaterial({
-        color: 0x00f2fe,
-        emissive: 0x00c6ff,
-        emissiveIntensity: 0.8,
+        color: 0x05070a,
         roughness: 0.1,
-        metalness: 0.9,
-        wireframe: true,
+        metalness: 0.95,
+        clearcoat: 1.0,
+        transparent: true,
+        opacity: 0.94,
       }),
     );
-    octaMesh.position.set(2.4, 1.2, -0.8);
-    root.add(octaMesh);
+    root.add(coreMesh);
 
-    const octaMesh2 = new THREE.Mesh(
-      new THREE.OctahedronGeometry(0.28, 0),
-      new THREE.MeshPhysicalMaterial({
-        color: 0x7928ca,
-        emissive: 0xff0080,
-        emissiveIntensity: 0.6,
-        roughness: 0.1,
-        metalness: 0.9,
-        wireframe: true,
-      }),
-    );
-    octaMesh2.position.set(-2.2, -1.4, 0.6);
-    root.add(octaMesh2);
-
-    // Atmospheric halo glow
-    const halo = new THREE.Mesh(
-      new THREE.SphereGeometry(1.82, 64, 64),
+    // 2. Cyan Fresnel Atmospheric Halo Glow
+    const atmosphereHalo = new THREE.Mesh(
+      new THREE.SphereGeometry(globeRadius * 1.05, 64, 64),
       new THREE.ShaderMaterial({
         transparent: true,
         side: THREE.BackSide,
-        depthWrite: false,
         blending: THREE.AdditiveBlending,
+        depthWrite: false,
         vertexShader: `
           varying vec3 vNormal;
           varying vec3 vViewPosition;
@@ -204,148 +146,111 @@ export function HeroScene() {
           varying vec3 vViewPosition;
           void main() {
             float fresnel = pow(1.0 - max(dot(normalize(vNormal), normalize(vViewPosition)), 0.0), 2.2);
-            gl_FragColor = vec4(0.2, 0.9, 1.0, fresnel * 0.42);
+            gl_FragColor = vec4(0.0, 0.88, 1.0, fresnel * 0.75);
           }
         `,
       }),
     );
-    core.add(halo);
+    root.add(atmosphereHalo);
 
-    // Surface Point Cloud Constellation
-    const random = seededRandom();
-    const pointCount = 750;
-    const pointPositions = new Float32Array(pointCount * 3);
-    for (let index = 0; index < pointCount; index += 1) {
-      const u = random();
-      const v = random();
-      const theta = 2 * Math.PI * u;
-      const phi = Math.acos(2 * v - 1);
-      const radius = 1.66 + random() * 0.06;
-      pointPositions[index * 3] = radius * Math.sin(phi) * Math.cos(theta);
-      pointPositions[index * 3 + 1] = radius * Math.cos(phi);
-      pointPositions[index * 3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
-    }
-    const pointsGeometry = new THREE.BufferGeometry();
-    pointsGeometry.setAttribute("position", new THREE.BufferAttribute(pointPositions, 3));
-    const points = new THREE.Points(
-      pointsGeometry,
-      new THREE.PointsMaterial({
-        color: 0x92f5ff,
-        size: 0.02,
-        transparent: true,
-        opacity: 0.7,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-        sizeAttenuation: true,
-      }),
-    );
-    core.add(points);
+    // 3. Continental Landmass Dot Matrix Cloud
+    const globeGroup = new THREE.Group();
+    root.add(globeGroup);
 
-    // Global Node Beacons
-    const locations: Array<[number, number]> = [
-      [-26, 28],
-      [51, -1],
-      [25, 55],
-      [1, 103],
-      [40, -74],
-      [-33, 151],
-      [60, -120],
-      [-45, -60],
-    ];
-    const nodeGeometry = new THREE.SphereGeometry(0.04, 16, 16);
-    const nodeMaterial = new THREE.MeshBasicMaterial({
-      color: 0xeffdff,
+    const landPositions = generateContinentPoints(globeRadius * 1.01, 1600);
+    const landGeometry = new THREE.BufferGeometry();
+    landGeometry.setAttribute("position", new THREE.BufferAttribute(landPositions, 3));
+    const landMaterial = new THREE.PointsMaterial({
+      color: 0x00e1ff,
+      size: 0.032,
+      transparent: true,
+      opacity: 0.9,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      sizeAttenuation: true,
+    });
+    const landDots = new THREE.Points(landGeometry, landMaterial);
+    globeGroup.add(landDots);
+
+    // Latitude / Longitude Subtle Line Grid
+    const wireGeo = new THREE.WireframeGeometry(new THREE.SphereGeometry(globeRadius * 1.005, 24, 16));
+    const wireMat = new THREE.LineBasicMaterial({
+      color: 0x0077ff,
+      transparent: true,
+      opacity: 0.22,
       blending: THREE.AdditiveBlending,
     });
-    locations.forEach(([latitude, longitude]) => {
-      const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
-      node.position.copy(spherePoint(1.69, latitude, longitude));
-      core.add(node);
+    const wireGrid = new THREE.LineSegments(wireGeo, wireMat);
+    globeGroup.add(wireGrid);
+
+    // 4. Three Interlocking Glowing Orbital Rings (Exact Logo Matching)
+    const ring1Group = new THREE.Group();
+    ring1Group.rotation.set(0.85, 0.35, 0.4);
+    const ring1 = createGlowingRing(2.25, 0.012, 0x00e1ff, 0.85);
+    ring1Group.add(ring1);
+
+    const ring2Group = new THREE.Group();
+    ring2Group.rotation.set(-0.75, 0.7, -0.3);
+    const ring2 = createGlowingRing(2.4, 0.012, 0x0077ff, 0.75);
+    ring2Group.add(ring2);
+
+    const ring3Group = new THREE.Group();
+    ring3Group.rotation.set(1.25, -0.45, 0.15);
+    const ring3 = createGlowingRing(2.55, 0.01, 0x00e1ff, 0.65);
+    ring3Group.add(ring3);
+
+    root.add(ring1Group, ring2Group, ring3Group);
+
+    // 5. Glowing Cyan Orbital Nodes (Spheres anchoring on the rings)
+    const orbitalNodes: OrbitalNode[] = [];
+    const nodeMat = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      blending: THREE.AdditiveBlending,
+    });
+    const nodeGlowMat = new THREE.MeshBasicMaterial({
+      color: 0x00e1ff,
+      transparent: true,
+      opacity: 0.6,
+      blending: THREE.AdditiveBlending,
     });
 
-    // Interactive Data Pulses along Geodesic Arcs
-    const paths: Array<[[number, number], [number, number]]> = [
-      [[-26, 28], [51, -1]],
-      [[-26, 28], [25, 55]],
-      [[25, 55], [1, 103]],
-      [[51, -1], [40, -74]],
-      [[-26, 28], [-33, 151]],
-      [[60, -120], [40, -74]],
-      [[-45, -60], [-26, 28]],
-    ];
-    const pulses: Pulse[] = [];
-    paths.forEach((path, index) => {
-      const start = spherePoint(1.7, path[0][0], path[0][1]);
-      const end = spherePoint(1.7, path[1][0], path[1][1]);
-      const midpoint = start
-        .clone()
-        .add(end)
-        .multiplyScalar(0.5)
-        .normalize()
-        .multiplyScalar(2.25);
-      const curve = new THREE.QuadraticBezierCurve3(start, midpoint, end);
-      core.add(lineFromPoints(curve.getPoints(80), 0.32));
+    const addNodesToOrbit = (group: THREE.Group, radius: number, count: number, baseSpeed: number) => {
+      for (let i = 0; i < count; i++) {
+        const nodeGroup = new THREE.Group();
+        const coreNode = new THREE.Mesh(new THREE.SphereGeometry(0.05, 16, 16), nodeMat);
+        const glowNode = new THREE.Mesh(new THREE.SphereGeometry(0.09, 16, 16), nodeGlowMat);
+        nodeGroup.add(coreNode, glowNode);
+        group.add(nodeGroup);
 
-      const pulse = new THREE.Mesh(
-        new THREE.SphereGeometry(0.038, 12, 12),
-        new THREE.MeshBasicMaterial({
-          color: index % 2 === 0 ? 0xffffff : 0x5eeaff,
-          blending: THREE.AdditiveBlending,
-        }),
-      );
-      core.add(pulse);
-      pulses.push({ curve, mesh: pulse, offset: index / paths.length, speed: 0.06 + index * 0.007 });
-    });
+        orbitalNodes.push({
+          mesh: coreNode,
+          orbitRadius: radius,
+          speed: baseSpeed + (i * 0.002),
+          angle: (i * (Math.PI * 2)) / count,
+          orbitGroup: nodeGroup,
+        });
+      }
+    };
 
-    // Orbital Rings
-    const orbitOne = createOrbit(2.18, 0.47, new THREE.Euler(1.05, 0.08, 0.35), 0.38);
-    const orbitTwo = createOrbit(2.45, 0.62, new THREE.Euler(0.32, 0.86, -0.48), 0.25);
-    const orbitThree = createOrbit(2.72, 0.38, new THREE.Euler(1.34, -0.3, 0.18), 0.15);
-    root.add(orbitOne, orbitTwo, orbitThree);
+    addNodesToOrbit(ring1Group, 2.25, 2, 0.012);
+    addNodesToOrbit(ring2Group, 2.4, 2, -0.01);
+    addNodesToOrbit(ring3Group, 2.55, 1, 0.008);
 
-    // Orbit Satellites
-    const satelliteGeometry = new THREE.SphereGeometry(0.05, 16, 16);
-    const satelliteMaterial = new THREE.MeshBasicMaterial({ color: 0x9ff4ff });
-    [orbitOne, orbitTwo, orbitThree].forEach((orbit, index) => {
-      const satellite = new THREE.Mesh(satelliteGeometry, satelliteMaterial);
-      satellite.position.set(index === 0 ? 2.18 : index === 1 ? -2.45 : 2.72, 0, 0);
-      orbit.add(satellite);
-    });
+    // 6. Perspective Cyber Grid Ground Plane (Matching Logo Bottom)
+    const gridHelper = new THREE.GridHelper(12, 30, 0x00e1ff, 0x004466);
+    gridHelper.position.set(0, -2.4, 0);
+    const gridMat = gridHelper.material as THREE.Material;
+    gridMat.transparent = true;
+    gridMat.opacity = 0.25;
+    root.add(gridHelper);
 
-    // Deep background interactive particle dust
-    const starsCount = 380;
-    const starsPositions = new Float32Array(starsCount * 3);
-    for (let index = 0; index < starsCount; index += 1) {
-      starsPositions[index * 3] = (random() - 0.5) * 11;
-      starsPositions[index * 3 + 1] = (random() - 0.5) * 8;
-      starsPositions[index * 3 + 2] = (random() - 0.5) * 5 - 1;
-    }
-    const starsGeometry = new THREE.BufferGeometry();
-    starsGeometry.setAttribute("position", new THREE.BufferAttribute(starsPositions, 3));
-    const stars = new THREE.Points(
-      starsGeometry,
-      new THREE.PointsMaterial({
-        color: 0x82e6ff,
-        size: 0.016,
-        transparent: true,
-        opacity: 0.35,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-      }),
-    );
-    scene.add(stars);
-
-    // Volumetric Lights
-    const keyLight = new THREE.DirectionalLight(0xbaf8ff, 3.0);
-    keyLight.position.set(3.5, 4, 5);
+    // 7. Lighting
+    const keyLight = new THREE.DirectionalLight(0x00e1ff, 2.5);
+    keyLight.position.set(4, 5, 6);
     scene.add(keyLight);
-    const rimLight = new THREE.PointLight(0x21c5df, 32, 16);
-    rimLight.position.set(-3.5, -1.8, 3.5);
-    scene.add(rimLight);
-    const accentLight = new THREE.PointLight(0x9d4edd, 24, 12);
-    accentLight.position.set(3.0, -2.0, -2.0);
-    scene.add(accentLight);
-    const fillLight = new THREE.AmbientLight(0x5fb8c9, 1.1);
+
+    const fillLight = new THREE.PointLight(0x0077ff, 15, 12);
+    fillLight.position.set(-4, -2, 4);
     scene.add(fillLight);
 
     let active = true;
@@ -368,14 +273,14 @@ export function HeroScene() {
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       const compact = width < 560;
-      camera.position.z = compact ? 9.4 : 8.2;
-      root.scale.setScalar(compact ? 0.9 : 1);
+      camera.position.z = compact ? 9.2 : 8.2;
+      root.scale.setScalar(compact ? 0.88 : 1);
     };
 
     const onPointerMove = (event: PointerEvent) => {
       const rect = shell.getBoundingClientRect();
-      pointerTarget.x = ((event.clientX - rect.left) / rect.width - 0.5) * 0.55;
-      pointerTarget.y = ((event.clientY - rect.top) / rect.height - 0.5) * 0.35;
+      pointerTarget.x = ((event.clientX - rect.left) / rect.width - 0.5) * 0.5;
+      pointerTarget.y = ((event.clientY - rect.top) / rect.height - 0.5) * 0.3;
 
       if (isDragging) {
         const deltaX = event.clientX - previousMousePosition.x;
@@ -429,32 +334,30 @@ export function HeroScene() {
       pointer.lerp(pointerTarget, 0.05);
 
       if (!reduceMotion) {
-        core.rotation.y += dragVelocity.x + 0.007;
-        core.rotation.x += dragVelocity.y + Math.sin(elapsed * 0.35) * 0.0008;
-        dragVelocity.x *= 0.93;
-        dragVelocity.y *= 0.93;
+        // Globe Continental Rotation
+        globeGroup.rotation.y += dragVelocity.x + 0.004;
+        globeGroup.rotation.x += dragVelocity.y + Math.sin(elapsed * 0.3) * 0.0005;
+        dragVelocity.x *= 0.92;
+        dragVelocity.y *= 0.92;
 
-        polyGroup.rotation.x = elapsed * 0.05;
-        polyGroup.rotation.y = elapsed * 0.03;
+        // Orbital Ring Rotation
+        ring1Group.rotation.z = elapsed * 0.08;
+        ring2Group.rotation.z = -elapsed * 0.06;
+        ring3Group.rotation.z = elapsed * 0.04;
 
-        octaMesh.rotation.x = elapsed * 0.8;
-        octaMesh.rotation.y = elapsed * 0.5;
-        octaMesh2.rotation.x = -elapsed * 0.6;
-        octaMesh2.rotation.z = elapsed * 0.4;
-
-        orbitOne.rotation.z += 0.0018;
-        orbitTwo.rotation.z -= 0.0014;
-        orbitThree.rotation.z += 0.0009;
-        stars.rotation.z = elapsed * 0.005;
-
-        pulses.forEach((pulse) => {
-          const progress = (elapsed * pulse.speed + pulse.offset) % 1;
-          pulse.mesh.position.copy(pulse.curve.getPoint(progress));
+        // Orbital Nodes Positioning along Torus Curve
+        orbitalNodes.forEach((node) => {
+          node.angle += node.speed;
+          node.orbitGroup.position.set(
+            Math.cos(node.angle) * node.orbitRadius,
+            Math.sin(node.angle) * node.orbitRadius,
+            0,
+          );
         });
       }
 
-      root.rotation.y = -0.2 + pointer.x;
-      root.rotation.x = -0.12 - pointer.y;
+      root.rotation.y = -0.15 + pointer.x;
+      root.rotation.x = -0.05 - pointer.y;
       renderer.render(scene, camera);
     };
 

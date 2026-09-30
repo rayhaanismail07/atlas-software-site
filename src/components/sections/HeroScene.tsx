@@ -14,7 +14,7 @@ function createParticleTexture(): THREE.CanvasTexture {
     const gradient = ctx.createRadialGradient(center, center, 0, center, center, 30);
     gradient.addColorStop(0, "rgba(255, 255, 255, 1.0)");
     gradient.addColorStop(0.25, "rgba(0, 240, 255, 0.95)");
-    gradient.addColorStop(0.6, "rgba(37, 99, 235, 0.45)");
+    gradient.addColorStop(0.6, "rgba(37, 99, 235, 0.4)");
     gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 64, 64);
@@ -22,23 +22,6 @@ function createParticleTexture(): THREE.CanvasTexture {
   const texture = new THREE.CanvasTexture(canvas);
   texture.needsUpdate = true;
   return texture;
-}
-
-function disposeObject(root: THREE.Object3D) {
-  root.traverse((object) => {
-    const mesh = object as THREE.Mesh;
-    if (mesh.geometry) mesh.geometry.dispose();
-    const material = mesh.material;
-    if (Array.isArray(material)) {
-      material.forEach((item) => {
-        if ("map" in item && item.map) (item.map as THREE.Texture).dispose();
-        item.dispose();
-      });
-    } else if (material) {
-      if ("map" in material && material.map) (material.map as THREE.Texture).dispose();
-      material.dispose();
-    }
-  });
 }
 
 export function HeroScene() {
@@ -68,96 +51,97 @@ export function HeroScene() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
+    renderer.toneMappingExposure = 1.3;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 1000);
-    camera.position.set(0, 3.2, 11);
-    camera.lookAt(0, 0.2, 0);
+    const camera = new THREE.PerspectiveCamera(46, 1, 0.1, 1000);
+    camera.position.set(0, 0.3, 9.8);
+    camera.lookAt(0, 0, 0);
 
     const root = new THREE.Group();
     scene.add(root);
 
     const particleTexture = createParticleTexture();
 
-    // 1. Interactive 3D Cyber Wave Particle Grid (MotionSites Signature)
-    const cols = 75;
-    const rows = 45;
-    const width = 32;
-    const depth = 18;
-    const numPoints = cols * rows;
+    // =========================================================================
+    // 1. Quantum Kinetic Core (Precision Faceted Geodesic Nucleus)
+    // Positioned deeper in z-space to frame the typography with celestial depth
+    // =========================================================================
+    const coreGroup = new THREE.Group();
+    coreGroup.position.set(0, 0.4, -3.8);
+    root.add(coreGroup);
 
-    const positions = new Float32Array(numPoints * 3);
-    const baseCoords = new Float32Array(numPoints * 2); // [x, z]
-    const colors = new Float32Array(numPoints * 3);
-
-    let idx = 0;
-    let bIdx = 0;
-    for (let r = 0; r < rows; r++) {
-      const z = (r / (rows - 1) - 0.5) * depth;
-      for (let c = 0; c < cols; c++) {
-        const x = (c / (cols - 1) - 0.5) * width;
-
-        positions[idx] = x;
-        positions[idx + 1] = 0;
-        positions[idx + 2] = z;
-
-        baseCoords[bIdx] = x;
-        baseCoords[bIdx + 1] = z;
-
-        // Default electric cyan to deep royal blue gradient
-        colors[idx] = 0.0;
-        colors[idx + 1] = 0.94;
-        colors[idx + 2] = 1.0;
-
-        idx += 3;
-        bIdx += 2;
-      }
-    }
-
-    const waveGeo = new THREE.BufferGeometry();
-    waveGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    waveGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-
-    const waveMat = new THREE.PointsMaterial({
-      size: 0.135,
-      map: particleTexture,
-      vertexColors: true,
+    // Inner Radiant Nucleus (Pulsing glowing orb)
+    const nucleusGeo = new THREE.SphereGeometry(0.85, 32, 32);
+    const nucleusMat = new THREE.MeshBasicMaterial({
+      color: 0x00f0ff,
       transparent: true,
-      opacity: 0.92,
+      opacity: 0.45,
       blending: THREE.AdditiveBlending,
-      depthWrite: false,
-      sizeAttenuation: true,
     });
+    const nucleus = new THREE.Mesh(nucleusGeo, nucleusMat);
+    coreGroup.add(nucleus);
 
-    const waveMesh = new THREE.Points(waveGeo, waveMat);
-    waveMesh.position.set(0, -1.8, 0);
-    waveMesh.rotation.x = 0.12;
-    root.add(waveMesh);
+    // Nucleus Core Light (Volumetric cast outward)
+    const coreLight = new THREE.PointLight(0x00f0ff, 4.0, 16);
+    coreGroup.add(coreLight);
 
-    // 2. Wireframe Lattice Layer underneath the points for architectural depth
-    const wireGeo = new THREE.PlaneGeometry(width, depth, cols - 1, rows - 1);
-    wireGeo.rotateX(-Math.PI / 2);
-    const wireMat = new THREE.MeshBasicMaterial({
+    const violetRimLight = new THREE.PointLight(0xa855f7, 3.0, 18);
+    violetRimLight.position.set(4, 2.5, 2);
+    scene.add(violetRimLight);
+
+    // Primary Faceted Crystal (Icosahedron Shell)
+    const crystalGeo = new THREE.IcosahedronGeometry(1.9, 0);
+    const crystalWireGeo = new THREE.IcosahedronGeometry(1.91, 1);
+
+    // Faceted Glass Faces
+    const crystalMat = new THREE.MeshPhysicalMaterial({
+      color: 0x02111d,
+      emissive: 0x00223d,
+      emissiveIntensity: 0.35,
+      roughness: 0.15,
+      metalness: 0.9,
+      transmission: 0.55,
+      ior: 1.45,
+      transparent: true,
+      opacity: 0.28,
+      wireframe: false,
+    });
+    const crystalMesh = new THREE.Mesh(crystalGeo, crystalMat);
+    coreGroup.add(crystalMesh);
+
+    // Ultra-Fine Glowing Wireframe Lattice on Crystal
+    const crystalWireMat = new THREE.MeshBasicMaterial({
       color: 0x00f0ff,
       wireframe: true,
       transparent: true,
-      opacity: 0.07,
+      opacity: 0.18,
       blending: THREE.AdditiveBlending,
-      depthWrite: false,
     });
-    const wireMesh = new THREE.Mesh(wireGeo, wireMat);
-    wireMesh.position.copy(waveMesh.position);
-    wireMesh.rotation.copy(waveMesh.rotation);
-    root.add(wireMesh);
+    const crystalWireMesh = new THREE.Mesh(crystalWireGeo, crystalWireMat);
+    coreGroup.add(crystalWireMesh);
 
-    // 3. Floating Orbital Gyroscope Rings (Orbit Engineers Style)
+    // Secondary Nested Octahedron Core
+    const octaGeo = new THREE.OctahedronGeometry(1.25, 0);
+    const octaMat = new THREE.MeshBasicMaterial({
+      color: 0x60a5fa,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.35,
+      blending: THREE.AdditiveBlending,
+    });
+    const octaMesh = new THREE.Mesh(octaGeo, octaMat);
+    coreGroup.add(octaMesh);
+
+    // =========================================================================
+    // 2. Concentric Gyroscopic Orbital Energy Rings
+    // =========================================================================
     const gyroGroup = new THREE.Group();
-    gyroGroup.position.set(0, 0.4, -2.5);
+    gyroGroup.position.copy(coreGroup.position);
     root.add(gyroGroup);
 
-    const createGyroRing = (radius: number, tube: number, color: number, opacity: number) => {
-      const geo = new THREE.TorusGeometry(radius, tube, 16, 180);
+    const createRing = (radius: number, tube: number, color: number, opacity: number) => {
+      const geo = new THREE.TorusGeometry(radius, tube, 20, 180);
       const mat = new THREE.MeshBasicMaterial({
         color,
         transparent: true,
@@ -168,55 +152,123 @@ export function HeroScene() {
       return new THREE.Mesh(geo, mat);
     };
 
-    const ring1 = createGyroRing(4.6, 0.016, 0x00f0ff, 0.45);
-    ring1.rotation.set(1.1, 0.4, 0.2);
+    // Ring 1 - Inner High-Frequency Ring
+    const ring1 = createRing(3.2, 0.015, 0x00f0ff, 0.55);
+    ring1.rotation.set(1.2, 0.4, 0.2);
     gyroGroup.add(ring1);
 
-    const ring2 = createGyroRing(5.4, 0.014, 0x3b82f6, 0.35);
-    ring2.rotation.set(-0.8, 0.6, -0.4);
+    // Ring 2 - Mid Equator Ring
+    const ring2 = createRing(4.3, 0.013, 0x38bdf8, 0.42);
+    ring2.rotation.set(-0.9, 0.7, -0.5);
     gyroGroup.add(ring2);
 
-    const ring3 = createGyroRing(6.2, 0.012, 0x00e1ff, 0.25);
-    ring3.rotation.set(0.3, -0.9, 0.5);
+    // Ring 3 - Outer Celestial Ring
+    const ring3 = createRing(5.5, 0.012, 0x818cf8, 0.32);
+    ring3.rotation.set(0.4, -1.1, 0.8);
     gyroGroup.add(ring3);
 
-    // 4. Ambient Floating Dust Nodes (Subtle atmospheric depth)
-    const starCount = 220;
-    const starGeo = new THREE.BufferGeometry();
-    const starPos = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount * 3; i += 3) {
-      starPos[i] = (Math.random() - 0.5) * 36;
-      starPos[i + 1] = (Math.random() - 0.5) * 16 + 1;
-      starPos[i + 2] = (Math.random() - 0.5) * 20 - 4;
+    // Ring 4 - Deep Perimeter Precision Guide
+    const ring4 = createRing(6.8, 0.009, 0xa855f7, 0.2);
+    ring4.rotation.set(-0.5, -0.3, 1.4);
+    gyroGroup.add(ring4);
+
+    // Orbiting Photon Spark Satellites along rings (Ultra-fine luminous sparks)
+    const satelliteGeo = new THREE.SphereGeometry(0.038, 16, 16);
+    const satelliteMat = new THREE.MeshBasicMaterial({
+      color: 0x00f0ff,
+      blending: THREE.AdditiveBlending,
+    });
+
+    const sat1 = new THREE.Mesh(satelliteGeo, satelliteMat);
+    ring1.add(sat1);
+
+    const sat2 = new THREE.Mesh(satelliteGeo, satelliteMat);
+    ring2.add(sat2);
+
+    const sat3 = new THREE.Mesh(satelliteGeo, satelliteMat);
+    ring3.add(sat3);
+
+    // =========================================================================
+    // 3. Cosmic Swirl Stardust & Flow Particles
+    // =========================================================================
+    const particleCount = 420;
+    const particleGeo = new THREE.BufferGeometry();
+    const particlePositions = new Float32Array(particleCount * 3);
+    const particleColors = new Float32Array(particleCount * 3);
+    const particleMeta = new Float32Array(particleCount * 4); // [radius, angle, speed, yOffset]
+
+    const colorPalette = [
+      new THREE.Color(0x00f0ff),
+      new THREE.Color(0x38bdf8),
+      new THREE.Color(0x818cf8),
+      new THREE.Color(0xc084fc),
+      new THREE.Color(0xffffff),
+    ];
+
+    for (let i = 0; i < particleCount; i++) {
+      const radius = 2.2 + Math.random() * 4.8;
+      const angle = Math.random() * Math.PI * 2;
+      const speed = (0.2 + Math.random() * 0.45) * (Math.random() > 0.5 ? 1 : -1);
+      const yOffset = (Math.random() - 0.5) * 4.0;
+
+      particleMeta[i * 4] = radius;
+      particleMeta[i * 4 + 1] = angle;
+      particleMeta[i * 4 + 2] = speed;
+      particleMeta[i * 4 + 3] = yOffset;
+
+      particlePositions[i * 3] = Math.cos(angle) * radius;
+      particlePositions[i * 3 + 1] = yOffset;
+      particlePositions[i * 3 + 2] = Math.sin(angle) * radius - 1.8;
+
+      const col = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+      particleColors[i * 3] = col.r;
+      particleColors[i * 3 + 1] = col.g;
+      particleColors[i * 3 + 2] = col.b;
     }
-    starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
-    const starMat = new THREE.PointsMaterial({
+
+    particleGeo.setAttribute("position", new THREE.BufferAttribute(particlePositions, 3));
+    particleGeo.setAttribute("color", new THREE.BufferAttribute(particleColors, 3));
+
+    const particleMat = new THREE.PointsMaterial({
       size: 0.09,
       map: particleTexture,
-      color: 0x60a5fa,
+      vertexColors: true,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.72,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      sizeAttenuation: true,
+    });
+
+    const particles = new THREE.Points(particleGeo, particleMat);
+    root.add(particles);
+
+    // =========================================================================
+    // 4. Subtle Horizon Ambient Grid (Architectural Scale & Depth)
+    // =========================================================================
+    const gridGeo = new THREE.PlaneGeometry(38, 22, 24, 16);
+    gridGeo.rotateX(-Math.PI / 2);
+    const gridMat = new THREE.MeshBasicMaterial({
+      color: 0x00f0ff,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.024,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
-    const starMesh = new THREE.Points(starGeo, starMat);
-    root.add(starMesh);
+    const gridMesh = new THREE.Mesh(gridGeo, gridMat);
+    gridMesh.position.set(0, -3.4, -4);
+    gridMesh.rotation.x = 0.16;
+    root.add(gridMesh);
 
-    // 5. Ambient Volumetric Lights
-    const centerGlow = new THREE.PointLight(0x00f0ff, 8, 18);
-    centerGlow.position.set(0, 1.5, 2);
-    scene.add(centerGlow);
-
-    const blueBackGlow = new THREE.PointLight(0x2563eb, 12, 24);
-    blueBackGlow.position.set(0, -2, -4);
-    scene.add(blueBackGlow);
-
+    // =========================================================================
+    // 5. Interaction & Render Loop
+    // =========================================================================
     let active = true;
     let visible = true;
     let frame = 0;
 
     const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
-    const mouseWorld = { x: 0, z: 0 };
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const clock = new THREE.Clock();
 
@@ -229,19 +281,15 @@ export function HeroScene() {
       camera.updateProjectionMatrix();
 
       const compact = width < 768;
-      camera.position.z = compact ? 13 : 11;
-      camera.position.y = compact ? 3.8 : 3.2;
-      root.scale.setScalar(compact ? 0.85 : 1);
+      camera.position.z = compact ? 12 : 9.8;
+      camera.position.y = compact ? 0.4 : 0.3;
+      root.scale.setScalar(compact ? 0.8 : 1);
     };
 
     const onPointerMove = (event: PointerEvent) => {
       const rect = shell.getBoundingClientRect();
       mouse.targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
       mouse.targetY = -((event.clientY - rect.top) / rect.height - 0.5) * 2;
-
-      // Project pointer to approximate world coordinates on the wave plane
-      mouseWorld.x = mouse.targetX * 12;
-      mouseWorld.z = -mouse.targetY * 6;
     };
 
     const observer = new IntersectionObserver(
@@ -256,9 +304,7 @@ export function HeroScene() {
     window.addEventListener("pointermove", onPointerMove);
     resize();
 
-    const posAttr = waveGeo.attributes.position as THREE.BufferAttribute;
-    const colAttr = waveGeo.attributes.color as THREE.BufferAttribute;
-    const wirePosAttr = wireGeo.attributes.position as THREE.BufferAttribute;
+    const posAttr = particleGeo.attributes.position as THREE.BufferAttribute;
 
     const animate = () => {
       if (!active) return;
@@ -267,77 +313,62 @@ export function HeroScene() {
 
       const elapsed = clock.getElapsedTime();
 
-      // Smooth pointer parallax
-      mouse.x += (mouse.targetX - mouse.x) * 0.06;
-      mouse.y += (mouse.targetY - mouse.y) * 0.06;
+      // Fluid pointer parallax with silky damping
+      mouse.x += (mouse.targetX - mouse.x) * 0.05;
+      mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
-      root.rotation.y = mouse.x * 0.18;
-      root.rotation.x = -mouse.y * 0.12;
+      // Gyroscopic Root Reaction: responds smoothly to mouse movement
+      root.rotation.y = mouse.x * 0.22;
+      root.rotation.x = -mouse.y * 0.16;
 
-      // Rotate celestial gyro rings
-      ring1.rotation.z = elapsed * 0.12;
-      ring1.rotation.y = elapsed * 0.08;
-      ring2.rotation.x = -elapsed * 0.1;
-      ring2.rotation.z = elapsed * 0.06;
-      ring3.rotation.y = elapsed * 0.09;
+      // Rotate Faceted Crystal Core
+      crystalMesh.rotation.x = elapsed * 0.25;
+      crystalMesh.rotation.y = elapsed * 0.38;
+      crystalWireMesh.rotation.copy(crystalMesh.rotation);
 
-      // Animate wave points with interactive physics
+      octaMesh.rotation.x = -elapsed * 0.42;
+      octaMesh.rotation.z = elapsed * 0.35;
+
+      // Nucleus Breathing / Pulse Effect
+      const pulse = 1 + Math.sin(elapsed * 2.8) * 0.08;
+      nucleus.scale.setScalar(pulse);
+      coreLight.intensity = 4.2 + Math.sin(elapsed * 3.5) * 1.0;
+
+      // Clockwork Gyroscopic Multi-Axis Ring Rotations
+      ring1.rotation.z = elapsed * 0.35;
+      ring1.rotation.x = 1.2 + Math.sin(elapsed * 0.4) * 0.2;
+      sat1.position.set(Math.cos(elapsed * 2.2) * 2.6, Math.sin(elapsed * 2.2) * 2.6, 0);
+
+      ring2.rotation.y = -elapsed * 0.28;
+      ring2.rotation.z = -0.5 + Math.cos(elapsed * 0.35) * 0.25;
+      sat2.position.set(Math.cos(elapsed * 1.8) * 3.4, Math.sin(elapsed * 1.8) * 3.4, 0);
+
+      ring3.rotation.x = elapsed * 0.22;
+      ring3.rotation.y = -1.1 + Math.sin(elapsed * 0.3) * 0.2;
+      sat3.position.set(Math.cos(elapsed * 1.4) * 4.3, Math.sin(elapsed * 1.4) * 4.3, 0);
+
+      ring4.rotation.z = -elapsed * 0.15;
+
+      // Orbiting Stardust Particles
       if (!reduceMotion) {
-        const pArray = posAttr.array as Float32Array;
-        const cArray = colAttr.array as Float32Array;
-        const wArray = wirePosAttr.array as Float32Array;
+        const pArr = posAttr.array as Float32Array;
+        for (let i = 0; i < particleCount; i++) {
+          const mIdx = i * 4;
+          const pIdx = i * 3;
 
-        let pIdx = 0;
-        let bIdx = 0;
-        let wIdx = 1; // wireframe y-component
+          const radius = particleMeta[mIdx];
+          const baseAngle = particleMeta[mIdx + 1];
+          const speed = particleMeta[mIdx + 2];
+          const yOffset = particleMeta[mIdx + 3];
 
-        const time1 = elapsed * 1.5;
-        const time2 = elapsed * 0.9;
+          const currentAngle = baseAngle + elapsed * speed * 0.35;
 
-        for (let i = 0; i < numPoints; i++) {
-          const bx = baseCoords[bIdx];
-          const bz = baseCoords[bIdx + 1];
-
-          // Harmonic double sine wave
-          const w1 = Math.sin(bx * 0.28 + time1) * Math.cos(bz * 0.32 + time2) * 0.65;
-          const w2 = Math.sin((bx + bz) * 0.22 + time1 * 0.7) * 0.35;
-
-          // Mouse reactive ripple / force field
-          const dx = bx - mouseWorld.x;
-          const dz = bz - mouseWorld.z;
-          const distSq = dx * dx + dz * dz;
-          let mouseForce = 0;
-          if (distSq < 36) {
-            const dist = Math.sqrt(distSq);
-            mouseForce = Math.sin(dist * 2.2 - elapsed * 4) * Math.max(0, 1 - dist / 6) * 0.85;
-          }
-
-          const y = w1 + w2 + mouseForce;
-          pArray[pIdx + 1] = y;
-          wArray[wIdx] = y;
-
-          // Color modulation based on elevation & mouse proximity
-          const normY = (y + 1.0) / 2.0;
-          if (mouseForce > 0.2) {
-            // Bright white-cyan highlight under mouse cursor
-            cArray[pIdx] = 0.85;
-            cArray[pIdx + 1] = 0.98;
-            cArray[pIdx + 2] = 1.0;
-          } else {
-            // Gradient from deep royal blue (#1d4ed8) to vivid electric cyan (#00f0ff)
-            cArray[pIdx] = 0.12 * (1 - normY);
-            cArray[pIdx + 1] = 0.45 + normY * 0.52;
-            cArray[pIdx + 2] = 0.92 + normY * 0.08;
-          }
-
-          pIdx += 3;
-          bIdx += 2;
-          wIdx += 3;
+          // Gentle 3D orbital trajectory with vertical undulation
+          pArr[pIdx] = Math.cos(currentAngle) * radius;
+          pArr[pIdx + 1] = yOffset + Math.sin(elapsed * 1.5 + baseAngle) * 0.4;
+          pArr[pIdx + 2] = Math.sin(currentAngle) * radius - 1.8;
         }
-
         posAttr.needsUpdate = true;
-        colAttr.needsUpdate = true;
-        wirePosAttr.needsUpdate = true;
       }
 
       renderer.render(scene, camera);
@@ -351,8 +382,22 @@ export function HeroScene() {
       observer.disconnect();
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onPointerMove);
-      disposeObject(root);
+
+      nucleusGeo.dispose();
+      nucleusMat.dispose();
+      crystalGeo.dispose();
+      crystalMat.dispose();
+      crystalWireGeo.dispose();
+      crystalWireMat.dispose();
+      octaGeo.dispose();
+      octaMat.dispose();
+      gridGeo.dispose();
+      gridMat.dispose();
+      particleGeo.dispose();
+      particleMat.dispose();
       particleTexture.dispose();
+      satelliteGeo.dispose();
+      satelliteMat.dispose();
       renderer.dispose();
     };
   }, []);

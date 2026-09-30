@@ -631,6 +631,7 @@ canvas {
   letter-spacing: -0.055em;
   text-wrap: balance;
   text-align: center;
+  text-shadow: 0 4px 32px rgba(3, 7, 18, 0.95);
 }
 
 .hero__title-cinematic span {
@@ -639,6 +640,7 @@ canvas {
 
 .hero__lead--centered {
   text-wrap: balance;
+  text-shadow: 0 2px 20px rgba(3, 7, 18, 0.95);
 }
 
 .hero__dock {

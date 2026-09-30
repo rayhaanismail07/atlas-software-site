@@ -14,16 +14,18 @@ type TechNode = {
 };
 
 const TECH_NODES: TechNode[] = [
-  { name: "TypeScript", color: 0x3178c6, radius: 0.90, speed: 0.40, orbitAngle: 0.0, orbitTilt: [0.35, 0.2, 0.1], size: 0.058 },
-  { name: "React", color: 0x61dafb, radius: 1.05, speed: 0.32, orbitAngle: 1.1, orbitTilt: [-0.4, 0.5, -0.2], size: 0.062 },
-  { name: "Next.js", color: 0xffffff, radius: 1.20, speed: 0.28, orbitAngle: 2.3, orbitTilt: [0.55, -0.3, 0.4], size: 0.062 },
-  { name: "Python", color: 0x4b8bbe, radius: 0.96, speed: 0.36, orbitAngle: 3.5, orbitTilt: [0.1, 0.7, -0.35], size: 0.058 },
-  { name: "Node.js", color: 0x5fa04e, radius: 1.14, speed: 0.30, orbitAngle: 4.6, orbitTilt: [-0.6, -0.2, 0.5], size: 0.058 },
-  { name: "PostgreSQL", color: 0x4169e1, radius: 1.02, speed: 0.34, orbitAngle: 5.4, orbitTilt: [0.45, 0.4, -0.15], size: 0.058 },
-  { name: "Docker", color: 0x2496ed, radius: 1.30, speed: 0.24, orbitAngle: 0.7, orbitTilt: [-0.25, 0.8, 0.3], size: 0.054 },
-  { name: "Azure", color: 0x0089d6, radius: 1.10, speed: 0.31, orbitAngle: 1.9, orbitTilt: [0.3, -0.6, -0.4], size: 0.054 },
-  { name: "OpenAI", color: 0x00e1ff, radius: 0.85, speed: 0.45, orbitAngle: 2.9, orbitTilt: [-0.5, 0.1, 0.6], size: 0.062 },
-  { name: "Tailwind", color: 0x06b6d4, radius: 1.18, speed: 0.26, orbitAngle: 4.1, orbitTilt: [0.6, 0.35, 0.2], size: 0.054 },
+  { name: "Python", color: 0x3776ab, radius: 0.88, speed: 0.38, orbitAngle: 0.0, orbitTilt: [0.35, 0.2, 0.1], size: 0.06 },
+  { name: "TypeScript", color: 0x3178c6, radius: 0.98, speed: 0.35, orbitAngle: 0.6, orbitTilt: [-0.3, 0.4, 0.2], size: 0.06 },
+  { name: "React", color: 0x61dafb, radius: 1.08, speed: 0.31, orbitAngle: 1.3, orbitTilt: [-0.4, 0.5, -0.2], size: 0.06 },
+  { name: "Next.js", color: 0xffffff, radius: 1.22, speed: 0.27, orbitAngle: 2.1, orbitTilt: [0.55, -0.3, 0.4], size: 0.062 },
+  { name: "Node.js", color: 0x5fa04e, radius: 1.15, speed: 0.30, orbitAngle: 2.8, orbitTilt: [-0.6, -0.2, 0.5], size: 0.058 },
+  { name: "PostgreSQL", color: 0x4169e1, radius: 1.02, speed: 0.33, orbitAngle: 3.5, orbitTilt: [0.45, 0.4, -0.15], size: 0.058 },
+  { name: "AWS Cloud", color: 0xff9900, radius: 1.28, speed: 0.25, orbitAngle: 4.2, orbitTilt: [-0.25, 0.8, 0.3], size: 0.058 },
+  { name: "Docker", color: 0x2496ed, radius: 1.34, speed: 0.23, orbitAngle: 4.8, orbitTilt: [0.3, -0.6, -0.4], size: 0.056 },
+  { name: "FastAPI", color: 0x009688, radius: 0.92, speed: 0.39, orbitAngle: 5.4, orbitTilt: [-0.5, 0.1, 0.6], size: 0.056 },
+  { name: "Redis", color: 0xdc382d, radius: 1.05, speed: 0.32, orbitAngle: 0.3, orbitTilt: [0.5, -0.4, -0.2], size: 0.056 },
+  { name: "Three.js", color: 0x00f0ff, radius: 1.18, speed: 0.28, orbitAngle: 1.8, orbitTilt: [-0.2, 0.6, 0.35], size: 0.058 },
+  { name: "Tailwind", color: 0x06b6d4, radius: 1.25, speed: 0.26, orbitAngle: 3.9, orbitTilt: [0.6, 0.35, 0.2], size: 0.054 },
 ];
 
 function disposeObject(root: THREE.Object3D) {

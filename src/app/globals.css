@@ -549,13 +549,38 @@ canvas {
 
 /* Hero */
 .hero {
-  height: 100svh;
-  min-height: 0;
+  min-height: 100svh;
+  height: auto;
   overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding:
-    calc(var(--nav-height) + clamp(30px, 4svh, 70px))
+    calc(var(--nav-height) + clamp(44px, 7svh, 90px))
     0
-    clamp(46px, 7svh, 78px);
+    clamp(48px, 8svh, 84px);
+}
+
+.hero-canvas-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.hero-three-full {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-three-full canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 
 .hero::after {
@@ -567,6 +592,7 @@ canvas {
   background: linear-gradient(to bottom, transparent, var(--bg));
   content: "";
   pointer-events: none;
+  z-index: 2;
 }
 
 .hero__ambient {
@@ -579,19 +605,45 @@ canvas {
 
 .hero__inner {
   position: relative;
-  z-index: 2;
-  display: grid;
-  height: 100%;
-  min-height: 0;
-  grid-template-columns: minmax(0, 1.02fr) minmax(500px, 0.98fr);
-  align-items: center;
-  gap: clamp(36px, 5vw, 88px);
+  z-index: 3;
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
 }
 
-.hero__copy {
+.hero__copy-centered {
   position: relative;
-  z-index: 3;
-  max-width: 780px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.hero__title-cinematic {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, min(7.5vw, 9.8svh), 6.4rem);
+  font-weight: 750;
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+  text-align: center;
+}
+
+.hero__title-cinematic span {
+  display: block;
+}
+
+.hero__lead--centered {
+  text-wrap: balance;
+}
+
+.hero__dock {
+  position: relative;
+  z-index: 4;
 }
 
 .hero__eyebrow {
@@ -2337,53 +2389,79 @@ canvas {
 .technology-stack__items {
   display: grid;
   margin-top: 18px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 9px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 640px) {
+  .technology-stack__items {
+    grid-template-columns: 1fr;
+  }
 }
 
 .technology-stack__item {
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: 10px;
-  border: 1px solid rgba(220, 238, 242, 0.075);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.025);
-  padding: 11px;
-  transition: transform 240ms ease, border-color 240ms ease, background 240ms ease;
+  gap: 12px;
+  border: 1px solid rgba(220, 238, 242, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 10px 12px;
+  transition: transform 240ms ease, border-color 240ms ease, background 240ms ease, box-shadow 240ms ease;
 }
 
 .technology-stack__item:hover {
   transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--tech-color) 36%, transparent);
-  background: color-mix(in srgb, var(--tech-color) 7%, rgba(255, 255, 255, 0.02));
+  border-color: color-mix(in srgb, var(--tech-color) 42%, transparent);
+  background: color-mix(in srgb, var(--tech-color) 8%, rgba(255, 255, 255, 0.03));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .technology-stack__item > span {
   display: grid;
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   flex: 0 0 auto;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--tech-color) 24%, transparent);
-  border-radius: 9px;
-  background: color-mix(in srgb, var(--tech-color) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tech-color) 26%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--tech-color) 12%, transparent);
   color: var(--tech-color);
 }
 
 .technology-stack__item svg {
-  width: 17px;
-  height: 17px;
+  width: 18px;
+  height: 18px;
+}
+
+.technology-stack__item-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .technology-stack__item strong {
   min-width: 0;
   overflow: hidden;
-  color: var(--ink-soft);
-  font-size: 0.67rem;
-  font-weight: 650;
+  color: #f1f5f9;
+  font-size: 0.76rem;
+  font-weight: 700;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.technology-stack__item small {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  color: #94a3b8;
+  font-size: 0.62rem;
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 1px;
 }
 
 .contact-section {

@@ -426,7 +426,7 @@ export function Tech3DCanvas() {
     >
       <div className="absolute top-2.5 left-3.5 text-[9px] font-mono tracking-widest text-cyan-400/80 uppercase z-10 flex items-center gap-2 select-none">
         <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-        3D Tech Constellation &middot; Live System
+        3D Tech Constellation &middot; Ecosystem
       </div>
       <div className="absolute bottom-2 right-3.5 text-[9px] font-mono text-[#c0c0c8]/40 z-10 hidden sm:block select-none">
         Interactive 3D Matrix

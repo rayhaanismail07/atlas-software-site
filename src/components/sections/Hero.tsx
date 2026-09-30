@@ -70,33 +70,7 @@ export function Hero() {
           transition={{ duration: 1.05, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="hero-visual__frame">
-            <div className="hero-visual__header">
-              <span>ATLAS / CYBER GLOBE</span>
-              <span>LIVE SYSTEM</span>
-            </div>
-
             <HeroScene />
-
-            <div className="hero-visual__brand" aria-hidden="true">
-              <span>▲</span>
-              <small>ATLAS ENGINE</small>
-            </div>
-
-            <div className="hero-visual__metric hero-visual__metric--one">
-              <small>Global Nodes</small>
-              <strong>Connected</strong>
-            </div>
-            <div className="hero-visual__metric hero-visual__metric--two">
-              <small>System Status</small>
-              <strong>100% Operational</strong>
-            </div>
-
-            <div className="hero-visual__footer">
-              <span>01 / Product</span>
-              <span>02 / Automation</span>
-              <span>03 / Data</span>
-              <span>04 / Cloud</span>
-            </div>
           </div>
         </motion.div>
       </Container>

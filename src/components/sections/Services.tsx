@@ -10,49 +10,49 @@ import { services } from "@/data/site";
 
 const accentStyles = {
   cyan: {
-    border: "border-cyan-500/30 hover:border-cyan-400/70",
+    border: "border-cyan-500/20 hover:border-cyan-400/60",
     bar: "from-cyan-400 to-cyan-600",
-    iconBg: "bg-cyan-500/15 border-cyan-400/40 text-cyan-300 shadow-cyan-500/10",
+    iconBg: "bg-cyan-500/15 border-cyan-400/35 text-cyan-300 shadow-cyan-500/15",
     number: "text-cyan-400",
-    tag: "bg-cyan-500/10 border-cyan-400/30 text-cyan-200 font-medium",
-    button: "hover:border-cyan-400 hover:bg-cyan-500/20 hover:text-cyan-300",
-    glow: "shadow-cyan-500/5",
+    tag: "bg-cyan-500/10 border-cyan-400/25 text-cyan-200 font-medium",
+    glow: "hover:shadow-[0_0_35px_rgba(0,225,255,0.12)]",
+    topLine: "via-cyan-400/50",
   },
   blue: {
-    border: "border-blue-500/30 hover:border-blue-400/70",
+    border: "border-blue-500/20 hover:border-blue-400/60",
     bar: "from-blue-400 to-indigo-600",
-    iconBg: "bg-blue-500/15 border-blue-400/40 text-blue-300 shadow-blue-500/10",
+    iconBg: "bg-blue-500/15 border-blue-400/35 text-blue-300 shadow-blue-500/15",
     number: "text-blue-400",
-    tag: "bg-blue-500/10 border-blue-400/30 text-blue-200 font-medium",
-    button: "hover:border-blue-400 hover:bg-blue-500/20 hover:text-blue-300",
-    glow: "shadow-blue-500/5",
+    tag: "bg-blue-500/10 border-blue-400/25 text-blue-200 font-medium",
+    glow: "hover:shadow-[0_0_35px_rgba(0,119,255,0.12)]",
+    topLine: "via-blue-400/50",
   },
   mint: {
-    border: "border-emerald-500/30 hover:border-emerald-400/70",
+    border: "border-emerald-500/20 hover:border-emerald-400/60",
     bar: "from-emerald-400 to-teal-600",
-    iconBg: "bg-emerald-500/15 border-emerald-400/40 text-emerald-300 shadow-emerald-500/10",
+    iconBg: "bg-emerald-500/15 border-emerald-400/35 text-emerald-300 shadow-emerald-500/15",
     number: "text-emerald-400",
-    tag: "bg-emerald-500/10 border-emerald-400/30 text-emerald-200 font-medium",
-    button: "hover:border-emerald-400 hover:bg-emerald-500/20 hover:text-emerald-300",
-    glow: "shadow-emerald-500/5",
+    tag: "bg-emerald-500/10 border-emerald-400/25 text-emerald-200 font-medium",
+    glow: "hover:shadow-[0_0_35px_rgba(0,245,184,0.12)]",
+    topLine: "via-emerald-400/50",
   },
   violet: {
-    border: "border-purple-500/30 hover:border-purple-400/70",
+    border: "border-purple-500/20 hover:border-purple-400/60",
     bar: "from-purple-400 to-fuchsia-600",
-    iconBg: "bg-purple-500/15 border-purple-400/40 text-purple-300 shadow-purple-500/10",
+    iconBg: "bg-purple-500/15 border-purple-400/35 text-purple-300 shadow-purple-500/15",
     number: "text-purple-400",
-    tag: "bg-purple-500/10 border-purple-400/30 text-purple-200 font-medium",
-    button: "hover:border-purple-400 hover:bg-purple-500/20 hover:text-purple-300",
-    glow: "shadow-purple-500/5",
+    tag: "bg-purple-500/10 border-purple-400/25 text-purple-200 font-medium",
+    glow: "hover:shadow-[0_0_35px_rgba(167,139,250,0.12)]",
+    topLine: "via-purple-400/50",
   },
   silver: {
-    border: "border-amber-500/30 hover:border-amber-400/70",
+    border: "border-amber-500/20 hover:border-amber-400/60",
     bar: "from-amber-400 to-orange-600",
-    iconBg: "bg-amber-500/15 border-amber-400/40 text-amber-300 shadow-amber-500/10",
+    iconBg: "bg-amber-500/15 border-amber-400/35 text-amber-300 shadow-amber-500/15",
     number: "text-amber-400",
-    tag: "bg-amber-500/10 border-amber-400/30 text-amber-200 font-medium",
-    button: "hover:border-amber-400 hover:bg-amber-500/20 hover:text-amber-300",
-    glow: "shadow-amber-500/5",
+    tag: "bg-amber-500/10 border-amber-400/25 text-amber-200 font-medium",
+    glow: "hover:shadow-[0_0_35px_rgba(251,191,36,0.12)]",
+    topLine: "via-amber-400/50",
   },
 };
 
@@ -68,46 +68,56 @@ export function Services() {
           />
         </Reveal>
 
-        <div className="flex flex-col gap-6 mt-12">
+        <div className="flex flex-col gap-5 mt-12">
           {services.map((service, index) => {
             const Icon = service.icon;
             const style = accentStyles[service.accent as keyof typeof accentStyles] || accentStyles.cyan;
 
             return (
               <Reveal key={service.title} delay={index * 0.05} className="w-full">
-                <Interactive3DTilt maxTilt={3} scale={1.008} className="w-full">
+                <Interactive3DTilt maxTilt={3} scale={1.006} className="w-full">
                   <article
-                    className={`relative w-full rounded-2xl bg-slate-900/90 border ${style.border} p-6 sm:p-8 backdrop-blur-2xl shadow-xl ${style.glow} transition-all duration-300 group overflow-hidden`}
+                    className={`relative w-full rounded-2xl bg-gradient-to-br from-slate-900/80 via-[#0a0f18]/85 to-[#06090f]/95 border ${style.border} p-6 sm:p-8 backdrop-blur-2xl shadow-xl ${style.glow} transition-all duration-300 group overflow-hidden`}
                   >
+                    {/* Top ambient glow line */}
+                    <div
+                      className={`absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent ${style.topLine} to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-300`}
+                    />
+
                     {/* Glowing Accent Bar */}
                     <div className={`absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b ${style.bar}`} />
 
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                       <div className="flex items-start gap-5 flex-1">
-                        <div className={`p-3.5 rounded-xl border ${style.iconBg} shrink-0 shadow-lg`}>
+                        <div
+                          className={`p-4 rounded-2xl border ${style.iconBg} shrink-0 shadow-lg group-hover:scale-105 transition-transform duration-300`}
+                        >
                           <Icon className="w-6 h-6" aria-hidden="true" />
                         </div>
 
-                        <div className="space-y-2.5">
+                        <div className="space-y-3">
                           <div className="flex items-center gap-3">
-                            <span className={`text-xs font-mono font-bold ${style.number}`}>
+                            <span
+                              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wider border ${style.tag}`}
+                            >
                               {service.number}
                             </span>
-                            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight group-hover:text-cyan-100 transition-colors">
                               {service.title}
                             </h3>
                           </div>
 
-                          <p className="text-sm text-slate-300 leading-relaxed max-w-2xl font-normal">
+                          <p className="text-sm text-slate-300/90 leading-relaxed max-w-2xl font-normal">
                             {service.description}
                           </p>
 
-                          <div className="flex flex-wrap gap-2 pt-2">
+                          <div className="flex flex-wrap gap-2 pt-1">
                             {service.tags.map((tag) => (
                               <span
                                 key={tag}
-                                className={`text-[11px] font-mono tracking-wide px-3 py-1 rounded-md border ${style.tag}`}
+                                className={`text-[11px] font-mono tracking-wide px-3 py-1 rounded-lg border ${style.tag} flex items-center gap-1.5 hover:bg-white/5 transition-colors`}
                               >
+                                <span className="w-1 h-1 rounded-full bg-current opacity-70" />
                                 {tag}
                               </span>
                             ))}
@@ -117,7 +127,7 @@ export function Services() {
 
                       <a
                         href="#contact"
-                        className={`self-end md:self-center p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-300 ${style.button} transition-all duration-200 group-hover:translate-x-1 shadow-md`}
+                        className="self-end md:self-center p-3.5 rounded-full bg-white/[0.03] border border-white/10 text-slate-300 hover:border-cyan-400/60 hover:bg-cyan-500/15 hover:text-cyan-200 transition-all duration-300 group-hover:scale-110 shadow-lg shrink-0"
                         aria-label={`Discuss ${service.title}`}
                       >
                         <ArrowUpRight className="w-5 h-5" aria-hidden="true" />

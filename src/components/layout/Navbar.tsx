@@ -15,7 +15,7 @@ export function Navbar() {
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const handleScroll = () => setHasScrolled(window.scrollY > 24);
+    const handleScroll = () => setHasScrolled(window.scrollY > 80);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);

@@ -226,7 +226,7 @@ export function Cta3DCanvas() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-400" />
           </span>
-          <span>LIVE BEACON</span>
+          <span>ATLAS BEACON</span>
         </div>
         <Radio className="w-4 h-4 text-cyan-400 animate-pulse" />
       </div>

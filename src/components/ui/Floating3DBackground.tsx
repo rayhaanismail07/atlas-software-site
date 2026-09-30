@@ -123,23 +123,6 @@ export function Floating3DBackground() {
       nebulaeGroup.add(mesh);
     });
 
-    // 3. SECTION 3: Declassified Blueprint Wireframe Mesh (Tuned subtle opacity)
-    const section3Group = new THREE.Group();
-    spaceGroup.add(section3Group);
-
-    const sysGeos = [
-      new THREE.BoxGeometry(1.3, 1.3, 1.3),
-      new THREE.OctahedronGeometry(1.1, 0),
-      new THREE.IcosahedronGeometry(1.0, 0),
-      new THREE.TorusGeometry(1.5, 0.015, 8, 40),
-    ];
-
-    const sysMats = [
-      new THREE.LineBasicMaterial({ color: 0x00e1ff, transparent: true, opacity: 0.18, blending: THREE.AdditiveBlending }),
-      new THREE.LineBasicMaterial({ color: 0x00f5b8, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending }),
-      new THREE.LineBasicMaterial({ color: 0x0077ff, transparent: true, opacity: 0.14, blending: THREE.AdditiveBlending }),
-    ];
-
     const dynamic3DMeshes: Array<{
       mesh: THREE.Object3D;
       rotX: number;
@@ -150,115 +133,7 @@ export function Floating3DBackground() {
       driftAmp: number;
     }> = [];
 
-    for (let i = 0; i < 16; i++) {
-      const geo = sysGeos[i % sysGeos.length];
-      const mat = sysMats[i % sysMats.length];
-      const wire = new THREE.LineSegments(new THREE.WireframeGeometry(geo), mat);
-
-      const side = i % 2 === 0 ? 1 : -1;
-      const x = side * (14 + (i % 4) * 3.5);
-      const y = -72 - i * 3.6;
-      const z = -12 - (i % 3) * 4;
-
-      wire.position.set(x, y, z);
-      wire.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
-      section3Group.add(wire);
-
-      dynamic3DMeshes.push({
-        mesh: wire,
-        rotX: (Math.random() - 0.5) * 0.012,
-        rotY: (Math.random() - 0.5) * 0.014,
-        rotZ: (Math.random() - 0.5) * 0.008,
-        baseY: y,
-        driftSpeed: 0.5 + Math.random() * 0.5,
-        driftAmp: 0.4,
-      });
-    }
-
-    // 4. SECTION 4: Subtle Process Gyroscopes
-    const section4Group = new THREE.Group();
-    spaceGroup.add(section4Group);
-
-    const processSteps = [
-      { y: -152, x: -16, color: 0x00e1ff },
-      { y: -168, x: 16, color: 0x0077ff },
-      { y: -184, x: -16, color: 0xa78bfa },
-      { y: -198, x: 16, color: 0x00f5b8 },
-    ];
-
-    processSteps.forEach((step, idx) => {
-      const ringOuterGeo = new THREE.TorusGeometry(1.6, 0.016, 8, 48);
-      const ringInnerGeo = new THREE.TorusGeometry(1.2, 0.014, 8, 36);
-      const coreGeo = new THREE.IcosahedronGeometry(0.45, 0);
-
-      const outerMat = new THREE.MeshBasicMaterial({ color: step.color, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending });
-      const innerMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending });
-      const coreMat = new THREE.LineBasicMaterial({ color: step.color, transparent: true, opacity: 0.22, blending: THREE.AdditiveBlending });
-
-      const outerRing = new THREE.Mesh(ringOuterGeo, outerMat);
-      const innerRing = new THREE.Mesh(ringInnerGeo, innerMat);
-      const core = new THREE.LineSegments(new THREE.WireframeGeometry(coreGeo), coreMat);
-
-      const gyroGroup = new THREE.Group();
-      gyroGroup.position.set(step.x, step.y, -14);
-      gyroGroup.add(outerRing);
-      gyroGroup.add(innerRing);
-      gyroGroup.add(core);
-
-      section4Group.add(gyroGroup);
-
-      dynamic3DMeshes.push({
-        mesh: gyroGroup,
-        rotX: 0.006 + idx * 0.002,
-        rotY: 0.009 - idx * 0.002,
-        rotZ: 0.005,
-        baseY: step.y,
-        driftSpeed: 0.6 + idx * 0.1,
-        driftAmp: 0.35,
-      });
-    });
-
-    // 5. SECTION 5: Ambient Studio Crystalline Shards (Soft contrast-safe opacity)
-    const section5Group = new THREE.Group();
-    spaceGroup.add(section5Group);
-
-    const studioGeos = [
-      new THREE.DodecahedronGeometry(1.2, 0),
-      new THREE.IcosahedronGeometry(1.1, 0),
-      new THREE.OctahedronGeometry(1.0, 0),
-      new THREE.TetrahedronGeometry(0.9, 0),
-      new THREE.TorusGeometry(1.4, 0.015, 8, 36),
-    ];
-
-    const studioColors = [0x00e1ff, 0xa78bfa, 0xfbbf24, 0x00f5b8, 0x0077ff];
-
-    for (let i = 0; i < 20; i++) {
-      const geo = studioGeos[i % studioGeos.length];
-      const color = studioColors[i % studioColors.length];
-      const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.16, blending: THREE.AdditiveBlending });
-      const wire = new THREE.LineSegments(new THREE.WireframeGeometry(geo), mat);
-
-      const side = (i % 2 === 0 ? 1 : -1);
-      const x = side * (13 + (i % 5) * 3.0);
-      const y = -222 - i * 4.0;
-      const z = -12 - (i % 4) * 3.5;
-
-      wire.position.set(x, y, z);
-      wire.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
-      section5Group.add(wire);
-
-      dynamic3DMeshes.push({
-        mesh: wire,
-        rotX: (Math.random() - 0.5) * 0.012,
-        rotY: (Math.random() - 0.5) * 0.015,
-        rotZ: (Math.random() - 0.5) * 0.008,
-        baseY: y,
-        driftSpeed: 0.45 + Math.random() * 0.5,
-        driftAmp: 0.4,
-      });
-    }
-
-    // 6. Deep Background Orbital Rings
+    // Deep Background Orbital Rings
     const cyberRingsGroup = new THREE.Group();
     spaceGroup.add(cyberRingsGroup);
 

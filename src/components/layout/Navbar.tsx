@@ -108,8 +108,28 @@ export function Navbar() {
               transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="mobile-nav__head">
-                <span>Navigation</span>
-                <small>Atlas Software</small>
+                <div className="flex items-center gap-3">
+                  <Image
+                    src="/images/atlas-logo.png"
+                    alt="Atlas Software"
+                    width={34}
+                    height={34}
+                    className="rounded-lg"
+                  />
+                  <div className="flex flex-col text-left">
+                    <strong className="text-xs font-bold text-white font-mono tracking-wider">ATLAS SOFTWARE</strong>
+                    <span className="text-[10px] text-slate-400 font-mono">Precision Engineered</span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  className="mobile-nav__close-btn"
+                  aria-label="Close navigation menu"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <X className="w-5 h-5" aria-hidden="true" />
+                </button>
               </div>
 
               <div className="mobile-nav__links">

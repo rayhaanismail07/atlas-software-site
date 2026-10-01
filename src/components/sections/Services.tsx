@@ -10,13 +10,13 @@ import { services } from "@/data/site";
 
 const accentStyles = {
   cyan: {
-    border: "border-cyan-500/20 hover:border-cyan-400/60",
-    bar: "from-cyan-400 to-cyan-600",
-    iconBg: "bg-cyan-500/15 border-cyan-400/35 text-cyan-300 shadow-cyan-500/15",
-    number: "text-cyan-400",
-    tag: "bg-cyan-500/10 border-cyan-400/25 text-cyan-200 font-medium",
-    glow: "hover:shadow-[0_0_35px_rgba(0,225,255,0.12)]",
-    topLine: "via-cyan-400/50",
+    border: "border-sky-500/25 hover:border-sky-400/60",
+    bar: "from-sky-400 to-blue-600",
+    iconBg: "bg-blue-500/15 border-sky-400/35 text-sky-300 shadow-blue-500/15",
+    number: "text-sky-400",
+    tag: "bg-sky-500/10 border-sky-400/25 text-sky-200 font-medium",
+    glow: "hover:shadow-[0_0_35px_rgba(0,119,255,0.18)]",
+    topLine: "via-sky-400/50",
   },
   blue: {
     border: "border-blue-500/20 hover:border-blue-400/60",
@@ -102,7 +102,7 @@ export function Services() {
                             >
                               {service.number}
                             </span>
-                            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight group-hover:text-cyan-100 transition-colors">
+                            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight group-hover:text-sky-100 transition-colors">
                               {service.title}
                             </h3>
                           </div>
@@ -127,7 +127,7 @@ export function Services() {
 
                       <a
                         href="#contact"
-                        className="self-end md:self-center p-3.5 rounded-full bg-white/[0.03] border border-white/10 text-slate-300 hover:border-cyan-400/60 hover:bg-cyan-500/15 hover:text-cyan-200 transition-all duration-300 group-hover:scale-110 shadow-lg shrink-0"
+                        className="self-end md:self-center p-3.5 rounded-full bg-white/[0.03] border border-white/10 text-slate-300 hover:border-sky-400/60 hover:bg-blue-500/15 hover:text-sky-200 transition-all duration-300 group-hover:scale-110 shadow-lg shrink-0"
                         aria-label={`Discuss ${service.title}`}
                       >
                         <ArrowUpRight className="w-5 h-5" aria-hidden="true" />

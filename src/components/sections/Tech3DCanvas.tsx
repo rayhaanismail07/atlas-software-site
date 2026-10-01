@@ -24,7 +24,7 @@ const TECH_NODES: TechNode[] = [
   { name: "Docker", color: 0x2496ed, radius: 1.34, speed: 0.23, orbitAngle: 4.8, orbitTilt: [0.3, -0.6, -0.4], size: 0.056 },
   { name: "FastAPI", color: 0x009688, radius: 0.92, speed: 0.39, orbitAngle: 5.4, orbitTilt: [-0.5, 0.1, 0.6], size: 0.056 },
   { name: "Redis", color: 0xdc382d, radius: 1.05, speed: 0.32, orbitAngle: 0.3, orbitTilt: [0.5, -0.4, -0.2], size: 0.056 },
-  { name: "Three.js", color: 0x00f0ff, radius: 1.18, speed: 0.28, orbitAngle: 1.8, orbitTilt: [-0.2, 0.6, 0.35], size: 0.058 },
+  { name: "Three.js", color: 0x38bdf8, radius: 1.18, speed: 0.28, orbitAngle: 1.8, orbitTilt: [-0.2, 0.6, 0.35], size: 0.058 },
   { name: "Tailwind", color: 0x06b6d4, radius: 1.25, speed: 0.26, orbitAngle: 3.9, orbitTilt: [0.6, 0.35, 0.2], size: 0.054 },
 ];
 
@@ -95,7 +95,7 @@ export function Tech3DCanvas() {
 
     const wireGeo = new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(0.52, 2));
     const wireMat = new THREE.LineBasicMaterial({
-      color: 0x00e1ff,
+      color: 0x0077ff,
       transparent: true,
       opacity: 0.5,
       blending: THREE.AdditiveBlending,
@@ -143,7 +143,7 @@ export function Tech3DCanvas() {
     [0.90, 1.05, 1.20, 1.32].forEach((radius, idx) => {
       const ringGeo = new THREE.TorusGeometry(radius, 0.005, 8, 140);
       const ringMat = new THREE.MeshBasicMaterial({
-        color: idx % 2 === 0 ? 0x00e1ff : 0x0077ff,
+        color: idx % 2 === 0 ? 0x38bdf8 : 0x0077ff,
         transparent: true,
         opacity: 0.24,
         blending: THREE.AdditiveBlending,
@@ -230,7 +230,7 @@ export function Tech3DCanvas() {
     connections.forEach(([fromIdx, toIdx], cIdx) => {
       const lineGeo = new THREE.BufferGeometry();
       const lineMat = new THREE.LineBasicMaterial({
-        color: 0x00e1ff,
+        color: 0x0077ff,
         transparent: true,
         opacity: 0.22,
         blending: THREE.AdditiveBlending,
@@ -270,7 +270,7 @@ export function Tech3DCanvas() {
     const starGeo = new THREE.BufferGeometry();
     starGeo.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
     const starMat = new THREE.PointsMaterial({
-      color: 0x00e1ff,
+      color: 0x38bdf8,
       size: 0.015,
       transparent: true,
       opacity: 0.45,
@@ -281,7 +281,7 @@ export function Tech3DCanvas() {
     scene.add(starPoints);
 
     // 6. Lighting
-    const keyLight = new THREE.DirectionalLight(0x00e1ff, 3.2);
+    const keyLight = new THREE.DirectionalLight(0x0077ff, 3.2);
     keyLight.position.set(3, 2.5, 4);
     scene.add(keyLight);
 
@@ -424,10 +424,10 @@ export function Tech3DCanvas() {
   return (
     <div
       ref={shellRef}
-      className="w-full h-[175px] sm:h-[200px] lg:h-[210px] relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#070d14]/70 to-[#05080c]/90 border border-cyan-500/15 shadow-[0_15px_40px_rgba(0,0,0,0.5)] my-4 backdrop-blur-md"
+      className="w-full h-[175px] sm:h-[200px] lg:h-[210px] relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#070d14]/70 to-[#05080c]/90 border border-blue-500/15 shadow-[0_15px_40px_rgba(0,0,0,0.5)] my-4 backdrop-blur-md"
     >
-      <div className="absolute top-2.5 left-3.5 text-[9px] font-mono tracking-widest text-cyan-400/80 uppercase z-10 flex items-center gap-2 select-none">
-        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+      <div className="absolute top-2.5 left-3.5 text-[9px] font-mono tracking-widest text-sky-400/80 uppercase z-10 flex items-center gap-2 select-none">
+        <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
         3D Tech Constellation &middot; Ecosystem
       </div>
       <div className="absolute bottom-2 right-3.5 text-[9px] font-mono text-[#c0c0c8]/40 z-10 hidden sm:block select-none">

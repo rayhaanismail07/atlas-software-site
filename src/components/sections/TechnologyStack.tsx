@@ -83,7 +83,7 @@ export const stackGroups: StackGroup[] = [
       { name: "React.js", role: "Component Architecture", icon: SiReact, color: "#61DAFB" },
       { name: "Next.js", role: "SSR, SSG & App Router", icon: SiNextdotjs, color: "#FFFFFF" },
       { name: "Tailwind CSS", role: "Design Tokens & Utilities", icon: SiTailwindcss, color: "#06B6D4" },
-      { name: "Three.js & WebGL", role: "3D Canvas, Shaders & Motion", icon: SiThreedotjs, color: "#00F0FF" },
+      { name: "Three.js & WebGL", role: "3D Canvas, Shaders & Motion", icon: SiThreedotjs, color: "#38BDF8" },
       { name: "Semantic HTML5", role: "WCAG 2.1 AA Accessibility", icon: SiHtml5, color: "#E34F26" },
       { name: "SASS & Modern CSS", role: "Fluid Animations & Grids", icon: SiSass, color: "#CC6699" },
     ],
@@ -160,7 +160,7 @@ export function TechnologyStack() {
           </p>
         </div>
         <span className="technology-board__status">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse mr-2 inline-block" />
+          <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse mr-2 inline-block" />
           Production ready
         </span>
       </div>

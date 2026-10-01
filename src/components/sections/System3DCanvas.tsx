@@ -78,7 +78,7 @@ export function System3DCanvas() {
       // Glowing top cap
       const capGeo = new THREE.BoxGeometry(0.37, 0.04, 0.37);
       const capMat = new THREE.MeshBasicMaterial({
-        color: 0x00e1ff,
+        color: 0x0077ff,
         transparent: true,
         opacity: 0.95,
       });
@@ -94,7 +94,7 @@ export function System3DCanvas() {
 
     const packetGeo = new THREE.SphereGeometry(0.04, 12, 12);
     const packetMat = new THREE.MeshBasicMaterial({
-      color: 0x00e1ff,
+      color: 0x38bdf8,
       blending: THREE.AdditiveBlending,
     });
 
@@ -202,9 +202,9 @@ export function System3DCanvas() {
   if (!supported) return null;
 
   return (
-    <div ref={shellRef} className="w-full h-[260px] sm:h-[320px] relative overflow-hidden rounded-2xl bg-slate-950/40 border border-cyan-500/10 my-8">
-      <div className="absolute top-3 left-4 text-[10px] font-mono tracking-widest text-cyan-400/70 uppercase z-10 flex items-center gap-2">
-        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+    <div ref={shellRef} className="w-full h-[260px] sm:h-[320px] relative overflow-hidden rounded-2xl bg-slate-950/40 border border-blue-500/15 my-8">
+      <div className="absolute top-3 left-4 text-[10px] font-mono tracking-widest text-sky-400/80 uppercase z-10 flex items-center gap-2">
+        <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-ping" />
         Real-Time 3D System Architecture Flow
       </div>
       <canvas ref={canvasRef} className="w-full h-full block" />

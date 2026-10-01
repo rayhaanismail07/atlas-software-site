@@ -100,11 +100,11 @@ const marketingPillars = [
       "Automated Lead Nurture Telemetry",
     ],
     accent: "#38bdf8",
-    colorName: "cyan",
-    activeClass: "border-cyan-400/70 bg-gradient-to-r from-cyan-950/60 via-slate-900/90 to-slate-900/90 shadow-[0_0_35px_rgba(56,189,248,0.18)]",
-    iconBg: "bg-cyan-500/20 border-cyan-400/50 text-cyan-300",
-    badgeBg: "bg-cyan-500/15 border-cyan-400/40 text-cyan-200",
-    glowGradient: "rgba(56,189,248,0.15)",
+    colorName: "sky",
+    activeClass: "border-sky-400/70 bg-gradient-to-r from-sky-950/60 via-slate-900/90 to-slate-900/90 shadow-[0_0_35px_rgba(56,189,248,0.22)]",
+    iconBg: "bg-blue-500/20 border-sky-400/50 text-sky-300",
+    badgeBg: "bg-blue-500/15 border-sky-400/40 text-sky-200",
+    glowGradient: "rgba(56,189,248,0.18)",
   },
 ];
 
@@ -144,10 +144,10 @@ const growthMetrics = [
     value: "< 24h",
     label: "Lead Automation Response",
     trend: "Real-Time Sync",
-    color: "from-cyan-400 to-blue-500",
-    iconBg: "bg-cyan-500/15 text-cyan-300 border-cyan-400/30",
-    badgeColor: "bg-cyan-500/10 text-cyan-300 border-cyan-500/30",
-    borderColor: "hover:border-cyan-400/50",
+    color: "from-sky-400 to-blue-600",
+    iconBg: "bg-blue-500/15 text-sky-300 border-sky-400/30",
+    badgeColor: "bg-blue-500/10 text-sky-300 border-blue-500/30",
+    borderColor: "hover:border-sky-400/50",
   },
 ];
 
@@ -156,7 +156,7 @@ export function DigitalMarketing() {
   const activePillar = marketingPillars.find((p) => p.id === activePillarId) || marketingPillars[0];
 
   return (
-    <section id="marketing" className="atlas-section relative bg-transparent border-t border-[rgba(0,225,255,0.08)] overflow-hidden">
+    <section id="marketing" className="atlas-section relative bg-transparent border-t border-[rgba(56,189,248,0.12)] overflow-hidden">
       {/* Background ambient radial lights with multi-hue spectrum */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(0,245,184,0.06)_0%,transparent_70%)] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(167,139,250,0.06)_0%,transparent_70%)] pointer-events-none" />
@@ -312,7 +312,7 @@ export function DigitalMarketing() {
 
         {/* Growth Call-To-Action Banner with Vibrant Colors */}
         <motion.div
-          className="mt-12 p-8 sm:p-10 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900/80 to-purple-950/40 backdrop-blur-xl border border-cyan-500/25 flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+          className="mt-12 p-8 sm:p-10 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900/80 to-purple-950/40 backdrop-blur-xl border border-sky-500/30 flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

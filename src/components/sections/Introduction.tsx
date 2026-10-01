@@ -12,10 +12,10 @@ const pillars = [
     label: "Think in systems",
     description: "Map the workflow, data, people, and edge cases before a screen is drawn.",
     accent: {
-      border: "border-cyan-500/30 hover:border-cyan-400/60",
-      bar: "from-cyan-400 to-blue-500",
-      iconBg: "bg-cyan-500/15 border-cyan-400/40 text-cyan-300",
-      num: "text-cyan-400",
+      border: "border-sky-500/30 hover:border-sky-400/60",
+      bar: "from-sky-400 to-blue-600",
+      iconBg: "bg-blue-500/15 border-sky-400/40 text-sky-300",
+      num: "text-sky-400",
     },
   },
   {

@@ -56,7 +56,7 @@ export function BrandSystem() {
 
             <div>
               <div className="flex items-center justify-between border-b border-[rgba(255,255,255,0.08)] pb-4 mb-6">
-                <span className="font-mono text-xs uppercase tracking-widest text-[#00E1FF]">Brand Essence</span>
+                <span className="font-mono text-xs uppercase tracking-widest text-[#38BDF8]">Brand Essence</span>
                 <span className="text-[10px] font-mono text-[#C0C0C8] px-2 py-1 rounded bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.1)]">
                   ATLAS CORE
                 </span>
@@ -72,7 +72,7 @@ export function BrandSystem() {
 
             <div className="mt-8 pt-6 border-t border-[rgba(255,255,255,0.08)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-[#00E1FF]" />
+                <Sparkles className="w-4 h-4 text-[#38BDF8]" />
                 <span className="font-mono text-xs text-white uppercase tracking-wider">YOUR VISION, ENGINEERED.</span>
               </div>
               <Cpu className="w-5 h-5 text-[#0077FF]" />
@@ -84,14 +84,14 @@ export function BrandSystem() {
             {brandPersonality.map((item, idx) => (
               <motion.div
                 key={item.label}
-                className="p-6 rounded-2xl bg-[#0F1115] border border-[rgba(255,255,255,0.08)] hover:border-[rgba(0,225,255,0.3)] transition-all duration-300 group"
+                className="p-6 rounded-2xl bg-[#0F1115] border border-[rgba(255,255,255,0.08)] hover:border-[rgba(56,189,248,0.35)] transition-all duration-300 group"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2 h-2 rounded-full bg-[#00E1FF] group-hover:scale-150 transition-transform" />
+                  <div className="w-2 h-2 rounded-full bg-[#38BDF8] group-hover:scale-150 transition-transform" />
                   <h4 className="font-display text-lg font-bold text-white tracking-wide">{item.label}</h4>
                 </div>
                 <p className="text-xs text-[#C0C0C8] leading-relaxed">{item.desc}</p>
@@ -112,12 +112,12 @@ export function BrandSystem() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="font-mono text-xs uppercase tracking-widest text-[#00E1FF]">Typography System</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-[#38BDF8]">Typography System</span>
             <div className="mt-6 space-y-6">
               <div className="border-b border-[rgba(255,255,255,0.06)] pb-4">
                 <div className="flex justify-between text-xs font-mono text-[#7C8795] mb-1">
                   <span>HEADINGS</span>
-                  <span className="text-[#00E1FF]">EXO 2</span>
+                  <span className="text-[#38BDF8]">EXO 2</span>
                 </div>
                 <p className="font-display text-2xl font-bold text-white tracking-wide">
                   ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -127,7 +127,7 @@ export function BrandSystem() {
               <div>
                 <div className="flex justify-between text-xs font-mono text-[#7C8795] mb-1">
                   <span>BODY TEXT & UI</span>
-                  <span className="text-[#00E1FF]">INTER</span>
+                  <span className="text-[#38BDF8]">INTER</span>
                 </div>
                 <p className="font-sans text-sm text-[#C0C0C8] leading-relaxed">
                   Clean, neutral typography optimized for effortless readability across desktop, tablet, and mobile platforms.
@@ -145,18 +145,18 @@ export function BrandSystem() {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <div>
-              <span className="font-mono text-xs uppercase tracking-widest text-[#00E1FF]">Iconography Style</span>
+              <span className="font-mono text-xs uppercase tracking-widest text-[#38BDF8]">Iconography Style</span>
               <p className="mt-2 text-xs text-[#C0C0C8]">
-                Modern vector line icons with vibrant cyan & electric blue accents. Global, connected, and futuristic.
+                Modern vector line icons with vibrant sky & electric blue accents. Global, connected, and futuristic.
               </p>
 
               <div className="mt-6 grid grid-cols-5 gap-3 text-center">
                 {brandIcons.map((item) => (
                   <div
                     key={item.label}
-                    className="p-3 rounded-xl bg-[#070809] border border-[rgba(0,225,255,0.15)] flex flex-col items-center gap-2 group hover:border-[#00E1FF] transition-colors"
+                    className="p-3 rounded-xl bg-[#070809] border border-[rgba(56,189,248,0.2)] flex flex-col items-center gap-2 group hover:border-[#38BDF8] transition-colors"
                   >
-                    <item.icon className="w-5 h-5 text-[#00E1FF] group-hover:scale-110 transition-transform" />
+                    <item.icon className="w-5 h-5 text-[#38BDF8] group-hover:scale-110 transition-transform" />
                     <span className="font-mono text-[10px] text-white font-medium">{item.label}</span>
                   </div>
                 ))}

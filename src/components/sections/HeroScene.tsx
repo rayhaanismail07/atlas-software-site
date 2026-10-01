@@ -67,7 +67,7 @@ export function HeroScene() {
     // =========================================================================
     // 1. Ambient Volumetric Lighting (Soft, deep glowing atmospheric aura)
     // =========================================================================
-    const centerAura = new THREE.PointLight(0x00f0ff, 3.8, 22);
+    const centerAura = new THREE.PointLight(0x0077ff, 3.8, 22);
     centerAura.position.set(0, 0, -2);
     scene.add(centerAura);
 
@@ -91,7 +91,7 @@ export function HeroScene() {
     const particleMeta = new Float32Array(totalParticles * 4); // [radius, angle, speed, yParam]
 
     const colWhite = new THREE.Color(0xffffff);
-    const colCyan = new THREE.Color(0x00f0ff);
+    const colElectricBlue = new THREE.Color(0x0077ff);
     const colSky = new THREE.Color(0x38bdf8);
     const colCobalt = new THREE.Color(0x2563eb);
     const colViolet = new THREE.Color(0xa855f7);
@@ -124,9 +124,9 @@ export function HeroScene() {
 
         // Chromatic Color mapping
         const normR = (radius - 3.1) / 6.5;
-        let col = colCyan.clone();
+        let col = colElectricBlue.clone();
         if (normR < 0.2) {
-          col = colCyan.clone().lerp(colWhite, 0.35);
+          col = colElectricBlue.clone().lerp(colWhite, 0.35);
         } else if (normR < 0.55) {
           col = colSky.clone().lerp(colCobalt, (normR - 0.2) / 0.35);
         } else {
@@ -181,7 +181,7 @@ export function HeroScene() {
         positions[idx3 + 1] = y;
         positions[idx3 + 2] = z;
 
-        const col = Math.random() > 0.5 ? colCyan : colSky;
+        const col = Math.random() > 0.5 ? colElectricBlue : colSky;
         colors[idx3] = col.r;
         colors[idx3 + 1] = col.g;
         colors[idx3 + 2] = col.b;
@@ -224,7 +224,7 @@ export function HeroScene() {
       return mesh;
     };
 
-    const ring1 = createLaserRing(3.6, 0x00f0ff, 0.35, Math.PI / 2.3);
+    const ring1 = createLaserRing(3.6, 0x0077ff, 0.4, Math.PI / 2.3);
     root.add(ring1);
 
     const ring2 = createLaserRing(4.9, 0x38bdf8, 0.22, Math.PI / 2.2);

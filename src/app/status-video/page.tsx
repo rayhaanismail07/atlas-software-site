@@ -172,20 +172,20 @@ export default function StatusVideoPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-4xl flex items-center justify-between mb-6">
-        <Link href="/" className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm font-medium">
+        <Link href="/" className="flex items-center gap-2 text-sky-400 hover:text-sky-300 text-sm font-medium">
           <ArrowLeft className="w-4 h-4" /> Back to Atlas Site
         </Link>
         <div className="flex items-center gap-3">
           <span className="text-xs font-mono text-slate-400">Aspect Ratio:</span>
           <button
             onClick={() => setAspectRatio("9:16")}
-            className={`px-3 py-1 text-xs rounded-full border ${aspectRatio === "9:16" ? "bg-cyan-500/20 border-cyan-400 text-cyan-300" : "border-slate-800 text-slate-400"}`}
+            className={`px-3 py-1 text-xs rounded-full border ${aspectRatio === "9:16" ? "bg-blue-500/20 border-sky-400 text-sky-300" : "border-slate-800 text-slate-400"}`}
           >
             9:16 (Vertical Status)
           </button>
           <button
             onClick={() => setAspectRatio("16:9")}
-            className={`px-3 py-1 text-xs rounded-full border ${aspectRatio === "16:9" ? "bg-cyan-500/20 border-cyan-400 text-cyan-300" : "border-slate-800 text-slate-400"}`}
+            className={`px-3 py-1 text-xs rounded-full border ${aspectRatio === "16:9" ? "bg-blue-500/20 border-sky-400 text-sky-300" : "border-slate-800 text-slate-400"}`}
           >
             16:9 (Landscape)
           </button>
@@ -195,7 +195,7 @@ export default function StatusVideoPage() {
       <div className="relative flex flex-col items-center justify-center bg-slate-900/60 border border-slate-800 rounded-3xl p-6 shadow-2xl backdrop-blur-xl">
         <div
           ref={containerRef}
-          className={`relative overflow-hidden rounded-2xl border border-cyan-500/20 shadow-2xl ${
+          className={`relative overflow-hidden rounded-2xl border border-blue-500/25 shadow-2xl ${
             aspectRatio === "9:16" ? "w-[320px] h-[568px]" : "w-[600px] h-[337px]"
           }`}
         >
@@ -204,7 +204,7 @@ export default function StatusVideoPage() {
           {/* Animated Status Text Overlays */}
           <div className="absolute inset-0 pointer-events-none p-6 flex flex-col justify-between z-10 text-center">
             <div className="flex flex-col items-center">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-cyan-400 bg-cyan-950/60 px-3 py-1 rounded-full border border-cyan-500/30">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-sky-400 bg-blue-950/60 px-3 py-1 rounded-full border border-blue-500/35">
                 ATLAS SOFTWARE
               </span>
             </div>
@@ -213,7 +213,7 @@ export default function StatusVideoPage() {
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white drop-shadow-md">
                 We Engineer Software
               </h2>
-              <p className="text-xs sm:text-sm text-cyan-300 font-medium">
+              <p className="text-xs sm:text-sm text-sky-300 font-medium">
                 That Moves Business Forward
               </p>
             </div>
@@ -229,11 +229,11 @@ export default function StatusVideoPage() {
             <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-xs flex flex-col items-center justify-end p-6 z-20">
               <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden mb-3">
                 <div
-                  className="bg-gradient-to-r from-cyan-400 to-purple-500 h-full transition-all duration-200"
+                  className="bg-gradient-to-r from-sky-400 to-purple-500 h-full transition-all duration-200"
                   style={{ width: `${progress}%` }}
                 />
               </div>
-              <span className="text-xs font-mono text-cyan-300 animate-pulse">
+              <span className="text-xs font-mono text-sky-300 animate-pulse">
                 Recording 10s 60FPS Video ({Math.round(progress)}%)
               </span>
             </div>

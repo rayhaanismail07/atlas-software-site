@@ -39,7 +39,7 @@ export function Floating3DBackground() {
     const starColors = new Float32Array(starCount * 3);
 
     const palette = [
-      new THREE.Color(0x00e1ff).multiplyScalar(0.55), // Subtle Atlas Cyan
+      new THREE.Color(0x38bdf8).multiplyScalar(0.55), // Subtle Atlas Sky Blue
       new THREE.Color(0x0077ff).multiplyScalar(0.50), // Subtle Electric Cobalt
       new THREE.Color(0x00f5b8).multiplyScalar(0.50), // Subtle Neon Mint
       new THREE.Color(0xa78bfa).multiplyScalar(0.55), // Subtle Quantum Violet
@@ -79,12 +79,12 @@ export function Floating3DBackground() {
     spaceGroup.add(nebulaeGroup);
 
     const nebulaeSpecs = [
-      { color: 0x00e1ff, size: 24, pos: [-14, 20, -22], opacity: 0.07 }, // Hero
+      { color: 0x38bdf8, size: 24, pos: [-14, 20, -22], opacity: 0.07 }, // Hero
       { color: 0x0077ff, size: 28, pos: [16, -25, -25], opacity: 0.06 }, // Section 1 & 2
       { color: 0x00f5b8, size: 30, pos: [-18, -80, -28], opacity: 0.08 }, // Section 3: Systems
-      { color: 0x00e1ff, size: 28, pos: [18, -120, -25], opacity: 0.07 }, // Section 3: Architecture
+      { color: 0x0077ff, size: 28, pos: [18, -120, -25], opacity: 0.07 }, // Section 3: Architecture
       { color: 0xa78bfa, size: 32, pos: [-15, -170, -28], opacity: 0.08 }, // Section 4: Process
-      { color: 0x00e1ff, size: 28, pos: [16, -220, -25], opacity: 0.07 }, // Section 5: Studio
+      { color: 0x38bdf8, size: 28, pos: [16, -220, -25], opacity: 0.07 }, // Section 5: Studio
       { color: 0xfbbf24, size: 26, pos: [-12, -270, -28], opacity: 0.06 }, // Section 5: Tech Stack
       { color: 0x0077ff, size: 30, pos: [14, -330, -24], opacity: 0.07 }, // Final CTA
     ];
@@ -140,7 +140,7 @@ export function Floating3DBackground() {
     for (let i = 0; i < 10; i++) {
       const ringGeo = new THREE.TorusGeometry(8 + (i % 3) * 3, 0.014, 8, 80);
       const ringMat = new THREE.MeshBasicMaterial({
-        color: i % 2 === 0 ? 0x00e1ff : 0xa78bfa,
+        color: i % 2 === 0 ? 0x0077ff : 0xa78bfa,
         transparent: true,
         opacity: 0.05,
         blending: THREE.AdditiveBlending,

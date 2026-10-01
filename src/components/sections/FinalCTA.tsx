@@ -20,12 +20,12 @@ export function FinalCTA() {
       <Container>
         <Reveal>
           <Interactive3DTilt maxTilt={2} scale={1.005} className="w-full">
-            <div className="contact-card relative overflow-hidden rounded-[32px] border border-cyan-500/25 bg-slate-950/85 backdrop-blur-2xl p-6 sm:p-10 lg:p-12 shadow-[0_30px_100px_rgba(0,0,0,0.5),0_0_80px_rgba(97,231,251,0.06)] group">
+            <div className="contact-card relative overflow-hidden rounded-[32px] border border-sky-500/25 bg-slate-950/85 backdrop-blur-2xl p-6 sm:p-10 lg:p-12 shadow-[0_30px_100px_rgba(0,0,0,0.5),0_0_80px_rgba(56,189,248,0.08)] group">
               {/* Rounded Top Border Glow Highlight */}
-              <div className="pointer-events-none absolute inset-0 rounded-[32px] border-t-2 border-cyan-400/70 [mask-image:linear-gradient(to_bottom,black_0%,black_20%,transparent_70%)]" />
+              <div className="pointer-events-none absolute inset-0 rounded-[32px] border-t-2 border-sky-400/70 [mask-image:linear-gradient(to_bottom,black_0%,black_20%,transparent_70%)]" />
               
               {/* Ambient Radial Background Glows */}
-              <div className="pointer-events-none absolute -top-32 -right-32 w-96 h-96 rounded-full bg-cyan-500/10 blur-[100px]" />
+              <div className="pointer-events-none absolute -top-32 -right-32 w-96 h-96 rounded-full bg-blue-500/10 blur-[100px]" />
               <div className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-indigo-500/10 blur-[100px]" />
 
               <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -36,7 +36,7 @@ export function FinalCTA() {
 
                     <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-display font-medium tracking-tight leading-[1.12] text-white">
                       Bring the ambition.
-                      <span className="block mt-1 bg-gradient-to-r from-cyan-300 via-teal-200 to-indigo-300 bg-clip-text text-transparent">
+                      <span className="block mt-1 bg-gradient-to-r from-sky-300 via-blue-200 to-indigo-300 bg-clip-text text-transparent">
                         We’ll engineer the system.
                       </span>
                     </h2>
@@ -59,7 +59,7 @@ export function FinalCTA() {
                   {/* Trust Badges */}
                   <div className="flex flex-wrap gap-x-6 gap-y-2 pt-4 border-t border-slate-800/80 text-slate-400 text-xs font-mono">
                     <span className="inline-flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+                      <CheckCircle2 className="w-4 h-4 text-sky-400" />
                       Direct Engineer Access
                     </span>
                     <span className="inline-flex items-center gap-2">
@@ -83,18 +83,18 @@ export function FinalCTA() {
                     {/* Direct Email Card */}
                     <a
                       href={`mailto:${siteConfig.contactEmail}`}
-                      className="group w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800/90 hover:border-cyan-500/50 hover:bg-slate-900 shadow-xl backdrop-blur-xl transition-all duration-300"
+                      className="group w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800/90 hover:border-sky-500/50 hover:bg-slate-900 shadow-xl backdrop-blur-xl transition-all duration-300"
                     >
                       <div className="flex items-center gap-3.5 min-w-0">
-                        <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center text-cyan-400 group-hover:scale-110 group-hover:bg-cyan-500/20 transition-all flex-shrink-0">
+                        <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/25 flex items-center justify-center text-sky-400 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all flex-shrink-0">
                           <Mail className="w-5 h-5" />
                         </div>
                         <div className="flex flex-col min-w-0">
                           <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">Direct Email</span>
-                          <span className="text-xs sm:text-sm font-semibold text-slate-100 group-hover:text-cyan-300 transition-colors truncate">{siteConfig.contactEmail}</span>
+                          <span className="text-xs sm:text-sm font-semibold text-slate-100 group-hover:text-sky-300 transition-colors truncate">{siteConfig.contactEmail}</span>
                         </div>
                       </div>
-                      <ArrowUpRight className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 ml-2" />
+                      <ArrowUpRight className="w-4 h-4 text-slate-500 group-hover:text-sky-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 ml-2" />
                     </a>
 
                     {/* WhatsApp Quick Connect Card */}

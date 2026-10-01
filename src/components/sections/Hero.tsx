@@ -32,7 +32,7 @@ const telemetryPills = [
     icon: Layers,
     title: "Full-Stack Products",
     desc: "React, Next.js & TypeScript",
-    accent: "text-cyan-300 bg-cyan-500/15 border-cyan-400/30",
+    accent: "text-sky-300 bg-blue-500/15 border-blue-400/30",
   },
   {
     icon: Workflow,
@@ -74,7 +74,7 @@ export function Hero() {
           {/* Hero Main Headline */}
           <h1 className="hero__title-cinematic">
             Your Vision,
-            <span className="block bg-gradient-to-r from-white via-cyan-200 to-cyan-400 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(0,225,255,0.28)]">
+            <span className="block bg-gradient-to-r from-white via-sky-200 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(0,119,255,0.35)]">
               Precision Engineered.
             </span>
           </h1>
@@ -89,14 +89,14 @@ export function Hero() {
           <div className="hero__actions hero__actions--centered flex flex-wrap items-center justify-center gap-4 mt-8">
             <Button
               href="#contact"
-              className="atlas-button--primary shadow-[0_0_35px_rgba(0,225,255,0.28)] hover:shadow-[0_0_50px_rgba(0,225,255,0.45)]"
+              className="atlas-button--primary shadow-[0_0_35px_rgba(0,119,255,0.35)] hover:shadow-[0_0_50px_rgba(0,119,255,0.55)]"
             >
               Start a project <ArrowUpRight aria-hidden="true" />
             </Button>
             <Button
               href="#services"
               variant="secondary"
-              className="backdrop-blur-xl border-white/15 hover:border-cyan-400/50 hover:bg-cyan-500/10"
+              className="backdrop-blur-xl border-white/15 hover:border-sky-400/50 hover:bg-blue-500/10"
             >
               Explore capabilities <ArrowDownRight aria-hidden="true" />
             </Button>
@@ -114,7 +114,7 @@ export function Hero() {
               return (
                 <div
                   key={pill.title}
-                  className="telemetry-pill p-3.5 rounded-2xl border border-white/10 bg-slate-950/60 backdrop-blur-xl flex items-center gap-3.5 hover:border-cyan-400/40 hover:bg-slate-900/80 transition-all duration-300 group shadow-lg text-left"
+                  className="telemetry-pill p-3.5 rounded-2xl border border-white/10 bg-slate-950/60 backdrop-blur-xl flex items-center gap-3.5 hover:border-sky-400/40 hover:bg-slate-900/80 transition-all duration-300 group shadow-lg text-left"
                 >
                   <div
                     className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300 ${pill.accent}`}
@@ -138,13 +138,13 @@ export function Hero() {
 
       <a
         href="#services"
-        className="hero__bottom-line hover:text-cyan-300 transition-colors flex flex-col items-center gap-1 cursor-pointer group"
+        className="hero__bottom-line hover:text-sky-300 transition-colors flex flex-col items-center gap-1 cursor-pointer group"
         aria-label="Scroll to discover"
       >
-        <span className="text-[11px] font-mono tracking-widest uppercase text-slate-400 group-hover:text-cyan-300 transition-colors">
+        <span className="text-[11px] font-mono tracking-widest uppercase text-slate-400 group-hover:text-sky-300 transition-colors">
           Scroll to discover
         </span>
-        <ChevronDown className="w-4 h-4 text-cyan-400 animate-bounce" aria-hidden="true" />
+        <ChevronDown className="w-4 h-4 text-sky-400 animate-bounce" aria-hidden="true" />
       </a>
     </section>
   );

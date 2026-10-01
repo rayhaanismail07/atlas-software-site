@@ -52,7 +52,7 @@ export function Cta3DCanvas() {
     const coreGeo = new THREE.OctahedronGeometry(0.75, 2);
     const coreMat = new THREE.MeshPhysicalMaterial({
       color: 0x070809,
-      emissive: 0x00e1ff,
+      emissive: 0x0077ff,
       emissiveIntensity: 0.85,
       roughness: 0.12,
       metalness: 0.95,
@@ -64,7 +64,7 @@ export function Cta3DCanvas() {
 
     // 2. Dual Counter-rotating Metallic Rings
     const ringMat1 = new THREE.MeshStandardMaterial({
-      color: 0x00e1ff,
+      color: 0x0077ff,
       metalness: 0.8,
       roughness: 0.2,
       emissive: 0x0077ff,
@@ -75,7 +75,7 @@ export function Cta3DCanvas() {
       color: 0xc0c0c8,
       metalness: 0.85,
       roughness: 0.15,
-      emissive: 0x00e1ff,
+      emissive: 0x38bdf8,
       emissiveIntensity: 0.4,
     });
 
@@ -92,7 +92,7 @@ export function Cta3DCanvas() {
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
     const colorChoices = [
-      new THREE.Color(0x00e1ff),
+      new THREE.Color(0x38bdf8),
       new THREE.Color(0x0077ff),
       new THREE.Color(0xc0c0c8),
       new THREE.Color(0xffffff),
@@ -129,13 +129,13 @@ export function Cta3DCanvas() {
     group.add(particleCloud);
 
     // 4. Lighting & Dynamic Glow Points
-    const mainLight = new THREE.DirectionalLight(0x61e7fb, 3.5);
+    const mainLight = new THREE.DirectionalLight(0x38bdf8, 3.5);
     mainLight.position.set(3, 4, 3);
     scene.add(mainLight);
 
-    const cyanLight = new THREE.PointLight(0x14b8a6, 4, 10);
-    cyanLight.position.set(-2, 2, 2);
-    scene.add(cyanLight);
+    const blueLight = new THREE.PointLight(0x0077ff, 4, 10);
+    blueLight.position.set(-2, 2, 2);
+    scene.add(blueLight);
 
     let active = true;
     let visible = true;
@@ -218,17 +218,17 @@ export function Cta3DCanvas() {
   return (
     <div
       ref={shellRef}
-      className="w-full h-[210px] sm:h-[230px] relative overflow-hidden rounded-2xl bg-slate-900/60 border border-cyan-500/25 shadow-xl backdrop-blur-xl group"
+      className="w-full h-[210px] sm:h-[230px] relative overflow-hidden rounded-2xl bg-slate-900/60 border border-sky-500/25 shadow-xl backdrop-blur-xl group"
     >
-      <div className="absolute top-3 left-3.5 right-3.5 z-10 flex items-center justify-between text-[11px] font-mono tracking-widest text-cyan-300 uppercase pointer-events-none">
-        <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-slate-950/80 border border-cyan-500/30 backdrop-blur-md">
+      <div className="absolute top-3 left-3.5 right-3.5 z-10 flex items-center justify-between text-[11px] font-mono tracking-widest text-sky-300 uppercase pointer-events-none">
+        <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-slate-950/80 border border-sky-500/30 backdrop-blur-md">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-400" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-400" />
           </span>
           <span>ATLAS BEACON</span>
         </div>
-        <Radio className="w-4 h-4 text-cyan-400 animate-pulse" />
+        <Radio className="w-4 h-4 text-sky-400 animate-pulse" />
       </div>
       <canvas ref={canvasRef} className="w-full h-full block" />
     </div>

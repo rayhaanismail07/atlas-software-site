@@ -3,18 +3,19 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
-// Generates procedural circular soft neon glow texture
-function createParticleTexture(): THREE.CanvasTexture {
+// High-definition procedural soft glowing bokeh particle texture
+function createGlowParticleTexture(): THREE.CanvasTexture {
   const canvas = document.createElement("canvas");
   canvas.width = 64;
   canvas.height = 64;
   const ctx = canvas.getContext("2d");
   if (ctx) {
     const center = 32;
-    const gradient = ctx.createRadialGradient(center, center, 0, center, center, 30);
+    const gradient = ctx.createRadialGradient(center, center, 0, center, center, 31);
     gradient.addColorStop(0, "rgba(255, 255, 255, 1.0)");
-    gradient.addColorStop(0.25, "rgba(0, 240, 255, 0.95)");
-    gradient.addColorStop(0.6, "rgba(37, 99, 235, 0.4)");
+    gradient.addColorStop(0.2, "rgba(0, 240, 255, 0.95)");
+    gradient.addColorStop(0.5, "rgba(37, 99, 235, 0.45)");
+    gradient.addColorStop(0.8, "rgba(139, 92, 246, 0.15)");
     gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 64, 64);
@@ -55,220 +56,192 @@ export function HeroScene() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(46, 1, 0.1, 1000);
-    camera.position.set(0, 0.3, 9.8);
+    camera.position.set(0, 1.6, 10.2);
     camera.lookAt(0, 0, 0);
 
     const root = new THREE.Group();
     scene.add(root);
 
-    const particleTexture = createParticleTexture();
+    const particleTexture = createGlowParticleTexture();
 
     // =========================================================================
-    // 1. Quantum Kinetic Core (Precision Faceted Geodesic Nucleus)
-    // Positioned deeper in z-space to frame the typography with celestial depth
+    // 1. Ambient Volumetric Lighting (Soft, deep glowing atmospheric aura)
     // =========================================================================
-    const coreGroup = new THREE.Group();
-    coreGroup.position.set(0, 0.4, -3.8);
-    root.add(coreGroup);
+    const centerAura = new THREE.PointLight(0x00f0ff, 3.8, 22);
+    centerAura.position.set(0, 0, -2);
+    scene.add(centerAura);
 
-    // Inner Radiant Nucleus (Pulsing glowing orb)
-    const nucleusGeo = new THREE.SphereGeometry(0.85, 32, 32);
-    const nucleusMat = new THREE.MeshBasicMaterial({
-      color: 0x00f0ff,
-      transparent: true,
-      opacity: 0.45,
-      blending: THREE.AdditiveBlending,
-    });
-    const nucleus = new THREE.Mesh(nucleusGeo, nucleusMat);
-    coreGroup.add(nucleus);
+    const violetAura = new THREE.PointLight(0x8b5cf6, 3.2, 24);
+    violetAura.position.set(5, 2, -1);
+    scene.add(violetAura);
 
-    // Nucleus Core Light (Volumetric cast outward)
-    const coreLight = new THREE.PointLight(0x00f0ff, 4.0, 16);
-    coreGroup.add(coreLight);
-
-    const violetRimLight = new THREE.PointLight(0xa855f7, 3.0, 18);
-    violetRimLight.position.set(4, 2.5, 2);
-    scene.add(violetRimLight);
-
-    // Primary Faceted Crystal (Icosahedron Shell)
-    const crystalGeo = new THREE.IcosahedronGeometry(1.9, 0);
-    const crystalWireGeo = new THREE.IcosahedronGeometry(1.91, 1);
-
-    // Faceted Glass Faces
-    const crystalMat = new THREE.MeshPhysicalMaterial({
-      color: 0x02111d,
-      emissive: 0x00223d,
-      emissiveIntensity: 0.35,
-      roughness: 0.15,
-      metalness: 0.9,
-      transmission: 0.55,
-      ior: 1.45,
-      transparent: true,
-      opacity: 0.28,
-      wireframe: false,
-    });
-    const crystalMesh = new THREE.Mesh(crystalGeo, crystalMat);
-    coreGroup.add(crystalMesh);
-
-    // Ultra-Fine Glowing Wireframe Lattice on Crystal
-    const crystalWireMat = new THREE.MeshBasicMaterial({
-      color: 0x00f0ff,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.18,
-      blending: THREE.AdditiveBlending,
-    });
-    const crystalWireMesh = new THREE.Mesh(crystalWireGeo, crystalWireMat);
-    coreGroup.add(crystalWireMesh);
-
-    // Secondary Nested Octahedron Core
-    const octaGeo = new THREE.OctahedronGeometry(1.25, 0);
-    const octaMat = new THREE.MeshBasicMaterial({
-      color: 0x60a5fa,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.35,
-      blending: THREE.AdditiveBlending,
-    });
-    const octaMesh = new THREE.Mesh(octaGeo, octaMat);
-    coreGroup.add(octaMesh);
+    const deepBlueAura = new THREE.PointLight(0x1d4ed8, 4.0, 26);
+    deepBlueAura.position.set(-5, -2, -3);
+    scene.add(deepBlueAura);
 
     // =========================================================================
-    // 2. Concentric Gyroscopic Orbital Energy Rings
+    // 2. Expansive Quantum Vortex (9,000 Points Framing the Center)
+    // The center (radius < 3.2) is left as a clean obsidian eye for text clarity,
+    // while the surrounding galaxy swirls with rich chromatic energy.
     // =========================================================================
-    const gyroGroup = new THREE.Group();
-    gyroGroup.position.copy(coreGroup.position);
-    root.add(gyroGroup);
+    const totalParticles = 9000;
+    const vortexGeo = new THREE.BufferGeometry();
+    const positions = new Float32Array(totalParticles * 3);
+    const colors = new Float32Array(totalParticles * 3);
+    const particleMeta = new Float32Array(totalParticles * 4); // [radius, angle, speed, yParam]
 
-    const createRing = (radius: number, tube: number, color: number, opacity: number) => {
-      const geo = new THREE.TorusGeometry(radius, tube, 20, 180);
-      const mat = new THREE.MeshBasicMaterial({
-        color,
-        transparent: true,
-        opacity,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-      });
-      return new THREE.Mesh(geo, mat);
-    };
+    const colWhite = new THREE.Color(0xffffff);
+    const colCyan = new THREE.Color(0x00f0ff);
+    const colSky = new THREE.Color(0x38bdf8);
+    const colCobalt = new THREE.Color(0x2563eb);
+    const colViolet = new THREE.Color(0xa855f7);
+    const colIndigo = new THREE.Color(0x4f46e5);
 
-    // Ring 1 - Inner High-Frequency Ring
-    const ring1 = createRing(3.2, 0.015, 0x00f0ff, 0.55);
-    ring1.rotation.set(1.2, 0.4, 0.2);
-    gyroGroup.add(ring1);
+    for (let i = 0; i < totalParticles; i++) {
+      const idx3 = i * 3;
+      const idx4 = i * 4;
 
-    // Ring 2 - Mid Equator Ring
-    const ring2 = createRing(4.3, 0.013, 0x38bdf8, 0.42);
-    ring2.rotation.set(-0.9, 0.7, -0.5);
-    gyroGroup.add(ring2);
+      if (i < 6200) {
+        // Multi-Arm Accretion Vortex Disk (Framing the text)
+        const t = i / 6200;
+        // Inner radius 3.1 ensures the center typography remains in pristine open space
+        const radius = 3.1 + Math.pow(t, 0.82) * 6.5 + (Math.random() - 0.5) * 0.5;
+        // 3-arm logarithmic spiral
+        const armIndex = i % 3;
+        const armOffset = (armIndex * Math.PI * 2) / 3;
+        const spiralAngle = Math.log(radius) * 2.4 + armOffset + (Math.random() - 0.5) * 0.45;
+        const speed = (0.28 + (1 / Math.sqrt(radius)) * 0.55) * 0.75;
+        const yBase = (Math.random() - 0.5) * (0.35 + radius * 0.08);
 
-    // Ring 3 - Outer Celestial Ring
-    const ring3 = createRing(5.5, 0.012, 0x818cf8, 0.32);
-    ring3.rotation.set(0.4, -1.1, 0.8);
-    gyroGroup.add(ring3);
+        particleMeta[idx4] = radius;
+        particleMeta[idx4 + 1] = spiralAngle;
+        particleMeta[idx4 + 2] = speed;
+        particleMeta[idx4 + 3] = yBase;
 
-    // Ring 4 - Deep Perimeter Precision Guide
-    const ring4 = createRing(6.8, 0.009, 0xa855f7, 0.2);
-    ring4.rotation.set(-0.5, -0.3, 1.4);
-    gyroGroup.add(ring4);
+        positions[idx3] = Math.cos(spiralAngle) * radius;
+        positions[idx3 + 1] = yBase;
+        positions[idx3 + 2] = Math.sin(spiralAngle) * radius - 2.8;
 
-    // Orbiting Photon Spark Satellites along rings (Ultra-fine luminous sparks)
-    const satelliteGeo = new THREE.SphereGeometry(0.038, 16, 16);
-    const satelliteMat = new THREE.MeshBasicMaterial({
-      color: 0x00f0ff,
-      blending: THREE.AdditiveBlending,
-    });
+        // Chromatic Color mapping
+        const normR = (radius - 3.1) / 6.5;
+        let col = colCyan.clone();
+        if (normR < 0.2) {
+          col = colCyan.clone().lerp(colWhite, 0.35);
+        } else if (normR < 0.55) {
+          col = colSky.clone().lerp(colCobalt, (normR - 0.2) / 0.35);
+        } else {
+          col = colCobalt.clone().lerp(colViolet, (normR - 0.55) / 0.45);
+        }
 
-    const sat1 = new THREE.Mesh(satelliteGeo, satelliteMat);
-    ring1.add(sat1);
+        colors[idx3] = col.r;
+        colors[idx3 + 1] = col.g;
+        colors[idx3 + 2] = col.b;
+      } else if (i < 7800) {
+        // Celestial Orbital Filament Rings (Arching above and below the horizon)
+        const loopT = (i - 6200) / 1600;
+        const loopAngle = loopT * Math.PI * 2;
+        const loopRadius = 4.8 + (Math.random() - 0.5) * 1.2;
+        const speed = 0.4 + Math.random() * 0.35;
+        const tilt = (i % 2 === 0 ? 1 : -1) * 0.65;
 
-    const sat2 = new THREE.Mesh(satelliteGeo, satelliteMat);
-    ring2.add(sat2);
+        const lx = Math.cos(loopAngle) * loopRadius;
+        const ly = Math.sin(loopAngle) * (loopRadius * 0.75);
+        const lz = ly * tilt - 2.8;
 
-    const sat3 = new THREE.Mesh(satelliteGeo, satelliteMat);
-    ring3.add(sat3);
+        particleMeta[idx4] = loopRadius;
+        particleMeta[idx4 + 1] = loopAngle;
+        particleMeta[idx4 + 2] = speed;
+        particleMeta[idx4 + 3] = tilt;
 
-    // =========================================================================
-    // 3. Cosmic Swirl Stardust & Flow Particles
-    // =========================================================================
-    const particleCount = 420;
-    const particleGeo = new THREE.BufferGeometry();
-    const particlePositions = new Float32Array(particleCount * 3);
-    const particleColors = new Float32Array(particleCount * 3);
-    const particleMeta = new Float32Array(particleCount * 4); // [radius, angle, speed, yOffset]
+        positions[idx3] = lx;
+        positions[idx3 + 1] = ly;
+        positions[idx3 + 2] = lz;
 
-    const colorPalette = [
-      new THREE.Color(0x00f0ff),
-      new THREE.Color(0x38bdf8),
-      new THREE.Color(0x818cf8),
-      new THREE.Color(0xc084fc),
-      new THREE.Color(0xffffff),
-    ];
+        const col = colViolet.clone().lerp(colIndigo, Math.random() * 0.5);
+        colors[idx3] = col.r;
+        colors[idx3 + 1] = col.g;
+        colors[idx3 + 2] = col.b;
+      } else {
+        // Ambient Galactic Stardust Halo (Deep field dispersion)
+        const radius = 3.5 + Math.random() * 8.5;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = (Math.random() - 0.5) * Math.PI * 0.9;
+        const speed = 0.12 + Math.random() * 0.25;
 
-    for (let i = 0; i < particleCount; i++) {
-      const radius = 2.2 + Math.random() * 4.8;
-      const angle = Math.random() * Math.PI * 2;
-      const speed = (0.2 + Math.random() * 0.45) * (Math.random() > 0.5 ? 1 : -1);
-      const yOffset = (Math.random() - 0.5) * 4.0;
+        const x = radius * Math.cos(phi) * Math.cos(theta);
+        const y = radius * Math.sin(phi);
+        const z = radius * Math.cos(phi) * Math.sin(theta) - 2.8;
 
-      particleMeta[i * 4] = radius;
-      particleMeta[i * 4 + 1] = angle;
-      particleMeta[i * 4 + 2] = speed;
-      particleMeta[i * 4 + 3] = yOffset;
+        particleMeta[idx4] = radius;
+        particleMeta[idx4 + 1] = theta;
+        particleMeta[idx4 + 2] = speed;
+        particleMeta[idx4 + 3] = phi;
 
-      particlePositions[i * 3] = Math.cos(angle) * radius;
-      particlePositions[i * 3 + 1] = yOffset;
-      particlePositions[i * 3 + 2] = Math.sin(angle) * radius - 1.8;
+        positions[idx3] = x;
+        positions[idx3 + 1] = y;
+        positions[idx3 + 2] = z;
 
-      const col = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-      particleColors[i * 3] = col.r;
-      particleColors[i * 3 + 1] = col.g;
-      particleColors[i * 3 + 2] = col.b;
+        const col = Math.random() > 0.5 ? colCyan : colSky;
+        colors[idx3] = col.r;
+        colors[idx3 + 1] = col.g;
+        colors[idx3 + 2] = col.b;
+      }
     }
 
-    particleGeo.setAttribute("position", new THREE.BufferAttribute(particlePositions, 3));
-    particleGeo.setAttribute("color", new THREE.BufferAttribute(particleColors, 3));
+    vortexGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    vortexGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
-    const particleMat = new THREE.PointsMaterial({
-      size: 0.09,
+    const vortexMat = new THREE.PointsMaterial({
+      size: 0.105,
       map: particleTexture,
       vertexColors: true,
       transparent: true,
-      opacity: 0.72,
+      opacity: 0.85,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
       sizeAttenuation: true,
     });
 
-    const particles = new THREE.Points(particleGeo, particleMat);
-    root.add(particles);
+    const vortexPoints = new THREE.Points(vortexGeo, vortexMat);
+    root.add(vortexPoints);
 
     // =========================================================================
-    // 4. Subtle Horizon Ambient Grid (Architectural Scale & Depth)
+    // 3. Precision Laser Framing Rings (Framing the calm eye of the vortex)
     // =========================================================================
-    const gridGeo = new THREE.PlaneGeometry(38, 22, 24, 16);
-    gridGeo.rotateX(-Math.PI / 2);
-    const gridMat = new THREE.MeshBasicMaterial({
-      color: 0x00f0ff,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.024,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const gridMesh = new THREE.Mesh(gridGeo, gridMat);
-    gridMesh.position.set(0, -3.4, -4);
-    gridMesh.rotation.x = 0.16;
-    root.add(gridMesh);
+    const createLaserRing = (radius: number, color: number, opacity: number, tiltX: number) => {
+      const geo = new THREE.RingGeometry(radius, radius + 0.018, 160);
+      const mat = new THREE.MeshBasicMaterial({
+        color,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.rotation.x = tiltX;
+      mesh.position.set(0, 0, -2.8);
+      return mesh;
+    };
+
+    const ring1 = createLaserRing(3.6, 0x00f0ff, 0.35, Math.PI / 2.3);
+    root.add(ring1);
+
+    const ring2 = createLaserRing(4.9, 0x38bdf8, 0.22, Math.PI / 2.2);
+    root.add(ring2);
+
+    const ring3 = createLaserRing(6.4, 0x8b5cf6, 0.16, Math.PI / 2.4);
+    root.add(ring3);
 
     // =========================================================================
-    // 5. Interaction & Render Loop
+    // 4. Smooth Interaction & Render Loop
     // =========================================================================
     let active = true;
     let visible = true;
     let frame = 0;
 
     const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    const mouseWorld = new THREE.Vector2(0, 0);
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const clock = new THREE.Clock();
 
@@ -281,8 +254,8 @@ export function HeroScene() {
       camera.updateProjectionMatrix();
 
       const compact = width < 768;
-      camera.position.z = compact ? 12 : 9.8;
-      camera.position.y = compact ? 0.4 : 0.3;
+      camera.position.z = compact ? 12.0 : 10.2;
+      camera.position.y = compact ? 1.8 : 1.6;
       root.scale.setScalar(compact ? 0.8 : 1);
     };
 
@@ -290,6 +263,8 @@ export function HeroScene() {
       const rect = shell.getBoundingClientRect();
       mouse.targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
       mouse.targetY = -((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+      mouseWorld.set(mouse.targetX * 9, mouse.targetY * 5);
     };
 
     const observer = new IntersectionObserver(
@@ -304,7 +279,7 @@ export function HeroScene() {
     window.addEventListener("pointermove", onPointerMove);
     resize();
 
-    const posAttr = particleGeo.attributes.position as THREE.BufferAttribute;
+    const posAttr = vortexGeo.attributes.position as THREE.BufferAttribute;
 
     const animate = () => {
       if (!active) return;
@@ -313,61 +288,82 @@ export function HeroScene() {
 
       const elapsed = clock.getElapsedTime();
 
-      // Fluid pointer parallax with silky damping
-      mouse.x += (mouse.targetX - mouse.x) * 0.05;
-      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+      // Silky spring pointer parallax
+      mouse.x += (mouse.targetX - mouse.x) * 0.045;
+      mouse.y += (mouse.targetY - mouse.y) * 0.045;
 
-      // Gyroscopic Root Reaction: responds smoothly to mouse movement
-      root.rotation.y = mouse.x * 0.22;
-      root.rotation.x = -mouse.y * 0.16;
+      // 3D perspective galaxy tilt
+      root.rotation.x = -mouse.y * 0.22 + 0.24;
+      root.rotation.y = mouse.x * 0.30;
 
-      // Rotate Faceted Crystal Core
-      crystalMesh.rotation.x = elapsed * 0.25;
-      crystalMesh.rotation.y = elapsed * 0.38;
-      crystalWireMesh.rotation.copy(crystalMesh.rotation);
+      // Subtle atmospheric pulsing
+      centerAura.intensity = 3.6 + Math.sin(elapsed * 2.2) * 0.8;
+      violetAura.intensity = 3.0 + Math.cos(elapsed * 1.8) * 0.6;
 
-      octaMesh.rotation.x = -elapsed * 0.42;
-      octaMesh.rotation.z = elapsed * 0.35;
+      // Rotate precision laser rings
+      ring1.rotation.z = elapsed * 0.14;
+      ring2.rotation.z = -elapsed * 0.09;
+      ring3.rotation.z = elapsed * 0.06;
 
-      // Nucleus Breathing / Pulse Effect
-      const pulse = 1 + Math.sin(elapsed * 2.8) * 0.08;
-      nucleus.scale.setScalar(pulse);
-      coreLight.intensity = 4.2 + Math.sin(elapsed * 3.5) * 1.0;
-
-      // Clockwork Gyroscopic Multi-Axis Ring Rotations
-      ring1.rotation.z = elapsed * 0.35;
-      ring1.rotation.x = 1.2 + Math.sin(elapsed * 0.4) * 0.2;
-      sat1.position.set(Math.cos(elapsed * 2.2) * 2.6, Math.sin(elapsed * 2.2) * 2.6, 0);
-
-      ring2.rotation.y = -elapsed * 0.28;
-      ring2.rotation.z = -0.5 + Math.cos(elapsed * 0.35) * 0.25;
-      sat2.position.set(Math.cos(elapsed * 1.8) * 3.4, Math.sin(elapsed * 1.8) * 3.4, 0);
-
-      ring3.rotation.x = elapsed * 0.22;
-      ring3.rotation.y = -1.1 + Math.sin(elapsed * 0.3) * 0.2;
-      sat3.position.set(Math.cos(elapsed * 1.4) * 4.3, Math.sin(elapsed * 1.4) * 4.3, 0);
-
-      ring4.rotation.z = -elapsed * 0.15;
-
-      // Orbiting Stardust Particles
+      // Dynamic Particle Vortex Physics
       if (!reduceMotion) {
         const pArr = posAttr.array as Float32Array;
-        for (let i = 0; i < particleCount; i++) {
-          const mIdx = i * 4;
-          const pIdx = i * 3;
 
-          const radius = particleMeta[mIdx];
-          const baseAngle = particleMeta[mIdx + 1];
-          const speed = particleMeta[mIdx + 2];
-          const yOffset = particleMeta[mIdx + 3];
+        for (let i = 0; i < totalParticles; i++) {
+          const idx3 = i * 3;
+          const idx4 = i * 4;
 
-          const currentAngle = baseAngle + elapsed * speed * 0.35;
+          const radius = particleMeta[idx4];
+          const baseAngle = particleMeta[idx4 + 1];
+          const speed = particleMeta[idx4 + 2];
+          const param4 = particleMeta[idx4 + 3];
 
-          // Gentle 3D orbital trajectory with vertical undulation
-          pArr[pIdx] = Math.cos(currentAngle) * radius;
-          pArr[pIdx + 1] = yOffset + Math.sin(elapsed * 1.5 + baseAngle) * 0.4;
-          pArr[pIdx + 2] = Math.sin(currentAngle) * radius - 1.8;
+          if (i < 6200) {
+            // Spiral disk orbit with harmonic wave elevation
+            const currentAngle = baseAngle + elapsed * speed * 0.26;
+            const waveY = param4 + Math.sin(radius * 1.5 - elapsed * 2.0) * 0.16;
+
+            let px = Math.cos(currentAngle) * radius;
+            let py = waveY;
+            let pz = Math.sin(currentAngle) * radius - 2.8;
+
+            // Interactive cursor gravitational fluid wake
+            const dx = px - mouseWorld.x;
+            const dy = py - mouseWorld.y;
+            const distSq = dx * dx + dy * dy;
+            if (distSq < 20.0) {
+              const dist = Math.sqrt(distSq);
+              const force = (1.0 - dist / 4.47) * 0.32;
+              px += -dy * force;
+              py += dx * force;
+            }
+
+            pArr[idx3] = px;
+            pArr[idx3 + 1] = py;
+            pArr[idx3 + 2] = pz;
+          } else if (i < 7800) {
+            // Filament loop orbits
+            const currentAngle = baseAngle + elapsed * speed * 0.22;
+            const lx = Math.cos(currentAngle) * radius;
+            const ly = Math.sin(currentAngle) * (radius * 0.75);
+            const lz = ly * param4 - 2.8;
+
+            pArr[idx3] = lx;
+            pArr[idx3 + 1] = ly;
+            pArr[idx3 + 2] = lz;
+          } else {
+            // Stardust halo drift
+            const currentTheta = baseAngle + elapsed * speed * 0.06;
+            const x = radius * Math.cos(param4) * Math.cos(currentTheta);
+            const y = radius * Math.sin(param4) + Math.sin(elapsed * 1.0 + i) * 0.07;
+            const z = radius * Math.cos(param4) * Math.sin(currentTheta) - 2.8;
+
+            pArr[idx3] = x;
+            pArr[idx3 + 1] = y;
+            pArr[idx3 + 2] = z;
+          }
         }
+
         posAttr.needsUpdate = true;
       }
 
@@ -383,21 +379,12 @@ export function HeroScene() {
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onPointerMove);
 
-      nucleusGeo.dispose();
-      nucleusMat.dispose();
-      crystalGeo.dispose();
-      crystalMat.dispose();
-      crystalWireGeo.dispose();
-      crystalWireMat.dispose();
-      octaGeo.dispose();
-      octaMat.dispose();
-      gridGeo.dispose();
-      gridMat.dispose();
-      particleGeo.dispose();
-      particleMat.dispose();
+      vortexGeo.dispose();
+      vortexMat.dispose();
+      ring1.geometry.dispose();
+      ring2.geometry.dispose();
+      ring3.geometry.dispose();
       particleTexture.dispose();
-      satelliteGeo.dispose();
-      satelliteMat.dispose();
       renderer.dispose();
     };
   }, []);

@@ -8,14 +8,12 @@ import {
   ChevronDown,
   Cpu,
   Layers,
-  MapPin,
   ShieldCheck,
   Workflow,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { siteConfig } from "@/data/site";
 
 const HeroScene = dynamic(
   () => import("@/components/sections/HeroScene").then((module) => module.HeroScene),
@@ -73,18 +71,6 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Status Pill Badge */}
-          <div className="hero__eyebrow-pill inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-500/25 bg-slate-950/70 backdrop-blur-xl mb-6 shadow-[0_0_24px_rgba(0,225,255,0.12)]">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_#00f0ff]" />
-            <span className="text-[11px] font-mono tracking-wider uppercase text-cyan-200 font-semibold">
-              Available for Q2/Q3 Initiatives
-            </span>
-            <span className="text-white/20">•</span>
-            <span className="text-[11px] font-mono tracking-wider uppercase text-slate-300 flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-cyan-400" aria-hidden="true" /> {siteConfig.location}
-            </span>
-          </div>
-
           {/* Hero Main Headline */}
           <h1 className="hero__title-cinematic">
             Your Vision,

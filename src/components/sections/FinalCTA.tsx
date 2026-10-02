@@ -1,18 +1,12 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { ArrowUpRight, Mail, MapPin, Instagram, CheckCircle2, MessageCircle, Globe } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Instagram, CheckCircle2, MessageCircle, Globe, Zap } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Interactive3DTilt } from "@/components/ui/Interactive3DTilt";
 import { siteConfig } from "@/data/site";
-
-const Cta3DCanvas = dynamic(
-  () => import("@/components/sections/Cta3DCanvas").then((m) => m.Cta3DCanvas),
-  { ssr: false },
-);
 
 export function FinalCTA() {
   return (
@@ -32,7 +26,7 @@ export function FinalCTA() {
                 {/* Left Column: Heading & Primary Actions */}
                 <div className="contact-card__copy lg:col-span-7 flex flex-col justify-center gap-6 w-full">
                   <div>
-                    <span className="atlas-label mb-4">06 / Start a project</span>
+                    <span className="atlas-label mb-4">07 / Start a project</span>
 
                     <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-display font-medium tracking-tight leading-[1.12] text-white">
                       Bring the ambition.
@@ -73,10 +67,15 @@ export function FinalCTA() {
                   </div>
                 </div>
 
-                {/* Right Column: 3D Core & Full-Width Contact Detail Cards */}
+                {/* Right Column: Direct Contact & Channel Cards */}
                 <div className="contact-card__details lg:col-span-5 w-full flex flex-col gap-3 lg:border-l lg:border-slate-800/80 lg:pl-10">
-                  {/* Interactive 3D WebGL Core */}
-                  <Cta3DCanvas />
+                  <div className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-blue-500/10 border border-blue-500/25 text-xs font-mono text-sky-300">
+                    <span className="flex items-center gap-2">
+                      <Zap className="w-4 h-4 text-sky-400" />
+                      Direct Founder &amp; Engineer Access
+                    </span>
+                    <span className="text-[10px] text-slate-400">Response &lt; 4 hrs</span>
+                  </div>
 
                   {/* Full-width Glassmorphic Contact Cards */}
                   <div className="w-full flex flex-col gap-2.5">

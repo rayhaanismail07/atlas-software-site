@@ -41,86 +41,134 @@ export function System3DCanvas() {
     renderer.outputColorSpace = THREE.SRGBColorSpace;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
-    camera.position.set(0, 1.2, 5.2);
+    const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+    camera.position.set(0, 0.4, 5.0);
     camera.lookAt(0, 0, 0);
 
     const group = new THREE.Group();
     scene.add(group);
 
-    // Multi-tier server node pillars
-    const pillars: THREE.Mesh[] = [];
-    const pillarPositions = [
-      [-1.4, -0.2, -0.8],
-      [-0.4, 0.1, -0.8],
-      [0.6, 0.4, -0.8],
-      [1.4, 0.2, -0.8],
-      [-0.9, -0.1, 0.5],
-      [0.2, 0.3, 0.5],
-      [1.1, 0.0, 0.5],
+    // Full-Stack Architecture System Nodes
+    // Tier 1: Client / Web Tier (Top / Left)
+    // Tier 2: API Gateway & Microservices (Center)
+    // Tier 3: Database & Cloud Services (Bottom / Right)
+    const systemNodes = [
+      { name: "Client Web App", pos: [-2.1, 0.7, -0.2], color: 0x38bdf8, size: 0.22, shape: "box" },
+      { name: "Client Mobile/Portal", pos: [-1.4, -0.6, 0.2], color: 0x60a5fa, size: 0.19, shape: "box" },
+      { name: "API Gateway", pos: [-0.4, 0.35, 0.1], color: 0x0077ff, size: 0.26, shape: "octa" },
+      { name: "Async Microservice", pos: [0.5, -0.4, 0.3], color: 0x2563eb, size: 0.22, shape: "octa" },
+      { name: "Auth & Redis Cache", pos: [0.3, 0.8, -0.3], color: 0xa855f7, size: 0.18, shape: "sphere" },
+      { name: "Postgres Database", pos: [1.6, 0.2, 0.0], color: 0x38bdf8, size: 0.28, shape: "cylinder" },
+      { name: "Cloud & Storage Bucket", pos: [2.1, -0.7, -0.2], color: 0x10b981, size: 0.20, shape: "cylinder" },
     ];
 
-    pillarPositions.forEach(([x, y, z]) => {
-      const geo = new THREE.BoxGeometry(0.35, y + 1.2, 0.35);
-      const mat = new THREE.MeshPhysicalMaterial({
-        color: 0x070809,
-        emissive: 0x003d52,
-        emissiveIntensity: 0.6,
-        roughness: 0.2,
-        metalness: 0.9,
-        clearcoat: 0.8,
-      });
-      const mesh = new THREE.Mesh(geo, mat);
-      mesh.position.set(x, (y - 0.8) / 2, z);
-      group.add(mesh);
-      pillars.push(mesh);
+    const nodeMeshes: THREE.Mesh[] = [];
 
-      // Glowing top cap
-      const capGeo = new THREE.BoxGeometry(0.37, 0.04, 0.37);
-      const capMat = new THREE.MeshBasicMaterial({
-        color: 0x0077ff,
-        transparent: true,
-        opacity: 0.95,
+    systemNodes.forEach((node) => {
+      let geo: THREE.BufferGeometry;
+      if (node.shape === "box") {
+        geo = new THREE.BoxGeometry(node.size * 1.5, node.size * 1.5, node.size * 0.8);
+      } else if (node.shape === "octa") {
+        geo = new THREE.OctahedronGeometry(node.size, 1);
+      } else if (node.shape === "cylinder") {
+        geo = new THREE.CylinderGeometry(node.size, node.size, node.size * 1.2, 16);
+      } else {
+        geo = new THREE.IcosahedronGeometry(node.size, 2);
+      }
+
+      const mat = new THREE.MeshPhysicalMaterial({
+        color: 0x0a1017,
+        emissive: node.color,
+        emissiveIntensity: 0.75,
+        roughness: 0.2,
+        metalness: 0.85,
+        clearcoat: 1.0,
       });
-      const capMesh = new THREE.Mesh(capGeo, capMat);
-      capMesh.position.set(x, y + 0.42, z);
-      group.add(capMesh);
+
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.set(node.pos[0], node.pos[1], node.pos[2]);
+      group.add(mesh);
+      nodeMeshes.push(mesh);
+
+      // Orbital halo ring for each node
+      const haloGeo = new THREE.RingGeometry(node.size * 1.35, node.size * 1.45, 32);
+      const haloMat = new THREE.MeshBasicMaterial({
+        color: node.color,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.45,
+        blending: THREE.AdditiveBlending,
+      });
+      const halo = new THREE.Mesh(haloGeo, haloMat);
+      halo.rotation.x = Math.PI / 3;
+      mesh.add(halo);
     });
 
-    // 3D Data Packets moving across nodes
-    const packetCount = 18;
-    const packetMeshes: THREE.Mesh[] = [];
-    const packetData: Array<{ start: THREE.Vector3; end: THREE.Vector3; progress: number; speed: number }> = [];
+    // Connecting Network Data Conduits (Bezier Curves)
+    const conduitConnections = [
+      [0, 2], // Web -> Gateway
+      [1, 2], // Mobile -> Gateway
+      [2, 3], // Gateway -> Microservice
+      [2, 4], // Gateway -> Auth/Cache
+      [3, 5], // Microservice -> Postgres
+      [3, 6], // Microservice -> Cloud
+      [4, 5], // Auth/Cache -> Postgres
+    ];
 
-    const packetGeo = new THREE.SphereGeometry(0.04, 12, 12);
+    const packetGeo = new THREE.SphereGeometry(0.035, 10, 10);
     const packetMat = new THREE.MeshBasicMaterial({
-      color: 0x38bdf8,
+      color: 0xffffff,
       blending: THREE.AdditiveBlending,
     });
 
-    for (let i = 0; i < packetCount; i++) {
-      const pMesh = new THREE.Mesh(packetGeo, packetMat);
-      group.add(pMesh);
-      packetMeshes.push(pMesh);
+    const conduitStreams: Array<{
+      curve: THREE.QuadraticBezierCurve3;
+      packet: THREE.Mesh;
+      speed: number;
+      progress: number;
+    }> = [];
 
-      const p1 = pillarPositions[i % pillarPositions.length];
-      const p2 = pillarPositions[(i + 3) % pillarPositions.length];
-      const start = new THREE.Vector3(p1[0], p1[1] + 0.45, p1[2]);
-      const end = new THREE.Vector3(p2[0], p2[1] + 0.45, p2[2]);
+    conduitConnections.forEach(([from, to], i) => {
+      const p1 = new THREE.Vector3(...systemNodes[from].pos);
+      const p2 = new THREE.Vector3(...systemNodes[to].pos);
+      const mid = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
+      mid.y += (i % 2 === 0 ? 0.35 : -0.25);
+      mid.z += 0.2;
 
-      packetData.push({
-        start,
-        end,
-        progress: (i / packetCount),
-        speed: 0.008 + (i % 4) * 0.003,
+      const curve = new THREE.QuadraticBezierCurve3(p1, mid, p2);
+      const points = curve.getPoints(36);
+      const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+      const lineMat = new THREE.LineBasicMaterial({
+        color: 0x0077ff,
+        transparent: true,
+        opacity: 0.28,
+        blending: THREE.AdditiveBlending,
       });
-    }
+      const line = new THREE.Line(lineGeo, lineMat);
+      group.add(line);
 
-    // Lights
-    const keyLight = new THREE.DirectionalLight(0x5eeaff, 2.5);
-    keyLight.position.set(3, 4, 3);
+      // Floating data packet
+      const packet = new THREE.Mesh(packetGeo, packetMat);
+      group.add(packet);
+
+      conduitStreams.push({
+        curve,
+        packet,
+        speed: 0.007 + (i % 3) * 0.003,
+        progress: i / conduitConnections.length,
+      });
+    });
+
+    // Lighting
+    const keyLight = new THREE.DirectionalLight(0x38bdf8, 3.2);
+    keyLight.position.set(3, 4, 4);
     scene.add(keyLight);
-    const ambLight = new THREE.AmbientLight(0x0e2833, 1.2);
+
+    const blueLight = new THREE.PointLight(0x0077ff, 3.5, 12);
+    blueLight.position.set(-2, -1, 3);
+    scene.add(blueLight);
+
+    const ambLight = new THREE.AmbientLight(0x091420, 1.2);
     scene.add(ambLight);
 
     let active = true;
@@ -136,16 +184,16 @@ export function System3DCanvas() {
       const height = Math.max(1, Math.round(rect.height));
       renderer.setSize(width, height, false);
       const compact = width < 560;
-      camera.position.z = compact ? 6.5 : 5.2;
-      group.scale.setScalar(compact ? 0.75 : 1);
+      camera.position.z = compact ? 6.2 : 5.0;
+      group.scale.setScalar(compact ? 0.78 : 1);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
     };
 
     const onPointerMove = (e: PointerEvent) => {
       const rect = shell.getBoundingClientRect();
-      pointerTarget.x = ((e.clientX - rect.left) / rect.width - 0.5) * 0.5;
-      pointerTarget.y = ((e.clientY - rect.top) / rect.height - 0.5) * 0.3;
+      pointerTarget.x = ((e.clientX - rect.left) / rect.width - 0.5) * 0.4;
+      pointerTarget.y = ((e.clientY - rect.top) / rect.height - 0.5) * 0.25;
     };
 
     const resizeObserver = new ResizeObserver(resize);
@@ -173,15 +221,20 @@ export function System3DCanvas() {
       const elapsed = clock.getElapsedTime();
       pointer.lerp(pointerTarget, 0.05);
 
-      group.rotation.y = Math.sin(elapsed * 0.2) * 0.15 + pointer.x;
-      group.rotation.x = 0.1 + pointer.y;
+      group.rotation.y = Math.sin(elapsed * 0.25) * 0.12 + pointer.x;
+      group.rotation.x = pointer.y;
 
-      // Animate packet movement
-      packetData.forEach((pkt, idx) => {
-        pkt.progress = (pkt.progress + pkt.speed) % 1;
-        const pos = new THREE.Vector3().lerpVectors(pkt.start, pkt.end, pkt.progress);
-        pos.y += Math.sin(pkt.progress * Math.PI) * 0.25; // Arc trajectory
-        packetMeshes[idx].position.copy(pos);
+      // Animate nodes subtle floating rotation
+      nodeMeshes.forEach((mesh, idx) => {
+        mesh.rotation.y += 0.01 + (idx % 3) * 0.005;
+        mesh.rotation.x = Math.sin(elapsed + idx) * 0.15;
+      });
+
+      // Animate packet movement along conduits
+      conduitStreams.forEach((stream) => {
+        stream.progress = (stream.progress + stream.speed) % 1;
+        const pt = stream.curve.getPoint(stream.progress);
+        stream.packet.position.copy(pt);
       });
 
       renderer.render(scene, camera);
@@ -202,11 +255,7 @@ export function System3DCanvas() {
   if (!supported) return null;
 
   return (
-    <div ref={shellRef} className="w-full h-[260px] sm:h-[320px] relative overflow-hidden rounded-2xl bg-slate-950/40 border border-blue-500/15 my-8">
-      <div className="absolute top-3 left-4 text-[10px] font-mono tracking-widest text-sky-400/80 uppercase z-10 flex items-center gap-2">
-        <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-ping" />
-        Real-Time 3D System Architecture Flow
-      </div>
+    <div ref={shellRef} className="w-full h-[240px] sm:h-[300px] relative overflow-hidden my-4 pointer-events-auto">
       <canvas ref={canvasRef} className="w-full h-full block" />
     </div>
   );

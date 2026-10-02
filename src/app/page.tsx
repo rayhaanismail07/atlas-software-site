@@ -9,6 +9,7 @@ import { Process } from "@/components/sections/Process";
 import { Services } from "@/components/sections/Services";
 import { SystemArchitecture } from "@/components/sections/SystemArchitecture";
 import { WhyAtlas } from "@/components/sections/WhyAtlas";
+import { TechnologyStack } from "@/components/sections/TechnologyStack";
 import { Floating3DBackground } from "@/components/ui/Floating3DBackground";
 import { BackToTop } from "@/components/ui/BackToTop";
 
@@ -26,6 +27,7 @@ export default function HomePage() {
         <SystemArchitecture />
         <Process />
         <WhyAtlas />
+        <TechnologyStack />
         <FinalCTA />
       </main>
       <Footer />

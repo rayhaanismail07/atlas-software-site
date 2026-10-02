@@ -45,14 +45,23 @@ const accentStyles = {
     glow: "hover:shadow-[0_0_35px_rgba(167,139,250,0.12)]",
     topLine: "via-purple-400/50",
   },
-  silver: {
+  amber: {
     border: "border-amber-500/20 hover:border-amber-400/60",
     bar: "from-amber-400 to-orange-600",
     iconBg: "bg-amber-500/15 border-amber-400/35 text-amber-300 shadow-amber-500/15",
     number: "text-amber-400",
     tag: "bg-amber-500/10 border-amber-400/25 text-amber-200 font-medium",
-    glow: "hover:shadow-[0_0_35px_rgba(251,191,36,0.12)]",
+    glow: "hover:shadow-[0_0_35px_rgba(251,191,36,0.14)]",
     topLine: "via-amber-400/50",
+  },
+  silver: {
+    border: "border-slate-400/25 hover:border-slate-300/60",
+    bar: "from-slate-300 to-slate-500",
+    iconBg: "bg-white/10 border-white/20 text-slate-200 shadow-white/10",
+    number: "text-slate-300",
+    tag: "bg-white/5 border-white/15 text-slate-200 font-medium",
+    glow: "hover:shadow-[0_0_35px_rgba(255,255,255,0.12)]",
+    topLine: "via-slate-300/50",
   },
 };
 

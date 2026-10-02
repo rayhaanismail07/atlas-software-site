@@ -31,6 +31,7 @@ export const navigationItems = [
   { label: "Systems", href: "#systems" },
   { label: "Process", href: "#process" },
   { label: "Studio", href: "#studio" },
+  { label: "Tech Stack", href: "#tech-stack" },
 ];
 
 export const capabilities = [
@@ -51,7 +52,7 @@ export const services = [
       "Purpose-built web applications, internal platforms, portals, and APIs designed around how your business actually operates.",
     icon: Braces,
     tags: ["Web applications", "APIs", "Client portals"],
-    accent: "cyan",
+    accent: "blue",
     size: "large",
   },
   {
@@ -61,7 +62,7 @@ export const services = [
       "Precision search engine optimization (SEO), paid performance acquisition, CRO, and analytics telemetry to scale client reach and revenue.",
     icon: TrendingUp,
     tags: ["Technical SEO", "Paid Search & Social", "CRO", "Attribution"],
-    accent: "cyan",
+    accent: "mint",
     size: "large",
   },
   {
@@ -71,7 +72,7 @@ export const services = [
       "Connected workflows that remove repetitive admin, reduce errors, and keep work moving across teams and tools.",
     icon: Workflow,
     tags: ["Workflows", "Integrations", "Operations"],
-    accent: "blue",
+    accent: "cyan",
     size: "large",
   },
   {
@@ -81,7 +82,7 @@ export const services = [
       "Reliable data pipelines, executive reporting, and decision-ready dashboards that turn information into action.",
     icon: BarChart3,
     tags: ["Analytics", "Dashboards", "Reporting"],
-    accent: "mint",
+    accent: "violet",
     size: "small",
   },
   {
@@ -91,7 +92,7 @@ export const services = [
       "Secure, maintainable infrastructure built for performance, deployment confidence, and long-term growth.",
     icon: CloudCog,
     tags: ["Cloud", "DevOps", "Architecture"],
-    accent: "violet",
+    accent: "amber",
     size: "small",
   },
   {
@@ -109,29 +110,41 @@ export const services = [
 export const systemShowcases = [
   {
     number: "01",
-    eyebrow: "Operations platform",
-    title: "One clear system for the work behind the work.",
+    eyebrow: "Full-Stack Web Platforms",
+    title: "End-to-end web applications built for speed, scale, and longevity.",
     description:
-      "Unify tasks, approvals, documents, client records, and reporting into a focused operational workspace.",
-    points: ["Role-based access", "Live workflow status", "Automated hand-offs"],
+      "High-performance React and Next.js frontends powered by TypeScript, seamless server-side rendering, typed API contracts, and real-time state synchronization.",
+    points: [
+      "Server-side rendering (SSR) & Edge runtime",
+      "Modular design systems & component architecture",
+      "Real-time client portals & interactive state management",
+    ],
     visual: "operations",
   },
   {
     number: "02",
-    eyebrow: "Data intelligence",
-    title: "Decision-ready information, without spreadsheet chaos.",
+    eyebrow: "High-Throughput APIs & Backends",
+    title: "Resilient microservices, asynchronous queues, and clean endpoints.",
     description:
-      "Connect fragmented sources, standardise the data, and surface the metrics that matter in a dependable reporting layer.",
-    points: ["Connected data sources", "Executive dashboards", "Scheduled reporting"],
+      "High-concurrency Python (FastAPI) and Node.js backend runtimes engineered with robust authentication, rigorous data validation, and asynchronous background worker pipelines.",
+    points: [
+      "Async job queues & Redis in-memory caching",
+      "JWT & role-based zero-trust security",
+      "Automated webhook pipelines & third-party integrations",
+    ],
     visual: "data",
   },
   {
     number: "03",
-    eyebrow: "Customer experience",
-    title: "Digital products that feel effortless to use.",
+    eyebrow: "Cloud, Database & DevOps Pipelines",
+    title: "Scalable relational schemas and automated zero-downtime releases.",
     description:
-      "Create secure client portals and self-service experiences that improve service while reducing operational load.",
-    points: ["Responsive interfaces", "Secure authentication", "Integrated service journeys"],
+      "Production-ready PostgreSQL databases, Redis caching layers, and containerized Docker and AWS environments built for continuous deployment and predictable performance.",
+    points: [
+      "PostgreSQL relational schema & query optimization",
+      "Dockerized microservice container orchestration",
+      "Automated CI/CD pipelines & production monitoring",
+    ],
     visual: "portal",
   },
 ] as const;

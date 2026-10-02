@@ -72,7 +72,7 @@ export function Interactive3DTilt({
   return (
     <div
       ref={cardRef}
-      className={`relative max-w-full overflow-hidden rounded-[inherit] transition-all transform-gpu ${className}`}
+      className={`relative max-w-full rounded-[inherit] transition-all transform-gpu ${className}`}
       style={style}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

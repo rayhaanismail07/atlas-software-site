@@ -18,7 +18,7 @@ function OperationsVisual() {
   return (
     <div className="system-mock system-mock--operations" aria-hidden="true">
       <div className="mock-window__bar">
-        <small>ATLAS / OPERATIONS</small>
+        <small>ATLAS / FULL-STACK PLATFORM</small>
         <MoreHorizontal />
       </div>
       <div className="ops-layout">
@@ -29,15 +29,15 @@ function OperationsVisual() {
         <div className="ops-main">
           <div className="ops-head"><span /></div>
           <div className="ops-stats">
-            {["Active", "Review", "Complete"].map((label, index) => (
-              <div key={label}><small>{label}</small><strong>{[24, 7, 91][index]}</strong></div>
+            {["SSR Latency", "Edge Hit Rate", "Active Sessions"].map((label, index) => (
+              <div key={label}><small>{label}</small><strong>{["114ms", "99.4%", "14.2k"][index]}</strong></div>
             ))}
           </div>
           <div className="ops-board">
-            {[0, 1, 2].map((column) => (
+            {["Next.js App", "API Routes", "Production"].map((column, colIdx) => (
               <div key={column}>
-                <span>{['Queued', 'In progress', 'Approved'][column]}</span>
-                {[0, 1, 2].slice(0, column === 2 ? 2 : 3).map((card) => (
+                <span>{column}</span>
+                {[0, 1, 2].slice(0, colIdx === 2 ? 2 : 3).map((card) => (
                   <article key={card}><i /><b /><small /></article>
                 ))}
               </div>
@@ -53,26 +53,26 @@ function DataVisual() {
   return (
     <div className="system-mock system-mock--data" aria-hidden="true">
       <div className="mock-window__bar">
-        <small>ATLAS / INTELLIGENCE</small>
+        <small>ATLAS / ASYNC API &amp; BACKEND</small>
         <MoreHorizontal />
       </div>
       <div className="data-layout">
         <div className="data-title"><span /></div>
         <div className="data-metrics">
-          {["Revenue", "Efficiency", "Forecast"].map((item, index) => (
-            <article key={item}><small>{item}</small><strong>{["R 2.4M", "84%", "+18%"][index]}</strong></article>
+          {["Active Endpoints", "Throughput", "p95 Latency"].map((item, index) => (
+            <article key={item}><small>{item}</small><strong>{["52 APIs", "3.4k req/s", "14ms"][index]}</strong></article>
           ))}
         </div>
         <div className="data-chart">
           <svg viewBox="0 0 600 210" preserveAspectRatio="none">
             <defs>
               <linearGradient id="atlasChartFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#5eeaff" stopOpacity="0.24" />
-                <stop offset="100%" stopColor="#5eeaff" stopOpacity="0" />
+                <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.28" />
+                <stop offset="100%" stopColor="#0077ff" stopOpacity="0" />
               </linearGradient>
             </defs>
             <path d="M0 178 C52 160 60 122 118 132 C177 142 178 78 236 96 C294 114 309 50 372 70 C431 89 459 38 520 54 C555 62 575 34 600 24 L600 210 L0 210 Z" fill="url(#atlasChartFill)" />
-            <path d="M0 178 C52 160 60 122 118 132 C177 142 178 78 236 96 C294 114 309 50 372 70 C431 89 459 38 520 54 C555 62 575 34 600 24" fill="none" stroke="#78edff" strokeWidth="3" />
+            <path d="M0 178 C52 160 60 122 118 132 C177 142 178 78 236 96 C294 114 309 50 372 70 C431 89 459 38 520 54 C555 62 575 34 600 24" fill="none" stroke="#38bdf8" strokeWidth="3" />
           </svg>
         </div>
       </div>
@@ -86,21 +86,21 @@ function PortalVisual() {
       <div className="portal-shell">
         <div className="portal-brand"><b>A</b></div>
         <div className="portal-welcome">
-          <small>WELCOME BACK</small>
-          <strong>Your workspace</strong>
-          <p>Everything you need, in one clear place.</p>
+          <small>DATABASE &amp; CLOUD PIPELINE</small>
+          <strong>PostgreSQL &amp; Docker Core</strong>
+          <p>Automated zero-downtime releases and managed cluster state.</p>
         </div>
         <div className="portal-cards">
-          {["Documents", "Requests", "Messages"].map((label, index) => (
+          {["PostgreSQL Pool", "Docker Containers", "CI/CD Pipeline"].map((label, index) => (
             <article key={label}>
               <small>{label}</small>
-              <strong>{[12, 3, 5][index]}</strong>
+              <strong>{["Connected", "8 Active", "Passing"][index]}</strong>
             </article>
           ))}
         </div>
         <div className="portal-progress">
-          <span><Check /> Profile complete</span>
-          <small>92%</small>
+          <span><Check /> Zero-Downtime Deployment Verified</span>
+          <small>100%</small>
         </div>
       </div>
     </div>

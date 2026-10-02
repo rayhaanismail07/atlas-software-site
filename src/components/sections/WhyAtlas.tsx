@@ -5,7 +5,6 @@ import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Interactive3DTilt } from "@/components/ui/Interactive3DTilt";
-import { TechnologyStack } from "@/components/sections/TechnologyStack";
 import { principles, siteConfig } from "@/data/site";
 
 export function WhyAtlas() {
@@ -47,10 +46,6 @@ export function WhyAtlas() {
             );
           })}
         </div>
-
-        <Reveal delay={0.08}>
-          <TechnologyStack />
-        </Reveal>
       </Container>
     </section>
   );

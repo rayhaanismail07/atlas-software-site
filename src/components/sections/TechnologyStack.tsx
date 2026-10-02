@@ -2,6 +2,8 @@
 
 import type { CSSProperties } from "react";
 import dynamic from "next/dynamic";
+import { Container } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
 import { FaAws, FaJava, FaLinux } from "react-icons/fa6";
 import {
   SiCloudflare,
@@ -148,22 +150,25 @@ export const stackGroups: StackGroup[] = [
 
 export function TechnologyStack() {
   return (
-    <div className="technology-board">
-      <div className="technology-board__intro">
-        <div>
-          <span className="atlas-label">04 // Technical capability</span>
-          <h3>Engineering Ecosystem &amp; Production Stack.</h3>
-          <p>
-            Production-grade languages, reactive frontend frameworks, resilient backend systems,
-            scalable databases, and DevOps infrastructure selected specifically for your product&apos;s
-            scalability and performance.
-          </p>
-        </div>
-        <span className="technology-board__status">
-          <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse mr-2 inline-block" />
-          Production ready
-        </span>
-      </div>
+    <section id="tech-stack" className="atlas-section technical-capability-section relative z-1">
+      <Container>
+        <Reveal>
+          <div className="technology-board">
+            <div className="technology-board__intro">
+              <div>
+                <span className="atlas-label">06 / Technical capability</span>
+                <h3>Engineering Ecosystem &amp; Production Stack.</h3>
+                <p>
+                  Production-grade languages, reactive frontend frameworks, resilient backend systems,
+                  scalable databases, and DevOps infrastructure selected specifically for your product&apos;s
+                  scalability and performance.
+                </p>
+              </div>
+              <span className="technology-board__status">
+                <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse mr-2 inline-block" />
+                Production ready
+              </span>
+            </div>
 
       {/* 3D Tech Constellation Canvas */}
       <Tech3DCanvas />
@@ -211,6 +216,9 @@ export function TechnologyStack() {
           </article>
         ))}
       </div>
-    </div>
+          </div>
+        </Reveal>
+      </Container>
+    </section>
   );
 }

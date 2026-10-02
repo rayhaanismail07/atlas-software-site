@@ -74,7 +74,7 @@ export function Hero() {
           {/* Hero Main Headline */}
           <h1 className="hero__title-cinematic">
             Your Vision,
-            <span className="block bg-gradient-to-r from-white via-sky-200 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(0,119,255,0.35)]">
+            <span className="block bg-gradient-to-r from-white via-sky-200 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(0,119,255,0.35)] pb-3 sm:pb-4">
               Precision Engineered.
             </span>
           </h1>
